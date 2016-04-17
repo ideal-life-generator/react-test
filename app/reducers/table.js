@@ -1,4 +1,5 @@
 import { fromJS } from "immutable"
+import caseReducer from "case-reducer"
 import {
   TABLE_REQUEST,
   TABLE_RESPONSE,
@@ -56,188 +57,288 @@ const initialState = fromJS({
   itemsSettings: [ ]
 })
 
-export default function (state = initialState, action) {
-  switch (action.type) {
-    case TABLE_REQUEST:
-      return state.set("isFetching", true)
-    case TABLE_RESPONSE:
-      state = response(state, action.items, action.pages)
-      return selectedInPage(state)
-    case TABLE_RESPONSE_ERROR:
-      return state.merge({
-        "isFetching": false,
-        "isResponseError": true
-      })
-    case TABLE_CHANGE_FILTER:
-      return state.setIn([ "query", "filter" ], action.filter)
-    case TABLE_CHANGE_SORT:
-      return state.mergeDeep({
-        query: {
-          sort: action.sort,
-          reverse: false
-        }
-      })
-    case TABLE_CHANGE_REVERSE:
-      return state.setIn([ "query", "reverse" ], action.reverse)
-    case TABLE_CHANGE_LIMIT:
-      return state.setIn([ "query", "limit" ], action.limit)
-    case TABLE_CHANGE_PAGE:
-      return state.setIn([ "params", "page" ], action.page)
-    case TABLE_SELECT_ITEM:
-      state = state.update("itemsSettings", (itemsSettings) => itemSettingsSetter(itemsSettings, { id: action.id, operation: "selected", value: true }))
-      state = updateSelectedCount(state)
-      return selectedInPage(state)
-    case TABLE_UNSELECT_ITEM:
-      state = state.update("itemsSettings", itemsSettings => itemSettingsSetter(itemsSettings, { id: action.id, operation: "selected", value: false }))
-      state = updateSelectedCount(state)
-      return selectedInPage(state)
-    case TABLE_SELECT_ALL_ITEMS_IN_PAGE:
-      state = state.update("itemsSettings", itemsSettings => itemsSettingsSetter(itemsSettings, { ids: action.ids, operation: "selected", value: true }))
-      state = updateSelectedCount(state)
-      return selectedInPage(state)
-    case TABLE_UNSELECT_ALL_ITEMS_IN_PAGE:
-      state = state.update("itemsSettings", itemsSettings => itemsSettingsSetter(itemsSettings, { ids: action.ids, operation: "selected", value: false }))
-      state = updateSelectedCount(state)
-      return selectedInPage(state)
-    case TABLE_UNSELECT_ALL_SELECTED_ITEMS:
-      state = state.update("itemsSettings", itemsSettings => itemsSettingsSetterWhere(itemsSettings, { where: "selected", value: true }, { operation: "selected", value: false }))
-      state = updateSelectedCount(state)
-      return selectedInPage(state)
-    case TABLE_CREATE_ITEM:
-      return state.setIn([ "createItem", "isActive" ], true)
-    case TABLE_CANCEL_CREATE_ITEM:
-      return state.setIn([ "createItem", "isActive" ], false)
-    case TABLE_CREATED_ITEM_CHANGE_TITLE:
-      return state.setIn([ "createItem", "form", "title" ], action.title)
-    case TABLE_CREATED_ITEM_CHANGE_DESCRIPTION:
-      return state.setIn([ "createItem", "form", "description" ], action.description)
-    case TABLE_CREATED_ITEM_SUBMIT:
-      return state.setIn([ "createItem", "isUploading" ], true)
-    case TABLE_CREATED_ITEM_RESPONSE:
-      return state.mergeDeep({
-        createItem: {
-          isUploading: false,
-          isResponseError: false,
-          form: {
-            title: null,
-            description: null
-          }
-        }
-      })
-    case TABLE_CREATED_ITEM_RESPONSE_ERROR:
-      return state.mergeDeep({
-        "createItem": {
-          isUploading: false,
-          "isResponseError": true
-        }
-      })
-    case TABLE_REMOVE_ITEM_REQUEST:
-      return state.update("itemsSettings", itemsSettings => itemSettingsSetter(itemsSettings, { id: action.id, operation: "isRemoving", value: true }))
-    case TABLE_REMOVE_ITEM_RESPONSE:
-      return state.update("itemsSettings", itemsSettings => itemsSettingsRemoveWhere(itemsSettings, { where: "id", value: action.id }))
-    case TABLE_REMOVE_ITEM_RESPONSE_ERROR:
-      return state.update("itemsSettings", itemsSettings => itemSettingsSetter(itemsSettings, { id: action.id, operation: "isRemoving", value: false }))
-                  .update("itemsSettings", itemsSettings => itemSettingsSetter(itemsSettings, { id: action.id, operation: "isRemoveResponseError", value: true }))
-    case TABLE_REQUEST_REMOVE_ALL_SELECTED_ITEMS:
-      state = state.setIn([ "params", "selectedIsRemoving" ], true)
-      return state.update("itemsSettings", itemsSettings => itemsSettingsSetterWhere(itemsSettings, { where: "selected", value: true }, { operation: "isRemoving", value: true }))
-    case TABLE_REMOVE_ALL_SELECTED_ITEMS_RESPONSE:
-      return state.setIn([ "params", "selectedIsRemoving" ], false)
-    default:
-      return state
-  }
+function isAnySelectedInPage (state) {
+  const items = state.get("items")
+  const itemsSettings = state.get("itemsSettings")
+
+  const selectedItems = items.find((item) => {
+    const itemId = item.get("id")
+
+    return itemsSettings.find(itemSettings => itemSettings.get("id") === itemId && itemSettings.get("selected"))
+  })
+
+  return Boolean(selectedItems)
 }
 
-function response (state, items, pages) {
-  return state
-    .set("isFetching", false)
-    .set("isResponseError", false)
-    .set("items", fromJS(items))
-    .setIn([ "params", "pages" ], pages)
-}
-
-function checkRealPage (pages, page) {
-  return page > pages ? pages : page
-}
-
-function itemSettingsSetter (itemsSettings, options) {
-  const { id, operation, value } = options
-
+function selectItem (itemsSettings, id) {
   const itemSettingsIndex = itemsSettings.findIndex(itemSettings => itemSettings.get("id") === id)
 
-  if (itemSettingsIndex >= 0) {
-    return itemsSettings.setIn([ itemSettingsIndex, operation ], value)
-  } else {
+  if (itemSettingsIndex >= 0) return itemsSettings.setIn([ itemSettingsIndex, "selected" ], true)
+  else {
     const itemSettings = fromJS({
       id,
-      [ operation ]: value
+      selected: true
     })
 
     return itemsSettings.push(itemSettings)
   }
 }
 
-function itemsSettingsSetter (itemsSettings, options) {
-  const { ids, operation, value } = options
+function unselectItem (itemsSettings, id) {
+  const itemSettingsIndex = itemsSettings.findIndex(itemSettings => itemSettings.get("id") === id)
 
+  if (itemSettingsIndex >= 0) return itemsSettings.setIn([ itemSettingsIndex, "selected" ], false)
+  else return itemsSettings
+}
+
+function selectItems (itemsSettings, ids) {
   ids.forEach((id) => {
-    const settingsOptions = {
-      id,
-      operation,
-      value
-    }
-
-    itemsSettings = itemSettingsSetter(itemsSettings, settingsOptions)
+    itemsSettings = selectItem(itemsSettings, id)
   })
 
   return itemsSettings
 }
 
-function itemsSettingsSetterWhere (itemsSettings, whereOptions, setOptions) {
-  const {
-    where,
-    value: whereValue
-  } = whereOptions
-  const {
-    operation,
-    value
-  } = setOptions
-
-  return itemsSettings.map((itemSettings) => {
-    const currentWhereValue = itemSettings.get(where)
-
-    if (whereValue === currentWhereValue) {
-      return itemSettings.set(operation, value)
-    }
-    else return itemSettings
+function unselectItems (itemsSettings, ids) {
+  ids.forEach((id) => {
+    itemsSettings = unselectItem(itemsSettings, id)
   })
+
+  return itemsSettings
 }
 
-function updateSelectedCount (state) {
-  const selected = state.get("itemsSettings").filter(itemSettings => itemSettings.get("selected"))
-  const selectedCount = selected.count()
-  
-  return state.setIn([ "params", "selectedCount" ], selectedCount)
+function unselectSelectedItems (itemsSettings) {
+  return itemsSettings.map((itemSettings) => itemSettings.get("selected") && itemSettings.set("selected", false))
 }
 
-function itemsSettingsRemoveWhere (itemsSettings, whereOptions) {
-  const {
-    where,
-    value: whereValue
-  } = whereOptions
-
-  return itemsSettings.filter((itemSettings) => {
-    const currentWhereValue = itemSettings.get(where)
-
-    return whereValue !== currentWhereValue
-  })
-}
-
-function selectedInPage (state) {
+function getSelectedCount (state) {
   const itemsSettings = state.get("itemsSettings")
-  const selectedInPage = state.get("items").find((item) => {
-    return itemsSettings.find(itemSettings => itemSettings.get("id") === item.get("id") && itemSettings.get("selected"))
-  })
-
-  return state.setIn([ "params", "selectedInPage" ], selectedInPage)
+  const selected = itemsSettings.filter((itemSettings) => itemSettings.get("selected"))
+  
+  return selected.count()
 }
+
+function removingItem (itemsSettings, id) {
+  const itemSettingsIndex = itemsSettings.findIndex(itemSettings => itemSettings.get("id") === id)
+
+  if (itemSettingsIndex >= 0) return itemsSettings.setIn([ "itemSettingsIndex", "isRemoving" ], true)
+  else {
+    const itemSettings = fromJS({
+      id,
+      isRemoving: true
+    })
+
+    return itemsSettings.push(itemSettings)
+  }
+}
+
+function removeItemSettings (itemsSettings, id) {
+  const itemSettingsIndex = itemsSettings.findIndex(itemSettings => itemSettings.get("id") === id)
+
+  return itemsSettings.delete(itemSettingsIndex)
+}
+
+function cancelRemoveItem (itemsSettings, id) {
+  return itemsSettings.map((itemSettings) => itemSettings.get("isRemoving") && itemSettings.set("isRemoving", false))
+}
+
+function removeItemError (itemsSettings, id) {
+  const itemSettingsIndex = itemsSettings.findIndex(itemSettings => itemSettings.get("id") === id)
+
+  if (itemSettingsIndex >= 0) {
+    return itemsSettings.mergeIn([ itemSettingsIndex ], {
+      isRemoving: false,
+      "isRemoveResponseError": true
+    })
+  }
+  else {
+    const itemSettings = fromJS({
+      id,
+      isRemoving: false,
+      isRemoveResponseError: true
+    })
+
+    return itemsSettings.push(itemSettings)
+  }
+}
+
+const cases = {
+  [ TABLE_REQUEST ] (state) {
+    return state.set("isFetching", true)
+  },
+
+  [ TABLE_RESPONSE ] (state, data) {
+    const { items, pages } = data
+
+    state = state
+      .mergeDeep({
+        isFetching: false,
+        isResponseError: false,
+        params: { pages }
+      })
+      .set("items", fromJS(items))
+
+    state = state.setIn([ "params", "selectedCount" ], getSelectedCount(state))
+
+    return state.setIn([ "params", "selectedInPage" ], isAnySelectedInPage(state))
+  },
+
+  [ TABLE_RESPONSE_ERROR ] (state) {
+    return state.merge({
+      "isFetching": false,
+      "isResponseError": true
+    })
+  },
+
+  [ TABLE_CHANGE_FILTER ] (state, data) {
+    const { filter } = data
+
+    return state.setIn([ "query", "filter" ], filter)
+  },
+
+  [ TABLE_CHANGE_SORT ] (state, data) {
+    const { sort } = data
+
+    return state.mergeDeep({
+      query: {
+        sort,
+        reverse: false
+      }
+    })
+  },
+
+  [ TABLE_CHANGE_REVERSE ] (state, data) {
+    const { reverse } = data
+
+    return state.setIn([ "query", "reverse" ], reverse)
+  },
+
+  [ TABLE_CHANGE_LIMIT ] (state, data) {
+    const { limit } = data
+
+    return state.setIn([ "query", "limit" ], limit)
+  },
+
+  [ TABLE_CHANGE_PAGE ] (state, data) {
+    const { page } = data
+
+    return state.setIn([ "params", "page" ], page)
+  },
+
+  [ TABLE_SELECT_ITEM ] (state, data) {
+    const { id } = data
+
+    state = state.update("itemsSettings", itemsSettings => selectItem(itemsSettings, id))
+    state = state.setIn([ "params", "selectedCount" ], getSelectedCount(state))
+
+    return state.setIn([ "params", "selectedInPage" ], isAnySelectedInPage(state))
+  },
+
+  [ TABLE_UNSELECT_ITEM ] (state, data) {
+    const { id } = data
+    
+    state = state.update("itemsSettings", itemsSettings => unselectItem(itemsSettings, id))
+    state = state.setIn([ "params", "selectedCount" ], getSelectedCount(state))
+
+    return state.setIn([ "params", "selectedInPage" ], isAnySelectedInPage(state))
+  },
+
+  [ TABLE_SELECT_ALL_ITEMS_IN_PAGE ] (state, data) {
+    const { ids } = data
+    
+    state = state.update("itemsSettings", itemsSettings => selectItems(itemsSettings, ids))
+    state = state.setIn([ "params", "selectedCount" ], getSelectedCount(state))
+
+    return state.setIn([ "params", "selectedInPage" ], isAnySelectedInPage(state))
+  },
+
+  [ TABLE_UNSELECT_ALL_ITEMS_IN_PAGE ] (state, data) {
+    const { ids } = data
+    
+    state = state.update("itemsSettings", itemsSettings => unselectItems(itemsSettings, ids))
+    state = state.setIn([ "params", "selectedCount" ], getSelectedCount(state))
+
+    return state.setIn([ "params", "selectedInPage" ], isAnySelectedInPage(state))
+  },
+
+  [ TABLE_UNSELECT_ALL_SELECTED_ITEMS ] (state) {
+    state = state.update("itemsSettings", itemsSettings => unselectSelectedItems(itemsSettings))
+    state = state.setIn([ "params", "selectedCount" ], getSelectedCount(state))
+
+    return state.setIn([ "params", "selectedInPage" ], isAnySelectedInPage(state))
+  },
+
+  [ TABLE_CREATE_ITEM ] (state) {
+    return state.setIn([ "createItem", "isActive" ], true)
+  },
+
+  [ TABLE_CANCEL_CREATE_ITEM ] (state) {
+    return state.setIn([ "createItem", "isActive" ], false)
+  },
+
+  [ TABLE_CREATED_ITEM_CHANGE_TITLE ] (state, data) {
+    const { title } = data
+
+    return state.setIn([ "createItem", "form", "title" ], title)
+  },
+
+  [ TABLE_CREATED_ITEM_CHANGE_DESCRIPTION ] (state, data) {
+    const { description } = data
+
+    return state.setIn([ "createItem", "form", "description" ], description)
+  },
+
+  [ TABLE_CREATED_ITEM_SUBMIT ] (state) {
+    return state.setIn([ "createItem", "isUploading" ], true)
+  },
+
+  [ TABLE_CREATED_ITEM_RESPONSE ] (state) {
+    return state.mergeDeep({
+      createItem: {
+        isUploading: false,
+        isResponseError: false,
+        form: {
+          title: null,
+          description: null
+        }
+      }
+    })
+  },
+
+  [ TABLE_CREATED_ITEM_RESPONSE_ERROR ] (state) {
+    return state.mergeDeep({
+      "createItem": {
+        isUploading: false,
+        "isResponseError": true
+      }
+    })
+  },
+
+  [ TABLE_REMOVE_ITEM_REQUEST ] (state, data) {
+    const { id } = data
+
+    return state.update("itemsSettings", itemsSettings => removingItem(itemsSettings, id))
+  },
+
+  [ TABLE_REMOVE_ITEM_RESPONSE ] (state, data) {
+    const { id } = data
+
+    return state.update("itemsSettings", itemsSettings => removeItemSettings(itemsSettings, id))
+  },
+
+  [ TABLE_REMOVE_ITEM_RESPONSE_ERROR ] (state, data) {
+    const { id } = data
+
+    return state.update("itemsSettings", itemsSettings => removeItemError(itemsSettings, id))
+  },
+
+  [ TABLE_REQUEST_REMOVE_ALL_SELECTED_ITEMS ] (state) {
+    return state.setIn([ "params", "selectedIsRemoving" ], true)
+  },
+
+  [ TABLE_REMOVE_ALL_SELECTED_ITEMS_RESPONSE ] (state) {
+    return state.setIn([ "params", "selectedIsRemoving" ], false)
+  }
+}
+
+export default caseReducer(initialState, cases)
