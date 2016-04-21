@@ -25,7 +25,12 @@ import {
   TABLE_UNSELECT_ALL_ITEMS_IN_PAGE,
   TABLE_UNSELECT_ALL_SELECTED_ITEMS,
   TABLE_REQUEST_REMOVE_ALL_SELECTED_ITEMS,
-  TABLE_REMOVE_ALL_SELECTED_ITEMS_RESPONSE
+  TABLE_REMOVE_ALL_SELECTED_ITEMS_RESPONSE,
+  TABLE_PERSONAL_FILTER_ACTIVE,
+  TABLE_PERSONAL_FILTER_PASSIVE,
+  TABLE_CHANGE_PERSONAL_FILTER,
+  TABLE_SHOW_COLUMN,
+  TABLE_HIDE_COLUMN
 } from "constants/table"
 
 const initialState = fromJS({
@@ -34,6 +39,28 @@ const initialState = fromJS({
   items: [ ],
   query: {
     filter: null,
+    additionalFilters: [
+      {
+        isActive: false,
+        key: "id",
+        filter: null
+      },
+      {
+        isActive: false,
+        key: "title",
+        filter: null
+      },
+      {
+        isActive: false,
+        key: "description",
+        filter: null
+      },
+      {
+        isActive: false,
+        key: "createdIn",
+        filter: null
+      }
+    ],
     sort: "createdIn",
     reverse: true,
     limit: 5
@@ -43,7 +70,15 @@ const initialState = fromJS({
     pages: null,
     selectedInPage: null,
     selectedCount: null,
-    selectedIsRemoving: false
+    selectedIsRemoving: false,
+    columns: {
+      checkbox: true,
+      id: true,
+      title: true,
+      description: true,
+      createdIn: true,
+      remove: true
+    }
   },
   createItem: {
     isActive: false,
@@ -148,7 +183,7 @@ function removeItemError (itemsSettings, id) {
   if (itemSettingsIndex >= 0) {
     return itemsSettings.mergeIn([ itemSettingsIndex ], {
       isRemoving: false,
-      "isRemoveResponseError": true
+      isRemoveResponseError: true
     })
   }
   else {
@@ -160,6 +195,24 @@ function removeItemError (itemsSettings, id) {
 
     return itemsSettings.push(itemSettings)
   }
+}
+
+function personalFilterActive (additionalFilters, key) {
+  const personalFilterIndex = additionalFilters.findIndex(personalFilter => key === personalFilter.get("key"))
+
+  return additionalFilters.setIn([ personalFilterIndex, "isActive" ], true)
+}
+
+function personalFilterDeactive (additionalFilters, key) {
+  const personalFilterIndex = additionalFilters.findIndex(personalFilter => key === personalFilter.get("key"))
+
+  return additionalFilters.setIn([ personalFilterIndex, "isActive" ], false)
+}
+
+function changePersonalFilter (additionalFilters, key, filter) {
+  const personalFilterIndex = additionalFilters.findIndex(personalFilter => key === personalFilter.get("key"))
+
+  return additionalFilters.setIn([ personalFilterIndex, "filter" ], filter)
 }
 
 const cases = {
@@ -185,8 +238,8 @@ const cases = {
 
   [ TABLE_RESPONSE_ERROR ] (state) {
     return state.merge({
-      "isFetching": false,
-      "isResponseError": true
+      isFetching: false,
+      isResponseError: true
     })
   },
 
@@ -268,6 +321,18 @@ const cases = {
     return state.setIn([ "params", "selectedInPage" ], isAnySelectedInPage(state))
   },
 
+  [ TABLE_SHOW_COLUMN ] (state, data) {
+    const { column } = data
+
+    return state.setIn([ "params", "columns", column ], true)
+  },
+
+  [ TABLE_HIDE_COLUMN ] (state, data) {
+    const { column } = data
+
+    return state.setIn([ "params", "columns", column ], false)
+  },
+
   [ TABLE_CREATE_ITEM ] (state) {
     return state.setIn([ "createItem", "isActive" ], true)
   },
@@ -309,7 +374,7 @@ const cases = {
     return state.mergeDeep({
       "createItem": {
         isUploading: false,
-        "isResponseError": true
+        isResponseError: true
       }
     })
   },
@@ -338,6 +403,30 @@ const cases = {
 
   [ TABLE_REMOVE_ALL_SELECTED_ITEMS_RESPONSE ] (state) {
     return state.setIn([ "params", "selectedIsRemoving" ], false)
+  },
+
+  [ TABLE_PERSONAL_FILTER_ACTIVE ] (state, data) {
+    const { key } = data
+
+    return state.updateIn([ "query", "additionalFilters" ], (additionalFilters) => {
+      return personalFilterActive(additionalFilters, key)
+    })
+  },
+
+  [ TABLE_PERSONAL_FILTER_PASSIVE ] (state, data) {
+    const { key } = data
+
+    return state.updateIn([ "query", "additionalFilters" ], (additionalFilters) => {
+      return personalFilterDeactive(additionalFilters, key)
+    })
+  },
+
+  [ TABLE_CHANGE_PERSONAL_FILTER ] (state, data) {
+    const { key, filter } = data
+
+    return state.updateIn([ "query", "additionalFilters" ], (additionalFilters) => {
+      return changePersonalFilter(additionalFilters, key, filter)
+    })
   }
 }
 

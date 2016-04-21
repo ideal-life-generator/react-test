@@ -43,16 +43,16 @@ export default class Refresh extends Component {
     } = this
 
     return (
-      <div>
+      <span>
         {!isFetching ?
-          <div>
+          <span>
             <button onClick={refresh}>refresh</button>
             {isResponseError && <span>!</span>}
-          </div>
+          </span>
         :
           <span>loading</span>
         }
-      </div>
+      </span>
     )
   }
 }

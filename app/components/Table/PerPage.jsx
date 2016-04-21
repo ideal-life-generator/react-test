@@ -87,7 +87,7 @@ export default class PerPage extends Component {
     } = this
 
     return (
-      <th>
+      <div>
         <span onClick={decrementLimit}>-</span>
         <input
           value={limit}
@@ -95,7 +95,7 @@ export default class PerPage extends Component {
           onChange={changeLimit}
           type="number" />
         <span onClick={incrementLimit}>+</span>
-      </th>
+      </div>
     )
   }
 }

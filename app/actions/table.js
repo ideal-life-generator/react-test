@@ -23,7 +23,12 @@ import {
   TABLE_UNSELECT_ALL_ITEMS_IN_PAGE,
   TABLE_UNSELECT_ALL_SELECTED_ITEMS,
   TABLE_REQUEST_REMOVE_ALL_SELECTED_ITEMS,
-  TABLE_REMOVE_ALL_SELECTED_ITEMS_RESPONSE
+  TABLE_REMOVE_ALL_SELECTED_ITEMS_RESPONSE,
+  TABLE_PERSONAL_FILTER_ACTIVE,
+  TABLE_PERSONAL_FILTER_PASSIVE,
+  TABLE_CHANGE_PERSONAL_FILTER,
+  TABLE_SHOW_COLUMN,
+  TABLE_HIDE_COLUMN
 } from "constants/table"
 import fetch from "isomorphic-fetch"
 import { stringify } from "qs"
@@ -53,13 +58,27 @@ function fetchHelper (dispatch, getState, forceUpdate) {
   const { table } = state
   const stateQueryImmutable = table.get("query")
   const stateQuery = stateQueryImmutable.toObject()
-  const { filter, sort, reverse, limit } = stateQuery
+  const { filter, additionalFilters, sort, reverse, limit } = stateQuery
+  const propsFiltersImmutable = additionalFilters.map((personalFilter) => {
+    if (personalFilter.get("isActive")) {
+      return {
+        key: personalFilter.get("key"),
+        filter: personalFilter.get("filter")
+      }
+    } else {
+      return {
+        key: personalFilter.get("key"),
+        filter: null
+      }
+    } 
+  })
+  const propsFilters = propsFiltersImmutable.toArray()
   const paramsImmutable = table.get("params")
   const params = paramsImmutable.toObject()
   const { page } = params
   const from = (page - 1) * limit
   const to = page * limit
-  const queryData = { filter, sort, reverse, from, to }
+  const queryData = { filter, propsFilters, sort, reverse, from, to }
   const query = stringify(queryData)
   const requiredTime = Date.now()
   const queryDataWithRequiredTime = { ...queryData, requiredTime }
@@ -237,6 +256,20 @@ export function changePageAndFetchData (page) {
   }
 }
 
+export function showColumn (column) {
+  return {
+    type: TABLE_SHOW_COLUMN,
+    column
+  }
+}
+
+export function hideColumn (column) {
+  return {
+    type: TABLE_HIDE_COLUMN,
+    column
+  }
+}
+
 export function createItem () {
   return {
     type: TABLE_CREATE_ITEM
@@ -392,5 +425,51 @@ export function removeSelectedItemsAndFetchData () {
 
       fetchHelper(dispatch, getState, true)
     })
+  }
+}
+
+export function personalFilterActive (key) {
+  return {
+    type: TABLE_PERSONAL_FILTER_ACTIVE,
+    key
+  }
+}
+
+export function personalFilterDeactive (key) {
+  return {
+    type: TABLE_PERSONAL_FILTER_PASSIVE,
+    key
+  }
+}
+
+export function personalFilterActiveAndFetchData (key) {
+  return function (dispatch, getState) {
+    dispatch(personalFilterActive(key))
+
+    fetchHelper(dispatch, getState)
+  }
+}
+
+export function personalFilterDeactiveAndFetchData (key) {
+  return function (dispatch, getState) {
+    dispatch(personalFilterDeactive(key))
+
+    fetchHelper(dispatch, getState)
+  }
+}
+
+export function changePersonalFilter (key, filter) {
+  return {
+    type: TABLE_CHANGE_PERSONAL_FILTER,
+    key,
+    filter
+  }
+}
+
+export function changePersonalFilterAndFetchData (key, filter) {
+  return function (dispatch, getState) {
+    dispatch(changePersonalFilter(key, filter))
+
+    fetchHelper(dispatch, getState)
   }
 }

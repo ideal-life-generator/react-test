@@ -77,7 +77,7 @@ app.use("/table", (req, res) => {
 
   switch (method) {
     case "GET":
-      const { query: { filter, sort, reverse, from, to, requiredTime } } = req
+      const { query: { filter, propsFilters, sort, reverse, from, to, requiredTime } } = req
       const filterInLowerCase = filter && filter.toLowerCase()
       const filteredItems = items.filter((item) => {
         for (const key in item) {
@@ -92,7 +92,28 @@ app.use("/table", (req, res) => {
           }
         }
       })
-      const sorteredItems = filteredItems.sort((previousItem, nextItem) => {
+      let propsFilteredItems = filteredItems
+
+      propsFilters.forEach((filterSettings) => {
+        const { key: filterKey, filter: filterValue } = filterSettings
+        const filterValueInLowerCase = filterValue && filterValue.toLowerCase()
+
+        if (filterValueInLowerCase) {
+          propsFilteredItems = propsFilteredItems.filter((item) => {
+            let value = item[ filterKey ]
+
+            if (value) {
+              if (!(typeof value === "string")) value = value.toString()
+
+              value = value.toLowerCase()
+
+              return value.includes(filterValueInLowerCase)
+            }
+          })
+        }
+      })
+
+      const sorteredItems = propsFilteredItems.sort((previousItem, nextItem) => {
         const previousItemValue = previousItem[sort]
         const nextItemValue = nextItem[sort]
 
@@ -109,7 +130,7 @@ app.use("/table", (req, res) => {
       const slicedItems = sorteredItems.slice(from, to)
       const data = {
         items: slicedItems,
-        count: filteredItems.length,
+        count: sorteredItems.length,
         requiredTime
       }
       const dataJSON = JSON.stringify(data)

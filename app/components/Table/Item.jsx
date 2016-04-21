@@ -13,6 +13,12 @@ function mapStateToProps (state, ownProps) {
   const isRemoveResponseError = (itemSettings && itemSettings.get("isRemoveResponseError")) || false
 
   return {
+    showCheckbox: table.getIn([ "params", "columns", "checkbox" ]),
+    showId: table.getIn([ "params", "columns", "id" ]),
+    showTitle: table.getIn([ "params", "columns", "title" ]),
+    showDescription: table.getIn([ "params", "columns", "description" ]),
+    showCreatedIn: table.getIn([ "params", "columns", "createdIn" ]),
+    showRemove: table.getIn([ "params", "columns", "remove" ]),
     selected,
     isRemoving,
     isRemoveResponseError
@@ -62,31 +68,49 @@ export default class Item extends Component {
     const {
       selectToggler,
       remove,
-      props: { id, title, description, createdIn, selected, isRemoving, isRemoveResponseError }
+      props: {
+        showCheckbox,
+        showId,
+        showTitle,
+        showDescription,
+        showCreatedIn,
+        showRemove,
+        id,
+        title,
+        description,
+        createdIn,
+        selected,
+        isRemoving,
+        isRemoveResponseError
+      }
     } = this
 
     return (
       <tr>
-        <td>
-          <input
-            type="checkbox"
-            onChange={selectToggler}
-            checked={selected} />
-        </td>
-        <td>{id}</td>
-        <td>{title}</td>
-        <td>{description}</td>
-        <td>{createdIn}</td>
-        <td>
-          {!isRemoving ?
-            <button onClick={remove}>
-              remove
-            </button>
-            :
-            <div>Removing</div>
-          }
-          {isRemoveResponseError && <span>!</span>}
-        </td>
+        {showCheckbox &&
+          <td>
+            <input
+              type="checkbox"
+              onChange={selectToggler}
+              checked={selected} />
+          </td>
+        }
+        {showId && <td>{id}</td>}
+        {showTitle && <td>{title}</td>}
+        {showDescription && <td>{description}</td>}
+        {showCreatedIn && <td>{createdIn}</td>}
+        {showRemove &&
+          <td>
+            {!isRemoving ?
+              <button onClick={remove}>
+                remove
+              </button>
+              :
+              <div>Removing</div>
+            }
+            {isRemoveResponseError && <span>!</span>}
+          </td>
+        }
       </tr>
     )
   }

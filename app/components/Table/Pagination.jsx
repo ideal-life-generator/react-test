@@ -87,8 +87,9 @@ export default class Pagination extends Component {
       props: { page, pages }
     } = this
 
-    return pages > minLimit ? (
-        <th>
+    return pages > minLimit &&
+      (
+        <div>
           {page > minLimit &&
             <a onClick={prevPage}>prev</a>
           }
@@ -103,11 +104,7 @@ export default class Pagination extends Component {
           {page < pages &&
             <a onClick={nextPage}>next</a>
           }
-        </th>
-      )
-    :
-      (
-        <th></th>
+        </div>
       )
   }
 }
