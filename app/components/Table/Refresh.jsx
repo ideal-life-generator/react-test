@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
+import classNames from "classnames"
 import { refreshData } from "actions/table"
 
 function mapStateToProps (state, ownProps) {
@@ -44,14 +45,16 @@ export default class Refresh extends Component {
 
     return (
       <span>
-        {!isFetching ?
-          <span>
-            <button onClick={refresh}>refresh</button>
-            {isResponseError && <span>!</span>}
-          </span>
-        :
-          <span>loading</span>
-        }
+        <span>
+          <button
+            className={classNames("ui secondary button", {
+              loading: isFetching
+            })}
+            onClick={refresh}>
+            Refresh
+            {isResponseError && <i className="right warning circle icon"></i>}
+          </button>
+        </span>
       </span>
     )
   }

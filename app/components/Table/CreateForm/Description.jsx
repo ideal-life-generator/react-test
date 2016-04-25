@@ -7,7 +7,7 @@ function mapStateToProps (state) {
   const { table } = state
 
   return {
-    description: table.getIn([ "createItem", "form", "description" ])
+    description: table.getIn([ "create", "form", "description" ])
   }
 }
 
@@ -43,12 +43,12 @@ export default class Description extends Component {
     } = this
 
     return (
-      <input
-        type="text"
+      <textarea
         onChange={changeDescription}
         value={description}
         defaultValue={description}
-        placeholder="Description" />
+        placeholder="Description">
+      </textarea>
     )
   }
 }

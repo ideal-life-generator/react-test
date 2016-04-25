@@ -35,20 +35,30 @@ export default class PersonalFilter extends Component {
 
     const settings = {
       maxLength: 50,
-      toggler: this.toggler.bind(this),
+      active: this.active.bind(this),
+      passive: this.passive.bind(this),
       update: this.update.bind(this)
     }
 
     Object.assign(this, settings)
   }
 
-  toggler () {
+  active () {
     const {
-      props: { filterKey, isActive, personalFilterActive, personalFilterDeactive }
+      props: { filterKey, personalFilterActive }
     } = this
 
-    if (!isActive) personalFilterActive(filterKey)
-    else personalFilterDeactive(filterKey)
+    personalFilterActive(filterKey)
+  }
+
+  passive (event) {
+    const {
+      props: { filterKey, personalFilterDeactive }
+    } = this
+
+    personalFilterDeactive(filterKey)
+
+    event.stopPropagation()
   }
 
   update (event) {
@@ -63,23 +73,32 @@ export default class PersonalFilter extends Component {
   render () {
     const {
       maxLength,
-      toggler,
+      active,
+      passive,
       update,
-      props: { isActive, filter }
+      props: { isActive, filter, placeholder }
     } = this
 
     return (
-      <span>
-        {isActive && <input
-          type="text"
-          onChange={update}
-          value={filter}
-          defaultValue={filter}
-          maxLength={maxLength}
-          placeholder="filter" />
+      <th onClick={active}>
+        {isActive ?
+            <div className="ui icon input">
+              <input
+                type="text"
+                onChange={update}
+                value={filter}
+                defaultValue={filter}
+                maxLength={maxLength}
+                placeholder={placeholder} />
+              <i
+                className="remove link icon"
+                onClick={passive}>
+              </i>
+            </div>
+          :
+            <i className="search icon"></i>
         }
-        <span onClick={toggler}>&#9774;</span>
-      </span>
+      </th>
     )
   }
 }

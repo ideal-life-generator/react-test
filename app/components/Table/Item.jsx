@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
+import classNames from "classnames"
 import { selectItem, unselectItem, removeItemAndFetchData } from "actions/table"
 
 function mapStateToProps (state, ownProps) {
@@ -87,30 +88,29 @@ export default class Item extends Component {
 
     return (
       <tr>
-        {showCheckbox &&
-          <td>
+        <td>
+          <div className="ui fitted slider checkbox">
             <input
               type="checkbox"
               onChange={selectToggler}
               checked={selected} />
-          </td>
-        }
+            <label></label>
+          </div>
+        </td>
         {showId && <td>{id}</td>}
-        {showTitle && <td>{title}</td>}
-        {showDescription && <td>{description}</td>}
-        {showCreatedIn && <td>{createdIn}</td>}
-        {showRemove &&
-          <td>
-            {!isRemoving ?
-              <button onClick={remove}>
-                remove
-              </button>
-              :
-              <div>Removing</div>
-            }
-            {isRemoveResponseError && <span>!</span>}
-          </td>
-        }
+        {showTitle && <td className="nowrap">{title}</td>}
+        {showDescription && <td className="nowrap">{description}</td>}
+        {showCreatedIn && <td className="nowrap">{createdIn}</td>}
+        <td>
+          <button
+            className={classNames("ui red button", {
+              loading: isRemoving
+            })}
+            onClick={remove}>
+            Remove
+            {isRemoveResponseError && <i className="right warning circle icon"></i>}
+          </button>
+        </td>
       </tr>
     )
   }

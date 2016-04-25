@@ -1,29 +1,20 @@
 import React, { Component } from "react"
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
-import {
-  selectAllItemsInPage,
-  unselectAllItemsInPage,
-  unselectAllSelectedItems,
-  removeSelectedItemsAndFetchData
-} from "actions/table"
+import { selectAllItemsInPage, unselectAllItemsInPage } from "actions/table"
 
 function mapStateToProps (state) {
   const { table } = state
 
   return {
-    selectedInPage: table.getIn([ "params", "selectedInPage" ]),
-    selectedCount: table.getIn([ "params", "selectedCount" ]),
-    selectedIsRemoving: table.getIn([ "params", "selectedIsRemoving" ])
+    selectedInPage: table.getIn([ "params", "selectedInPage" ])
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return bindActionCreators({
     selectAllItemsInPage,
-    unselectAllItemsInPage,
-    unselectAllSelectedItems,
-    removeSelectedItems: removeSelectedItemsAndFetchData
+    unselectAllItemsInPage
   }, dispatch)
 }
 
@@ -33,9 +24,7 @@ export default class Select extends Component {
     super(props)
 
     const settings = {
-      selectInPageToggler: this.selectInPageToggler.bind(this),
-      unselectAll: this.unselectAll.bind(this),
-      removeSelected: this.removeSelected.bind(this)
+      selectInPageToggler: this.selectInPageToggler.bind(this)
     }
 
     Object.assign(this, settings)
@@ -54,43 +43,19 @@ export default class Select extends Component {
     else unselectAllItemsInPage()
   }
 
-  unselectAll () {
-    const { props: { unselectAllSelectedItems } } = this
-
-    unselectAllSelectedItems()
-  }
-
-  removeSelected () {
-    const { props: { removeSelectedItems } } = this
-
-    removeSelectedItems()
-  }
-
   render () {
     const {
       selectInPageToggler,
-      unselectAll,
-      removeSelected,
-      props: { selectedInPage, selectedCount, selectedIsRemoving }
+      props: { selectedInPage }
     } = this
 
     return (
-      <div>
+      <div className="ui fitted slider checkbox">
         <input
           type="checkbox"
           onChange={selectInPageToggler}
           checked={selectedInPage} />
-        {selectedCount > 0 &&
-          <div>
-            <span><span>{selectedCount}</span> selected</span>
-            <button onClick={unselectAll}>unselect</button>
-            {!selectedIsRemoving ?
-                <button onClick={removeSelected}>remove</button>
-              :
-                <span>removing</span>
-            }
-          </div>
-        }
+        <label></label>
       </div>
     )
   }

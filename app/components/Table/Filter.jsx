@@ -37,21 +37,34 @@ export default class Filter extends Component {
     changeFilter(value)
   }
 
+  select (event) {
+    const { target } = event
+
+    setTimeout(() => {
+      target.select()
+    })
+  }
+
   render () {
     const {
       maxLength,
+      select,
       changeFilter,
       props: { filter }
     } = this
 
     return (
-      <input
-        type="text"
-        onChange={changeFilter}
-        value={filter}
-        defaultValue={filter}
-        maxLength={maxLength}
-        placeholder="Filter" />
+      <div className="ui icon input">
+        <input
+          type="text"
+          onFocus={select}
+          onChange={changeFilter}
+          value={filter}
+          defaultValue={filter}
+          maxLength={maxLength}
+          placeholder="Search..." />
+        <i className="search icon"></i>
+      </div>
     )
   }
 }

@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
+import classNames from "classnames"
 
 function mapStateToProps (state) {
   const { table } = state
@@ -11,12 +12,15 @@ function mapStateToProps (state) {
 }
 
 @connect(mapStateToProps)
-export default class Loading extends Component {
+export default class Loader extends Component {
   render () {
     const { props: { isFetching } } = this
 
-    return isFetching && (
-      <div>loading</div>
+    return (
+      <div className={classNames("ui loader", {
+        active: isFetching
+      })}>
+      </div>
     )
   }
 }

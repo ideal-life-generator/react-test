@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
+import classNames from "classnames"
 import { changeLimitAndFetchData } from "actions/table"
 
 function mapStateToProps (state) {
@@ -87,14 +88,30 @@ export default class PerPage extends Component {
     } = this
 
     return (
-      <div>
-        <span onClick={decrementLimit}>-</span>
-        <input
-          value={limit}
-          onFocus={select}
-          onChange={changeLimit}
-          type="number" />
-        <span onClick={incrementLimit}>+</span>
+      <div className="ui right floated pagination menu">
+        <a
+          className={classNames("icon item", {
+            disabled: false
+          })}
+          onClick={decrementLimit}>
+          <i className="left angle down icon"></i>
+        </a>
+        <div className="item disabled">
+          <div className="ui input">
+            <input
+              value={limit}
+              onFocus={select}
+              onChange={changeLimit}
+              type="number" />
+          </div>
+        </div>
+        <a
+          className={classNames("icon item", {
+            disabled: false
+          })}
+          onClick={incrementLimit}>
+          <i className="left angle up icon"></i>
+        </a>
       </div>
     )
   }

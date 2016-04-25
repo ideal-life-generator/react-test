@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
+import classNames from "classnames"
 import { changeSortAndFetchData, changeReverseAndFetchData } from "actions/table"
 
 function mapStateToProps (state, ownProps) {
@@ -32,7 +33,9 @@ export default class Sort extends Component {
   }
 
   sortToggler () {
-    const { props: { sortKey, sort, reverse, changeSort, changeReverse } } = this
+    const {
+      props: { sortKey, sort, reverse, changeSort, changeReverse }
+    } = this
 
     if (sort !== sortKey) changeSort(sortKey)
     else changeReverse(!reverse)
@@ -45,16 +48,16 @@ export default class Sort extends Component {
     } = this
 
     return (
-      <div>
-        <span onClick={sortToggler}>{title}</span>
-        {sort && sort === sortKey &&
-          (reverse ?
-              <span>&#8593;</span>
-            :
-              <span>&#8595;</span>
-          )
-        }
-      </div>
+      <th
+        className={classNames({
+          collapsing: sortKey === 'id' || sortKey === 'createdIn',
+          sorted: sort === sortKey,
+          ascending: reverse,
+          descending: !reverse
+        })}
+        onClick={sortToggler}>
+        {title}
+      </th>
     )
   }
 }

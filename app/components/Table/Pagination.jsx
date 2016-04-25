@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
+import classNames from "classnames"
 import { changePageAndFetchData } from "actions/table"
 
 function mapStateToProps (state) {
@@ -25,16 +26,17 @@ export default class Pagination extends Component {
 
     const settings = {
       minLimit: 1,
+      spaceLimit: 2,
       prevPage: this.prevPage.bind(this),
       nextPage: this.nextPage.bind(this),
-      changePage: this.changePage.bind(this),
-      select: this.select.bind(this)
+      selectPage: this.selectPage.bind(this),
+      calculatePagination: this.calculatePagination.bind(this)
     }
 
     Object.assign(this, settings)
   }
 
-  prevPage () {
+  prevPage() {
     const {
       minLimit,
       props: { page, pages, changePage }
@@ -46,7 +48,7 @@ export default class Pagination extends Component {
     }
   }
 
-  nextPage () {
+  nextPage() {
     const { props: { page, pages, changePage } } = this
     const newPage = page < pages ? page + 1 : pages
 
@@ -55,55 +57,90 @@ export default class Pagination extends Component {
     }
   }
 
-  changePage (event) {
-    const {
-      minLimit,
-      select,
-      props: { page, pages, changePage }
-    } = this
-    const { target: { value } } = event
-    const newPage = value >= minLimit ? value <= pages ? value : pages : minLimit
+  selectPage(page) {
+    const { props: { changePage } } = this
 
-    changePage(newPage)
-
-    select(event)
+    changePage(page)
   }
 
-  select (event) {
-    const { target } = event
+  calculatePagination() {
+    const {
+      minLimit,
+      spaceLimit,
+      selectPage,
+      props: { page, pages }
+    } = this
+    const pagesList = [ ]
+    let startSpacePushed = false
+    let endSpacePushed = false
 
-    setTimeout(() => {
-      target.select()
-    })
+    for (let index = minLimit; index < pages+minLimit; index++) {
+      if (index === minLimit || (index >= page-spaceLimit && index <= page+spaceLimit) || index === pages) {
+        pagesList.push(
+          <a
+            className={classNames("item", {
+              active: page === index
+            })}
+            key={index}
+            onClick={selectPage.bind(null, index)}>
+            {index}
+          </a>
+        )
+      } else if (!startSpacePushed && (index > minLimit && index < page-spaceLimit)) {
+        pagesList.push(
+          <div
+            className="disabled item"
+            key={index}>
+            ...
+          </div>
+        )
+
+        startSpacePushed = true
+      } else if (!endSpacePushed && (index > page+minLimit && index < pages+spaceLimit)) {
+        pagesList.push(
+          <div
+            className="disabled item"
+            key={index}>
+            ...
+          </div>
+        )
+
+        endSpacePushed = true
+      }
+    }
+
+    return pagesList
   }
 
   render () {
     const {
       minLimit,
+      calculatePagination,
       prevPage,
       nextPage,
       changePage,
-      select,
+      selectPage,
       props: { page, pages }
     } = this
 
     return pages > minLimit &&
       (
-        <div>
-          {page > minLimit &&
-            <a onClick={prevPage}>prev</a>
-          }
-          <input
-            type="text"
-            onFocus={select}
-            onChange={changePage}
-            value={page}
-            defaultValue={page} />
-          <span>of</span>
-          <span>{pages || "..."}</span>
-          {page < pages &&
-            <a onClick={nextPage}>next</a>
-          }
+        <div className="ui left floated pagination menu">
+          <a
+            className={classNames("icon item", {
+              disabled: page === minLimit
+            })}
+            onClick={prevPage}>
+            <i className="left chevron icon"></i>
+          </a>
+          {calculatePagination()}
+          <a
+            className={classNames("icon item", {
+              disabled: page === pages
+            })}
+            onClick={nextPage}>
+            <i className="right chevron icon"></i>
+          </a>
         </div>
       )
   }

@@ -1,8 +1,4 @@
 import { createServer } from "http"
-import {
-  access,
-  createReadStream,
-} from "fs"
 import { resolve, join }  from "path"
 import connect from "connect"
 import serveStatic from "serve-static"
@@ -67,7 +63,7 @@ function insertAsync (callback) {
 let insertedCount = 0
 
 function inserterAsync () {
-  if (insertedCount++ < 15) insertAsync(inserterAsync)
+  if (insertedCount++ < 50) insertAsync(inserterAsync)
 }
 
 insertAsync(inserterAsync)

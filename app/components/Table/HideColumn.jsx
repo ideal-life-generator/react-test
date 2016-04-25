@@ -33,8 +33,10 @@ export default class HideColumn extends Component {
     const { hide } = this
 
     return (
-      <button onClick={hide}>
-        hide
+      <button
+        className="ui icon button"
+        onClick={hide}>
+        <i className="hide icon"></i>
       </button>
     )
   }

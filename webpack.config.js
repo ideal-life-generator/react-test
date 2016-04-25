@@ -7,7 +7,7 @@ module.exports = {
   entry: "./index.jsx",
   output: {
     path: path.join(__dirname, "app/static"),
-    publicPath: "static/",
+    publicPath: "http://localhost:3000/",
     filename: "bundle.js"
   },
   module: {
@@ -37,6 +37,10 @@ module.exports = {
           plugins: [ "transform-decorators-legacy" ],
           presets: [ "es2015", "stage-2", "react" ]
         }
+      },
+      {
+        test: /\.(eot|woff|woff2|ttf|svg)$/,
+        loader: "file"
       }
     ]
   },

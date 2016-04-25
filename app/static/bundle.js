@@ -34,7 +34,7 @@
 /******/ 	__webpack_require__.c = installedModules;
 
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "static/";
+/******/ 	__webpack_require__.p = "http://localhost:3000/";
 
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
@@ -62,9 +62,9 @@
 
 	var _Table2 = _interopRequireDefault(_Table);
 
-	__webpack_require__(210);
+	__webpack_require__(247);
 
-	__webpack_require__(206);
+	__webpack_require__(249);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21166,7 +21166,7 @@
 	      remove: true
 	    }
 	  },
-	  createItem: {
+	  create: {
 	    isActive: false,
 	    isResponseError: false,
 	    form: {
@@ -21234,7 +21234,9 @@
 
 	function unselectSelectedItems(itemsSettings) {
 	  return itemsSettings.map(function (itemSettings) {
-	    return itemSettings.get("selected") && itemSettings.set("selected", false);
+	    if (itemSettings.get("selected")) return itemSettings.set("selected", false);
+
+	    return itemSettings;
 	  });
 	}
 
@@ -21430,24 +21432,24 @@
 
 	  return state.setIn(["params", "columns", column], false);
 	}), _defineProperty(_cases, _table.TABLE_CREATE_ITEM, function (state) {
-	  return state.setIn(["createItem", "isActive"], true);
+	  return state.setIn(["create", "isActive"], true);
 	}), _defineProperty(_cases, _table.TABLE_CANCEL_CREATE_ITEM, function (state) {
-	  return state.setIn(["createItem", "isActive"], false);
+	  return state.setIn(["create", "isActive"], false);
 	}), _defineProperty(_cases, _table.TABLE_CREATED_ITEM_CHANGE_TITLE, function (state, data) {
 	  var title = data.title;
 
 
-	  return state.setIn(["createItem", "form", "title"], title);
+	  return state.setIn(["create", "form", "title"], title);
 	}), _defineProperty(_cases, _table.TABLE_CREATED_ITEM_CHANGE_DESCRIPTION, function (state, data) {
 	  var description = data.description;
 
 
-	  return state.setIn(["createItem", "form", "description"], description);
+	  return state.setIn(["create", "form", "description"], description);
 	}), _defineProperty(_cases, _table.TABLE_CREATED_ITEM_SUBMIT, function (state) {
-	  return state.setIn(["createItem", "isUploading"], true);
+	  return state.setIn(["create", "isUploading"], true);
 	}), _defineProperty(_cases, _table.TABLE_CREATED_ITEM_RESPONSE, function (state) {
 	  return state.mergeDeep({
-	    createItem: {
+	    create: {
 	      isUploading: false,
 	      isResponseError: false,
 	      form: {
@@ -21458,7 +21460,7 @@
 	  });
 	}), _defineProperty(_cases, _table.TABLE_CREATED_ITEM_RESPONSE_ERROR, function (state) {
 	  return state.mergeDeep({
-	    "createItem": {
+	    "create": {
 	      isUploading: false,
 	      isResponseError: true
 	    }
@@ -26589,67 +26591,101 @@
 
 	var _reactRedux = __webpack_require__(159);
 
-	var _Filter = __webpack_require__(186);
+	var _classnames = __webpack_require__(186);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _Filter = __webpack_require__(187);
 
 	var _Filter2 = _interopRequireDefault(_Filter);
 
-	var _CreateItem = __webpack_require__(194);
+	var _Create = __webpack_require__(195);
 
-	var _CreateItem2 = _interopRequireDefault(_CreateItem);
+	var _Create2 = _interopRequireDefault(_Create);
 
-	var _Refresh = __webpack_require__(195);
+	var _Refresh = __webpack_require__(196);
 
 	var _Refresh2 = _interopRequireDefault(_Refresh);
 
-	var _HideColumn = __webpack_require__(213);
+	var _Selected = __webpack_require__(197);
+
+	var _Selected2 = _interopRequireDefault(_Selected);
+
+	var _Remove = __webpack_require__(198);
+
+	var _Remove2 = _interopRequireDefault(_Remove);
+
+	var _HideColumn = __webpack_require__(199);
 
 	var _HideColumn2 = _interopRequireDefault(_HideColumn);
 
-	var _ShowColumn = __webpack_require__(214);
+	var _ShowColumn = __webpack_require__(200);
 
 	var _ShowColumn2 = _interopRequireDefault(_ShowColumn);
 
-	var _Title = __webpack_require__(196);
+	var _CreateForm = __webpack_require__(201);
 
-	var _Title2 = _interopRequireDefault(_Title);
+	var _CreateForm2 = _interopRequireDefault(_CreateForm);
 
-	var _Description = __webpack_require__(197);
+	var _Unselect = __webpack_require__(206);
 
-	var _Description2 = _interopRequireDefault(_Description);
+	var _Unselect2 = _interopRequireDefault(_Unselect);
 
-	var _Submit = __webpack_require__(198);
-
-	var _Submit2 = _interopRequireDefault(_Submit);
-
-	var _Select = __webpack_require__(199);
+	var _Select = __webpack_require__(207);
 
 	var _Select2 = _interopRequireDefault(_Select);
 
-	var _Sort = __webpack_require__(200);
+	var _Sort = __webpack_require__(208);
 
 	var _Sort2 = _interopRequireDefault(_Sort);
 
-	var _PersonalFilter = __webpack_require__(201);
+	var _PersonalFilter = __webpack_require__(209);
 
 	var _PersonalFilter2 = _interopRequireDefault(_PersonalFilter);
 
-	var _Item = __webpack_require__(202);
+	var _Item = __webpack_require__(210);
 
 	var _Item2 = _interopRequireDefault(_Item);
 
-	var _Pagination = __webpack_require__(203);
+	var _Pagination = __webpack_require__(211);
 
 	var _Pagination2 = _interopRequireDefault(_Pagination);
 
-	var _PerPage = __webpack_require__(204);
+	var _PerPage = __webpack_require__(212);
 
 	var _PerPage2 = _interopRequireDefault(_PerPage);
 
-	var _Loading = __webpack_require__(205);
+	var _Loader = __webpack_require__(213);
 
-	var _Loading2 = _interopRequireDefault(_Loading);
+	var _Loader2 = _interopRequireDefault(_Loader);
 
-	var _table = __webpack_require__(187);
+	var _table = __webpack_require__(188);
+
+	__webpack_require__(214);
+
+	__webpack_require__(218);
+
+	__webpack_require__(220);
+
+	__webpack_require__(222);
+
+	__webpack_require__(224);
+
+	__webpack_require__(226);
+
+	__webpack_require__(228);
+
+	__webpack_require__(235);
+
+	__webpack_require__(237);
+
+	__webpack_require__(239);
+
+	__webpack_require__(241);
+
+	__webpack_require__(243);
+
+	__webpack_require__(245);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -26659,7 +26695,30 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	// import "semantic-ui-table/table.css"
+	function mapStateToProps(_ref) {
+	  var table = _ref.table;
+
+	  return {
+	    items: table.get("items"),
+	    showCheckbox: table.getIn(["params", "columns", "checkbox"]),
+	    showId: table.getIn(["params", "columns", "id"]),
+	    showTitle: table.getIn(["params", "columns", "title"]),
+	    showDescription: table.getIn(["params", "columns", "description"]),
+	    showCreatedIn: table.getIn(["params", "columns", "createdIn"]),
+	    showRemove: table.getIn(["params", "columns", "remove"]),
+	    isCreatingItem: table.getIn(["create", "isActive"]),
+	    sort: table.getIn(["query", "sort"]),
+	    reverse: table.getIn(["query", "reverse"])
+	  };
+	}
+
+	function mapDispatchToProps(dispatch) {
+	  return (0, _redux.bindActionCreators)({
+	    fetchData: _table.fetchData,
+	    changeSort: _table.changeSortAndFetchData,
+	    changeReverse: _table.changeReverseAndFetchData
+	  }, dispatch);
+	}
 
 	var Table = function (_Component) {
 	  _inherits(Table, _Component);
@@ -26694,80 +26753,45 @@
 
 	      return _react2.default.createElement(
 	        "div",
-	        null,
-	        _react2.default.createElement(
-	          "header",
-	          null,
-	          _react2.default.createElement(_Filter2.default, null),
-	          _react2.default.createElement(_CreateItem2.default, null),
-	          _react2.default.createElement(_Refresh2.default, null)
-	        ),
-	        _react2.default.createElement("br", null),
-	        isCreatingItem && _react2.default.createElement(
-	          "div",
-	          null,
-	          _react2.default.createElement(_Title2.default, null),
-	          _react2.default.createElement(_Description2.default, null),
-	          _react2.default.createElement(_Submit2.default, null)
-	        ),
-	        _react2.default.createElement(
-	          "div",
-	          null,
-	          !showCheckbox && _react2.default.createElement(_ShowColumn2.default, { column: "checkbox", title: "show checkbox" }),
-	          !showId && _react2.default.createElement(_ShowColumn2.default, { column: "id", title: "show id" }),
-	          !showTitle && _react2.default.createElement(_ShowColumn2.default, { column: "title", title: "show title" }),
-	          !showDescription && _react2.default.createElement(_ShowColumn2.default, { column: "description", title: "show description" }),
-	          !showCreatedIn && _react2.default.createElement(_ShowColumn2.default, { column: "createdIn", title: "show created in" }),
-	          !showRemove && _react2.default.createElement(_ShowColumn2.default, { column: "remove", title: "show remove" })
-	        ),
+	        { className: "ui container centered" },
+	        isCreatingItem && _react2.default.createElement(_CreateForm2.default, null),
 	        _react2.default.createElement(
 	          "table",
-	          { className: "ui inverted table" },
+	          { className: "ui compact sortable celled definition table" },
 	          _react2.default.createElement(
 	            "thead",
-	            null,
+	            { className: "full-width" },
 	            _react2.default.createElement(
 	              "tr",
 	              null,
-	              showCheckbox && _react2.default.createElement(
+	              _react2.default.createElement(
 	                "th",
-	                null,
-	                _react2.default.createElement(_Select2.default, null),
-	                _react2.default.createElement(_HideColumn2.default, { column: "checkbox" })
+	                { className: "collapsing non-sortable" },
+	                _react2.default.createElement(_Filter2.default, null)
 	              ),
-	              showId && _react2.default.createElement(
+	              showId && _react2.default.createElement(_Sort2.default, { sortKey: "id", title: "Id" }),
+	              showTitle && _react2.default.createElement(_Sort2.default, { sortKey: "title", title: "Title" }),
+	              showDescription && _react2.default.createElement(_Sort2.default, { sortKey: "description", title: "Description" }),
+	              showCreatedIn && _react2.default.createElement(_Sort2.default, { sortKey: "createdIn", title: "Created in" }),
+	              _react2.default.createElement(
 	                "th",
-	                null,
-	                _react2.default.createElement(_Sort2.default, { title: "id", sortKey: "id" }),
-	                _react2.default.createElement(_PersonalFilter2.default, { filterKey: "id" }),
-	                _react2.default.createElement(_HideColumn2.default, { column: "id" })
-	              ),
-	              showTitle && _react2.default.createElement(
-	                "th",
-	                null,
-	                _react2.default.createElement(_Sort2.default, { title: "title", sortKey: "title" }),
-	                _react2.default.createElement(_PersonalFilter2.default, { filterKey: "title" }),
-	                _react2.default.createElement(_HideColumn2.default, { column: "title" })
-	              ),
-	              showDescription && _react2.default.createElement(
-	                "th",
-	                null,
-	                _react2.default.createElement(_Sort2.default, { title: "description", sortKey: "description" }),
-	                _react2.default.createElement(_PersonalFilter2.default, { filterKey: "description" }),
-	                _react2.default.createElement(_HideColumn2.default, { column: "description" })
-	              ),
-	              showCreatedIn && _react2.default.createElement(
-	                "th",
-	                null,
-	                _react2.default.createElement(_Sort2.default, { title: "created in", sortKey: "createdIn" }),
-	                _react2.default.createElement(_PersonalFilter2.default, { filterKey: "createdIn" }),
-	                _react2.default.createElement(_HideColumn2.default, { column: "createdIn" })
-	              ),
-	              showRemove && _react2.default.createElement(
-	                "th",
-	                null,
-	                _react2.default.createElement(_HideColumn2.default, { column: "remove" })
+	                { className: "collapsing non-sortable" },
+	                _react2.default.createElement(_Refresh2.default, null)
 	              )
+	            ),
+	            _react2.default.createElement(
+	              "tr",
+	              null,
+	              _react2.default.createElement(
+	                "th",
+	                { className: "non-sortable" },
+	                _react2.default.createElement(_Select2.default, null)
+	              ),
+	              showId && _react2.default.createElement(_PersonalFilter2.default, { filterKey: "id", placeholder: "Id..." }),
+	              showTitle && _react2.default.createElement(_PersonalFilter2.default, { filterKey: "title", placeholder: "Title..." }),
+	              showDescription && _react2.default.createElement(_PersonalFilter2.default, { filterKey: "description", placeholder: "Description..." }),
+	              showCreatedIn && _react2.default.createElement(_PersonalFilter2.default, { filterKey: "createdIn", placeholder: "Created in..." }),
+	              _react2.default.createElement("th", { className: "collapsing non-sortable" })
 	            )
 	          ),
 	          _react2.default.createElement(
@@ -26777,14 +26801,73 @@
 	              var item = immutableItem.toObject();
 	              var id = item.id;
 
-
 	              return _react2.default.createElement(_Item2.default, _extends({ key: id }, item));
 	            })
+	          ),
+	          _react2.default.createElement(
+	            "tfoot",
+	            { className: "full-width" },
+	            _react2.default.createElement(
+	              "tr",
+	              null,
+	              _react2.default.createElement(
+	                "th",
+	                null,
+	                !showId && _react2.default.createElement(_ShowColumn2.default, { column: "id", title: "Id" }),
+	                !showTitle && _react2.default.createElement(_ShowColumn2.default, { column: "title", title: "Title" }),
+	                !showDescription && _react2.default.createElement(_ShowColumn2.default, { column: "description", title: "Description" }),
+	                !showCreatedIn && _react2.default.createElement(_ShowColumn2.default, { column: "createdIn", title: "Created in" })
+	              ),
+	              showId && _react2.default.createElement(
+	                "th",
+	                null,
+	                _react2.default.createElement(_HideColumn2.default, { column: "id" })
+	              ),
+	              showTitle && _react2.default.createElement(
+	                "th",
+	                null,
+	                _react2.default.createElement(_HideColumn2.default, { column: "title" })
+	              ),
+	              showDescription && _react2.default.createElement(
+	                "th",
+	                null,
+	                _react2.default.createElement(_HideColumn2.default, { column: "description" })
+	              ),
+	              showCreatedIn && _react2.default.createElement(
+	                "th",
+	                null,
+	                _react2.default.createElement(_HideColumn2.default, { column: "createdIn" })
+	              ),
+	              _react2.default.createElement("th", null)
+	            ),
+	            _react2.default.createElement(
+	              "tr",
+	              null,
+	              _react2.default.createElement(
+	                "th",
+	                null,
+	                _react2.default.createElement(_Selected2.default, null)
+	              ),
+	              _react2.default.createElement(
+	                "th",
+	                { colSpan: "5" },
+	                _react2.default.createElement(_Create2.default, null),
+	                _react2.default.createElement(_Unselect2.default, null),
+	                _react2.default.createElement(_Remove2.default, null)
+	              )
+	            ),
+	            _react2.default.createElement(
+	              "tr",
+	              null,
+	              _react2.default.createElement(
+	                "th",
+	                { colSpan: "6" },
+	                _react2.default.createElement(_Pagination2.default, null),
+	                _react2.default.createElement(_PerPage2.default, null)
+	              )
+	            )
 	          )
-	        ),
-	        _react2.default.createElement(_Pagination2.default, null),
-	        _react2.default.createElement(_PerPage2.default, null),
-	        _react2.default.createElement(_Loading2.default, null)
+	        )
 	      );
 	    }
 	  }]);
@@ -26793,31 +26876,64 @@
 	}(_react.Component);
 
 	exports.default = Table;
-
-
-	function mapStateToProps(_ref) {
-	  var table = _ref.table;
-
-	  return {
-	    items: table.get("items"),
-	    showCheckbox: table.getIn(["params", "columns", "checkbox"]),
-	    showId: table.getIn(["params", "columns", "id"]),
-	    showTitle: table.getIn(["params", "columns", "title"]),
-	    showDescription: table.getIn(["params", "columns", "description"]),
-	    showCreatedIn: table.getIn(["params", "columns", "createdIn"]),
-	    showRemove: table.getIn(["params", "columns", "remove"]),
-	    isCreatingItem: table.getIn(["createItem", "isActive"])
-	  };
-	}
-
-	function mapDispatchToProps(dispatch) {
-	  return (0, _redux.bindActionCreators)({ fetchData: _table.fetchData }, dispatch);
-	}
-
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Table);
 
 /***/ },
 /* 186 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	  Copyright (c) 2016 Jed Watson.
+	  Licensed under the MIT License (MIT), see
+	  http://jedwatson.github.io/classnames
+	*/
+	/* global define */
+
+	(function () {
+		'use strict';
+
+		var hasOwn = {}.hasOwnProperty;
+
+		function classNames () {
+			var classes = [];
+
+			for (var i = 0; i < arguments.length; i++) {
+				var arg = arguments[i];
+				if (!arg) continue;
+
+				var argType = typeof arg;
+
+				if (argType === 'string' || argType === 'number') {
+					classes.push(arg);
+				} else if (Array.isArray(arg)) {
+					classes.push(classNames.apply(null, arg));
+				} else if (argType === 'object') {
+					for (var key in arg) {
+						if (hasOwn.call(arg, key) && arg[key]) {
+							classes.push(key);
+						}
+					}
+				}
+			}
+
+			return classes.join(' ');
+		}
+
+		if (typeof module !== 'undefined' && module.exports) {
+			module.exports = classNames;
+		} else if (true) {
+			// register as 'classnames', consistent with npm package name
+			!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+				return classNames;
+			}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+		} else {
+			window.classNames = classNames;
+		}
+	}());
+
+
+/***/ },
+/* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -26839,7 +26955,7 @@
 
 	var _reactRedux = __webpack_require__(159);
 
-	var _table = __webpack_require__(187);
+	var _table = __webpack_require__(188);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -26891,20 +27007,37 @@
 	      changeFilter(value);
 	    }
 	  }, {
+	    key: "select",
+	    value: function select(event) {
+	      var target = event.target;
+
+
+	      setTimeout(function () {
+	        target.select();
+	      });
+	    }
+	  }, {
 	    key: "render",
 	    value: function render() {
 	      var maxLength = this.maxLength;
+	      var select = this.select;
 	      var changeFilter = this.changeFilter;
 	      var filter = this.props.filter;
 
 
-	      return _react2.default.createElement("input", {
-	        type: "text",
-	        onChange: changeFilter,
-	        value: filter,
-	        defaultValue: filter,
-	        maxLength: maxLength,
-	        placeholder: "Filter" });
+	      return _react2.default.createElement(
+	        "div",
+	        { className: "ui icon input" },
+	        _react2.default.createElement("input", {
+	          type: "text",
+	          onFocus: select,
+	          onChange: changeFilter,
+	          value: filter,
+	          defaultValue: filter,
+	          maxLength: maxLength,
+	          placeholder: "Search..." }),
+	        _react2.default.createElement("i", { className: "search icon" })
+	      );
 	    }
 	  }]);
 
@@ -26913,7 +27046,7 @@
 	exports.default = Filter;
 
 /***/ },
-/* 187 */
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -26947,8 +27080,8 @@
 	exports.changePageAndFetchData = changePageAndFetchData;
 	exports.showColumn = showColumn;
 	exports.hideColumn = hideColumn;
-	exports.createItem = createItem;
-	exports.cancelCreateItem = cancelCreateItem;
+	exports.create = create;
+	exports.closeCreate = closeCreate;
 	exports.createdItemChangeTitle = createdItemChangeTitle;
 	exports.createdItemChangeDescription = createdItemChangeDescription;
 	exports.submitCreatedItem = submitCreatedItem;
@@ -26970,11 +27103,11 @@
 
 	var _table = __webpack_require__(184);
 
-	var _isomorphicFetch = __webpack_require__(188);
+	var _isomorphicFetch = __webpack_require__(189);
 
 	var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
 
-	var _qs = __webpack_require__(190);
+	var _qs = __webpack_require__(191);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -27223,13 +27356,13 @@
 	  };
 	}
 
-	function createItem() {
+	function create() {
 	  return {
 	    type: _table.TABLE_CREATE_ITEM
 	  };
 	}
 
-	function cancelCreateItem() {
+	function closeCreate() {
 	  return {
 	    type: _table.TABLE_CANCEL_CREATE_ITEM
 	  };
@@ -27272,7 +27405,7 @@
 	    var state = getState();
 	    var table = state.table;
 
-	    var createdItemImmutable = table.getIn(["createItem", "form"]);
+	    var createdItemImmutable = table.getIn(["create", "form"]);
 	    var createdItem = createdItemImmutable.toObject();
 	    var createdItemJSON = JSON.stringify(createdItem);
 
@@ -27436,19 +27569,19 @@
 	}
 
 /***/ },
-/* 188 */
+/* 189 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// the whatwg-fetch polyfill installs the fetch() function
 	// on the global object (window or self)
 	//
 	// Return that as the export for use in Webpack, Browserify etc.
-	__webpack_require__(189);
+	__webpack_require__(190);
 	module.exports = self.fetch.bind(self);
 
 
 /***/ },
-/* 189 */
+/* 190 */
 /***/ function(module, exports) {
 
 	(function(self) {
@@ -27843,13 +27976,13 @@
 
 
 /***/ },
-/* 190 */
+/* 191 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Stringify = __webpack_require__(191);
-	var Parse = __webpack_require__(193);
+	var Stringify = __webpack_require__(192);
+	var Parse = __webpack_require__(194);
 
 	module.exports = {
 	    stringify: Stringify,
@@ -27858,12 +27991,12 @@
 
 
 /***/ },
-/* 191 */
+/* 192 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Utils = __webpack_require__(192);
+	var Utils = __webpack_require__(193);
 
 	var internals = {
 	    delimiter: '&',
@@ -27995,7 +28128,7 @@
 
 
 /***/ },
-/* 192 */
+/* 193 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -28163,12 +28296,12 @@
 
 
 /***/ },
-/* 193 */
+/* 194 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Utils = __webpack_require__(192);
+	var Utils = __webpack_require__(193);
 
 	var internals = {
 	    delimiter: '&',
@@ -28333,112 +28466,6 @@
 
 
 /***/ },
-/* 194 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = undefined;
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _dec, _class;
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _redux = __webpack_require__(165);
-
-	var _reactRedux = __webpack_require__(159);
-
-	var _table = __webpack_require__(187);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	function mapStateToProps(state) {
-	  var table = state.table;
-
-
-	  return {
-	    isActive: table.getIn(["createItem", "isActive"])
-	  };
-	}
-
-	function mapDispatchToProps(dispatch) {
-	  return (0, _redux.bindActionCreators)({
-	    createItem: _table.createItem,
-	    cancelCreateItem: _table.cancelCreateItem
-	  }, dispatch);
-	}
-
-	var CreateItem = (_dec = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps), _dec(_class = function (_Component) {
-	  _inherits(CreateItem, _Component);
-
-	  function CreateItem(props) {
-	    _classCallCheck(this, CreateItem);
-
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(CreateItem).call(this, props));
-
-	    var settings = {
-	      createItem: _this.createItem.bind(_this),
-	      cancelCreateItem: _this.cancelCreateItem.bind(_this)
-	    };
-
-	    Object.assign(_this, settings);
-	    return _this;
-	  }
-
-	  _createClass(CreateItem, [{
-	    key: "createItem",
-	    value: function createItem() {
-	      var createItem = this.props.createItem;
-
-
-	      createItem();
-	    }
-	  }, {
-	    key: "cancelCreateItem",
-	    value: function cancelCreateItem() {
-	      var cancelCreateItem = this.props.cancelCreateItem;
-
-
-	      cancelCreateItem();
-	    }
-	  }, {
-	    key: "render",
-	    value: function render() {
-	      var createItem = this.createItem;
-	      var cancelCreateItem = this.cancelCreateItem;
-	      var isActive = this.props.isActive;
-
-
-	      return !isActive ? _react2.default.createElement(
-	        "button",
-	        { onClick: createItem },
-	        "create"
-	      ) : _react2.default.createElement(
-	        "button",
-	        { onClick: cancelCreateItem },
-	        "close"
-	      );
-	    }
-	  }]);
-
-	  return CreateItem;
-	}(_react.Component)) || _class);
-	exports.default = CreateItem;
-
-/***/ },
 /* 195 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -28461,7 +28488,111 @@
 
 	var _reactRedux = __webpack_require__(159);
 
-	var _table = __webpack_require__(187);
+	var _classnames = __webpack_require__(186);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _table = __webpack_require__(188);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	function mapStateToProps(state) {
+	  var table = state.table;
+
+
+	  return {
+	    isActive: table.getIn(["create", "isActive"])
+	  };
+	}
+
+	function mapDispatchToProps(dispatch) {
+	  return (0, _redux.bindActionCreators)({
+	    create: _table.create
+	  }, dispatch);
+	}
+
+	var Create = (_dec = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps), _dec(_class = function (_Component) {
+	  _inherits(Create, _Component);
+
+	  function Create(props) {
+	    _classCallCheck(this, Create);
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Create).call(this, props));
+
+	    var settings = {
+	      create: _this.create.bind(_this)
+	    };
+
+	    Object.assign(_this, settings);
+	    return _this;
+	  }
+
+	  _createClass(Create, [{
+	    key: "create",
+	    value: function create() {
+	      var create = this.props.create;
+
+
+	      create();
+	    }
+	  }, {
+	    key: "render",
+	    value: function render() {
+	      var create = this.create;
+	      var isActive = this.props.isActive;
+
+
+	      return _react2.default.createElement(
+	        "button",
+	        {
+	          className: (0, _classnames2.default)("ui right floated primary labeled icon button", {
+	            disabled: isActive
+	          }),
+	          onClick: create },
+	        _react2.default.createElement("i", { className: "user icon" }),
+	        " Add Item"
+	      );
+	    }
+	  }]);
+
+	  return Create;
+	}(_react.Component)) || _class);
+	exports.default = Create;
+
+/***/ },
+/* 196 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _dec, _class;
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _redux = __webpack_require__(165);
+
+	var _reactRedux = __webpack_require__(159);
+
+	var _classnames = __webpack_require__(186);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _table = __webpack_require__(188);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28523,23 +28654,19 @@
 	      return _react2.default.createElement(
 	        "span",
 	        null,
-	        !isFetching ? _react2.default.createElement(
+	        _react2.default.createElement(
 	          "span",
 	          null,
 	          _react2.default.createElement(
 	            "button",
-	            { onClick: refresh },
-	            "refresh"
-	          ),
-	          isResponseError && _react2.default.createElement(
-	            "span",
-	            null,
-	            "!"
+	            {
+	              className: (0, _classnames2.default)("ui secondary button", {
+	                loading: isFetching
+	              }),
+	              onClick: refresh },
+	            "Refresh",
+	            isResponseError && _react2.default.createElement("i", { className: "right warning circle icon" })
 	          )
-	        ) : _react2.default.createElement(
-	          "span",
-	          null,
-	          "loading"
 	        )
 	      );
 	    }
@@ -28550,7 +28677,7 @@
 	exports.default = Refresh;
 
 /***/ },
-/* 196 */
+/* 197 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -28572,7 +28699,87 @@
 
 	var _reactRedux = __webpack_require__(159);
 
-	var _table = __webpack_require__(187);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	function mapStateToProps(state) {
+	  var table = state.table;
+
+
+	  return {
+	    selectedCount: table.getIn(["params", "selectedCount"])
+	  };
+	}
+
+	var Selected = (_dec = (0, _reactRedux.connect)(mapStateToProps), _dec(_class = function (_Component) {
+	  _inherits(Selected, _Component);
+
+	  function Selected() {
+	    _classCallCheck(this, Selected);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Selected).apply(this, arguments));
+	  }
+
+	  _createClass(Selected, [{
+	    key: "render",
+	    value: function render() {
+	      var selectedCount = this.props.selectedCount;
+
+
+	      return _react2.default.createElement(
+	        "div",
+	        { className: "nowrap" },
+	        _react2.default.createElement(
+	          "span",
+	          null,
+	          selectedCount
+	        ),
+	        _react2.default.createElement(
+	          "span",
+	          null,
+	          " selected"
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Selected;
+	}(_react.Component)) || _class);
+	exports.default = Selected;
+
+/***/ },
+/* 198 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _dec, _class;
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _redux = __webpack_require__(165);
+
+	var _reactRedux = __webpack_require__(159);
+
+	var _classnames = __webpack_require__(186);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _table = __webpack_require__(188);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28587,7 +28794,419 @@
 
 
 	  return {
-	    title: table.getIn(["createItem", "form", "title"])
+	    selectedCount: table.getIn(["params", "selectedCount"]),
+	    selectedIsRemoving: table.getIn(["params", "selectedIsRemoving"])
+	  };
+	}
+
+	function mapDispatchToProps(dispatch) {
+	  return (0, _redux.bindActionCreators)({
+	    removeSelectedItems: _table.removeSelectedItemsAndFetchData
+	  }, dispatch);
+	}
+
+	var Remove = (_dec = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps), _dec(_class = function (_Component) {
+	  _inherits(Remove, _Component);
+
+	  function Remove(props) {
+	    _classCallCheck(this, Remove);
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Remove).call(this, props));
+
+	    var settings = {
+	      removeSelected: _this.removeSelected.bind(_this)
+	    };
+
+	    Object.assign(_this, settings);
+	    return _this;
+	  }
+
+	  _createClass(Remove, [{
+	    key: "removeSelected",
+	    value: function removeSelected() {
+	      var removeSelectedItems = this.props.removeSelectedItems;
+
+
+	      removeSelectedItems();
+	    }
+	  }, {
+	    key: "render",
+	    value: function render() {
+	      var removeSelected = this.removeSelected;
+	      var _props = this.props;
+	      var selectedCount = _props.selectedCount;
+	      var selectedIsRemoving = _props.selectedIsRemoving;
+
+
+	      return _react2.default.createElement(
+	        "div",
+	        {
+	          className: (0, _classnames2.default)("ui red button", {
+	            disabled: selectedCount <= 0,
+	            loading: selectedIsRemoving
+	          }),
+	          onClick: removeSelected },
+	        "Remove selected"
+	      );
+	    }
+	  }]);
+
+	  return Remove;
+	}(_react.Component)) || _class);
+	exports.default = Remove;
+
+/***/ },
+/* 199 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _dec, _class;
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _redux = __webpack_require__(165);
+
+	var _reactRedux = __webpack_require__(159);
+
+	var _table = __webpack_require__(188);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	function mapDispatchToProps(dispatch) {
+	  return (0, _redux.bindActionCreators)({
+	    hideColumn: _table.hideColumn
+	  }, dispatch);
+	}
+
+	var HideColumn = (_dec = (0, _reactRedux.connect)(null, mapDispatchToProps), _dec(_class = function (_Component) {
+	  _inherits(HideColumn, _Component);
+
+	  function HideColumn(props) {
+	    _classCallCheck(this, HideColumn);
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(HideColumn).call(this, props));
+
+	    var settings = {
+	      hide: _this.hide.bind(_this)
+	    };
+
+	    Object.assign(_this, settings);
+	    return _this;
+	  }
+
+	  _createClass(HideColumn, [{
+	    key: "hide",
+	    value: function hide() {
+	      var _props = this.props;
+	      var hideColumn = _props.hideColumn;
+	      var column = _props.column;
+
+
+	      hideColumn(column);
+	    }
+	  }, {
+	    key: "render",
+	    value: function render() {
+	      var hide = this.hide;
+
+
+	      return _react2.default.createElement(
+	        "button",
+	        {
+	          className: "ui icon button",
+	          onClick: hide },
+	        _react2.default.createElement("i", { className: "hide icon" })
+	      );
+	    }
+	  }]);
+
+	  return HideColumn;
+	}(_react.Component)) || _class);
+	exports.default = HideColumn;
+
+/***/ },
+/* 200 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _dec, _class;
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _redux = __webpack_require__(165);
+
+	var _reactRedux = __webpack_require__(159);
+
+	var _table = __webpack_require__(188);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	function mapDispatchToProps(dispatch) {
+	  return (0, _redux.bindActionCreators)({
+	    showColumn: _table.showColumn
+	  }, dispatch);
+	}
+
+	var ShowColumn = (_dec = (0, _reactRedux.connect)(null, mapDispatchToProps), _dec(_class = function (_Component) {
+	  _inherits(ShowColumn, _Component);
+
+	  function ShowColumn(props) {
+	    _classCallCheck(this, ShowColumn);
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ShowColumn).call(this, props));
+
+	    var settings = {
+	      show: _this.show.bind(_this)
+	    };
+
+	    Object.assign(_this, settings);
+	    return _this;
+	  }
+
+	  _createClass(ShowColumn, [{
+	    key: "show",
+	    value: function show() {
+	      var _props = this.props;
+	      var showColumn = _props.showColumn;
+	      var column = _props.column;
+
+
+	      showColumn(column);
+	    }
+	  }, {
+	    key: "render",
+	    value: function render() {
+	      var show = this.show;
+	      var title = this.props.title;
+
+
+	      return _react2.default.createElement(
+	        "button",
+	        {
+	          className: "ui green button",
+	          onClick: show },
+	        title
+	      );
+	    }
+	  }]);
+
+	  return ShowColumn;
+	}(_react.Component)) || _class);
+	exports.default = ShowColumn;
+
+/***/ },
+/* 201 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _dec, _class;
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _redux = __webpack_require__(165);
+
+	var _reactRedux = __webpack_require__(159);
+
+	var _classnames = __webpack_require__(186);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _Title = __webpack_require__(202);
+
+	var _Title2 = _interopRequireDefault(_Title);
+
+	var _Description = __webpack_require__(203);
+
+	var _Description2 = _interopRequireDefault(_Description);
+
+	var _Close = __webpack_require__(204);
+
+	var _Close2 = _interopRequireDefault(_Close);
+
+	var _Submit = __webpack_require__(205);
+
+	var _Submit2 = _interopRequireDefault(_Submit);
+
+	var _table = __webpack_require__(188);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	function mapStateToProps(state) {
+	  var table = state.table;
+
+
+	  return {
+	    isUploading: table.getIn(["create", "isUploading"])
+	  };
+	}
+
+	function mapDispatchToProps(dispatch) {
+	  return (0, _redux.bindActionCreators)({
+	    submit: _table.submitCreatedItemAndFetchData
+	  }, dispatch);
+	}
+
+	var CreateForm = (_dec = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps), _dec(_class = function (_Component) {
+	  _inherits(CreateForm, _Component);
+
+	  function CreateForm(props) {
+	    _classCallCheck(this, CreateForm);
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(CreateForm).call(this, props));
+
+	    var settings = {
+	      submit: _this.submit.bind(_this)
+	    };
+
+	    Object.assign(_this, settings);
+	    return _this;
+	  }
+
+	  _createClass(CreateForm, [{
+	    key: "submit",
+	    value: function submit(event) {
+	      var submit = this.props.submit;
+
+
+	      submit();
+
+	      event.preventDefault();
+	    }
+	  }, {
+	    key: "render",
+	    value: function render() {
+	      var submit = this.submit;
+	      var isUploading = this.props.isUploading;
+
+
+	      return _react2.default.createElement(
+	        "div",
+	        { className: "ui segment" },
+	        _react2.default.createElement(
+	          "form",
+	          {
+	            className: (0, _classnames2.default)("ui form", {
+	              loading: isUploading
+	            }),
+	            onSubmit: submit },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "field" },
+	            _react2.default.createElement(
+	              "label",
+	              null,
+	              "Title"
+	            ),
+	            _react2.default.createElement(_Title2.default, null)
+	          ),
+	          _react2.default.createElement(
+	            "div",
+	            { className: "field" },
+	            _react2.default.createElement(
+	              "label",
+	              null,
+	              "Description"
+	            ),
+	            _react2.default.createElement(_Description2.default, null)
+	          ),
+	          _react2.default.createElement(_Close2.default, null),
+	          _react2.default.createElement(_Submit2.default, null)
+	        )
+	      );
+	    }
+	  }]);
+
+	  return CreateForm;
+	}(_react.Component)) || _class);
+	exports.default = CreateForm;
+
+/***/ },
+/* 202 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _dec, _class;
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _redux = __webpack_require__(165);
+
+	var _reactRedux = __webpack_require__(159);
+
+	var _table = __webpack_require__(188);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	function mapStateToProps(state) {
+	  var table = state.table;
+
+
+	  return {
+	    title: table.getIn(["create", "form", "title"])
 	  };
 	}
 
@@ -28644,7 +29263,7 @@
 	exports.default = Title;
 
 /***/ },
-/* 197 */
+/* 203 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -28666,7 +29285,7 @@
 
 	var _reactRedux = __webpack_require__(159);
 
-	var _table = __webpack_require__(187);
+	var _table = __webpack_require__(188);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28681,7 +29300,7 @@
 
 
 	  return {
-	    description: table.getIn(["createItem", "form", "description"])
+	    description: table.getIn(["create", "form", "description"])
 	  };
 	}
 
@@ -28723,8 +29342,7 @@
 	      var description = this.props.description;
 
 
-	      return _react2.default.createElement("input", {
-	        type: "text",
+	      return _react2.default.createElement("textarea", {
 	        onChange: changeDescription,
 	        value: description,
 	        defaultValue: description,
@@ -28737,7 +29355,7 @@
 	exports.default = Description;
 
 /***/ },
-/* 198 */
+/* 204 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -28759,7 +29377,7 @@
 
 	var _reactRedux = __webpack_require__(159);
 
-	var _table = __webpack_require__(187);
+	var _table = __webpack_require__(188);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28774,15 +29392,105 @@
 
 
 	  return {
-	    isUploading: table.getIn(["createItem", "isUploading"]),
-	    isResponseError: table.getIn(["createItem", "isResponseError"])
+	    isActive: table.getIn(["create", "isActive"])
 	  };
 	}
 
 	function mapDispatchToProps(dispatch) {
 	  return (0, _redux.bindActionCreators)({
-	    submit: _table.submitCreatedItemAndFetchData
+	    closeCreate: _table.closeCreate
 	  }, dispatch);
+	}
+
+	var Close = (_dec = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps), _dec(_class = function (_Component) {
+	  _inherits(Close, _Component);
+
+	  function Close(props) {
+	    _classCallCheck(this, Close);
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Close).call(this, props));
+
+	    var settings = {
+	      closeCreate: _this.closeCreate.bind(_this)
+	    };
+
+	    Object.assign(_this, settings);
+	    return _this;
+	  }
+
+	  _createClass(Close, [{
+	    key: "closeCreate",
+	    value: function closeCreate(event) {
+	      var closeCreate = this.props.closeCreate;
+
+
+	      closeCreate();
+
+	      event.preventDefault();
+	    }
+	  }, {
+	    key: "render",
+	    value: function render() {
+	      var closeCreate = this.closeCreate;
+	      var isActive = this.props.isActive;
+
+
+	      return _react2.default.createElement(
+	        "button",
+	        {
+	          className: "ui button",
+	          onClick: closeCreate },
+	        "Close"
+	      );
+	    }
+	  }]);
+
+	  return Close;
+	}(_react.Component)) || _class);
+	exports.default = Close;
+
+/***/ },
+/* 205 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _dec, _class;
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _redux = __webpack_require__(165);
+
+	var _reactRedux = __webpack_require__(159);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	function mapStateToProps(state) {
+	  var table = state.table;
+
+
+	  return {
+	    isResponseError: table.getIn(["create", "isResponseError"])
+	  };
+	}
+
+	function mapDispatchToProps(dispatch) {
+	  return (0, _redux.bindActionCreators)({}, dispatch);
 	}
 
 	var Submit = (_dec = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps), _dec(_class = function (_Component) {
@@ -28793,52 +29501,24 @@
 
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Submit).call(this, props));
 
-	    var settings = {
-	      submit: _this.submit.bind(_this)
-	    };
+	    var settings = {};
 
 	    Object.assign(_this, settings);
 	    return _this;
 	  }
 
 	  _createClass(Submit, [{
-	    key: "submit",
-	    value: function submit(event) {
-	      var submit = this.props.submit;
-
-
-	      submit();
-	    }
-	  }, {
 	    key: "render",
 	    value: function render() {
-	      var submit = this.submit;
-	      var _props = this.props;
-	      var isUploading = _props.isUploading;
-	      var isResponseError = _props.isResponseError;
+	      var isResponseError = this.props.isResponseError;
 
 
 	      return _react2.default.createElement(
-	        "div",
-	        null,
-	        !isUploading ? _react2.default.createElement(
-	          "div",
-	          null,
-	          _react2.default.createElement(
-	            "button",
-	            { onClick: submit },
-	            "submit"
-	          ),
-	          isResponseError && _react2.default.createElement(
-	            "span",
-	            null,
-	            "!"
-	          )
-	        ) : _react2.default.createElement(
-	          "div",
-	          null,
-	          "isUploading"
-	        )
+	        "button",
+	        {
+	          className: "ui black button" },
+	        "Submit",
+	        isResponseError && _react2.default.createElement("i", { className: "right warning circle icon" })
 	      );
 	    }
 	  }]);
@@ -28848,7 +29528,7 @@
 	exports.default = Submit;
 
 /***/ },
-/* 199 */
+/* 206 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -28870,7 +29550,11 @@
 
 	var _reactRedux = __webpack_require__(159);
 
-	var _table = __webpack_require__(187);
+	var _classnames = __webpack_require__(186);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _table = __webpack_require__(188);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28885,18 +29569,109 @@
 
 
 	  return {
-	    selectedInPage: table.getIn(["params", "selectedInPage"]),
-	    selectedCount: table.getIn(["params", "selectedCount"]),
-	    selectedIsRemoving: table.getIn(["params", "selectedIsRemoving"])
+	    selectedCount: table.getIn(["params", "selectedCount"])
+	  };
+	}
+
+	function mapDispatchToProps(dispatch) {
+	  return (0, _redux.bindActionCreators)({
+	    unselectAllSelected: _table.unselectAllSelectedItems
+	  }, dispatch);
+	}
+
+	var Remove = (_dec = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps), _dec(_class = function (_Component) {
+	  _inherits(Remove, _Component);
+
+	  function Remove(props) {
+	    _classCallCheck(this, Remove);
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Remove).call(this, props));
+
+	    var settings = {
+	      unselectAllSelected: _this.unselectAllSelected.bind(_this)
+	    };
+
+	    Object.assign(_this, settings);
+	    return _this;
+	  }
+
+	  _createClass(Remove, [{
+	    key: "unselectAllSelected",
+	    value: function unselectAllSelected() {
+	      var unselectAllSelected = this.props.unselectAllSelected;
+
+
+	      unselectAllSelected();
+	    }
+	  }, {
+	    key: "render",
+	    value: function render() {
+	      var unselectAllSelected = this.unselectAllSelected;
+	      var selectedCount = this.props.selectedCount;
+
+
+	      return _react2.default.createElement(
+	        "div",
+	        {
+	          className: (0, _classnames2.default)("ui button", {
+	            disabled: selectedCount <= 0
+	          }),
+	          onClick: unselectAllSelected },
+	        "Unselect selected"
+	      );
+	    }
+	  }]);
+
+	  return Remove;
+	}(_react.Component)) || _class);
+	exports.default = Remove;
+
+/***/ },
+/* 207 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _dec, _class;
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _redux = __webpack_require__(165);
+
+	var _reactRedux = __webpack_require__(159);
+
+	var _table = __webpack_require__(188);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	function mapStateToProps(state) {
+	  var table = state.table;
+
+
+	  return {
+	    selectedInPage: table.getIn(["params", "selectedInPage"])
 	  };
 	}
 
 	function mapDispatchToProps(dispatch) {
 	  return (0, _redux.bindActionCreators)({
 	    selectAllItemsInPage: _table.selectAllItemsInPage,
-	    unselectAllItemsInPage: _table.unselectAllItemsInPage,
-	    unselectAllSelectedItems: _table.unselectAllSelectedItems,
-	    removeSelectedItems: _table.removeSelectedItemsAndFetchData
+	    unselectAllItemsInPage: _table.unselectAllItemsInPage
 	  }, dispatch);
 	}
 
@@ -28909,9 +29684,7 @@
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Select).call(this, props));
 
 	    var settings = {
-	      selectInPageToggler: _this.selectInPageToggler.bind(_this),
-	      unselectAll: _this.unselectAll.bind(_this),
-	      removeSelected: _this.removeSelected.bind(_this)
+	      selectInPageToggler: _this.selectInPageToggler.bind(_this)
 	    };
 
 	    Object.assign(_this, settings);
@@ -28930,68 +29703,20 @@
 	      if (checked) selectAllItemsInPage();else unselectAllItemsInPage();
 	    }
 	  }, {
-	    key: "unselectAll",
-	    value: function unselectAll() {
-	      var unselectAllSelectedItems = this.props.unselectAllSelectedItems;
-
-
-	      unselectAllSelectedItems();
-	    }
-	  }, {
-	    key: "removeSelected",
-	    value: function removeSelected() {
-	      var removeSelectedItems = this.props.removeSelectedItems;
-
-
-	      removeSelectedItems();
-	    }
-	  }, {
 	    key: "render",
 	    value: function render() {
 	      var selectInPageToggler = this.selectInPageToggler;
-	      var unselectAll = this.unselectAll;
-	      var removeSelected = this.removeSelected;
-	      var _props2 = this.props;
-	      var selectedInPage = _props2.selectedInPage;
-	      var selectedCount = _props2.selectedCount;
-	      var selectedIsRemoving = _props2.selectedIsRemoving;
+	      var selectedInPage = this.props.selectedInPage;
 
 
 	      return _react2.default.createElement(
 	        "div",
-	        null,
+	        { className: "ui fitted slider checkbox" },
 	        _react2.default.createElement("input", {
 	          type: "checkbox",
 	          onChange: selectInPageToggler,
 	          checked: selectedInPage }),
-	        selectedCount > 0 && _react2.default.createElement(
-	          "div",
-	          null,
-	          _react2.default.createElement(
-	            "span",
-	            null,
-	            _react2.default.createElement(
-	              "span",
-	              null,
-	              selectedCount
-	            ),
-	            " selected"
-	          ),
-	          _react2.default.createElement(
-	            "button",
-	            { onClick: unselectAll },
-	            "unselect"
-	          ),
-	          !selectedIsRemoving ? _react2.default.createElement(
-	            "button",
-	            { onClick: removeSelected },
-	            "remove"
-	          ) : _react2.default.createElement(
-	            "span",
-	            null,
-	            "removing"
-	          )
-	        )
+	        _react2.default.createElement("label", null)
 	      );
 	    }
 	  }]);
@@ -29001,7 +29726,7 @@
 	exports.default = Select;
 
 /***/ },
-/* 200 */
+/* 208 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -29023,7 +29748,11 @@
 
 	var _reactRedux = __webpack_require__(159);
 
-	var _table = __webpack_require__(187);
+	var _classnames = __webpack_require__(186);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _table = __webpack_require__(188);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -29091,22 +29820,16 @@
 
 
 	      return _react2.default.createElement(
-	        "div",
-	        null,
-	        _react2.default.createElement(
-	          "span",
-	          { onClick: sortToggler },
-	          title
-	        ),
-	        sort && sort === sortKey && (reverse ? _react2.default.createElement(
-	          "span",
-	          null,
-	          "↑"
-	        ) : _react2.default.createElement(
-	          "span",
-	          null,
-	          "↓"
-	        ))
+	        "th",
+	        {
+	          className: (0, _classnames2.default)({
+	            collapsing: sortKey === 'id' || sortKey === 'createdIn',
+	            sorted: sort === sortKey,
+	            ascending: reverse,
+	            descending: !reverse
+	          }),
+	          onClick: sortToggler },
+	        title
 	      );
 	    }
 	  }]);
@@ -29116,7 +29839,7 @@
 	exports.default = Sort;
 
 /***/ },
-/* 201 */
+/* 209 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -29140,7 +29863,7 @@
 
 	var _reactRedux = __webpack_require__(159);
 
-	var _table = __webpack_require__(187);
+	var _table = __webpack_require__(188);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -29181,7 +29904,8 @@
 
 	    var settings = {
 	      maxLength: 50,
-	      toggler: _this.toggler.bind(_this),
+	      active: _this.active.bind(_this),
+	      passive: _this.passive.bind(_this),
 	      update: _this.update.bind(_this)
 	    };
 
@@ -29190,24 +29914,34 @@
 	  }
 
 	  _createClass(PersonalFilter, [{
-	    key: "toggler",
-	    value: function toggler() {
+	    key: "active",
+	    value: function active() {
 	      var _props = this.props;
 	      var filterKey = _props.filterKey;
-	      var isActive = _props.isActive;
 	      var personalFilterActive = _props.personalFilterActive;
-	      var personalFilterDeactive = _props.personalFilterDeactive;
 
 
-	      if (!isActive) personalFilterActive(filterKey);else personalFilterDeactive(filterKey);
+	      personalFilterActive(filterKey);
+	    }
+	  }, {
+	    key: "passive",
+	    value: function passive(event) {
+	      var _props2 = this.props;
+	      var filterKey = _props2.filterKey;
+	      var personalFilterDeactive = _props2.personalFilterDeactive;
+
+
+	      personalFilterDeactive(filterKey);
+
+	      event.stopPropagation();
 	    }
 	  }, {
 	    key: "update",
 	    value: function update(event) {
 	      var value = event.target.value;
-	      var _props2 = this.props;
-	      var filterKey = _props2.filterKey;
-	      var changePersonalFilter = _props2.changePersonalFilter;
+	      var _props3 = this.props;
+	      var filterKey = _props3.filterKey;
+	      var changePersonalFilter = _props3.changePersonalFilter;
 
 
 	      changePersonalFilter(filterKey, value);
@@ -29216,28 +29950,32 @@
 	    key: "render",
 	    value: function render() {
 	      var maxLength = this.maxLength;
-	      var toggler = this.toggler;
+	      var active = this.active;
+	      var passive = this.passive;
 	      var update = this.update;
-	      var _props3 = this.props;
-	      var isActive = _props3.isActive;
-	      var filter = _props3.filter;
+	      var _props4 = this.props;
+	      var isActive = _props4.isActive;
+	      var filter = _props4.filter;
+	      var placeholder = _props4.placeholder;
 
 
 	      return _react2.default.createElement(
-	        "span",
-	        null,
-	        isActive && _react2.default.createElement("input", {
-	          type: "text",
-	          onChange: update,
-	          value: filter,
-	          defaultValue: filter,
-	          maxLength: maxLength,
-	          placeholder: "filter" }),
-	        _react2.default.createElement(
-	          "span",
-	          { onClick: toggler },
-	          "☮"
-	        )
+	        "th",
+	        { onClick: active },
+	        isActive ? _react2.default.createElement(
+	          "div",
+	          { className: "ui icon input" },
+	          _react2.default.createElement("input", {
+	            type: "text",
+	            onChange: update,
+	            value: filter,
+	            defaultValue: filter,
+	            maxLength: maxLength,
+	            placeholder: placeholder }),
+	          _react2.default.createElement("i", {
+	            className: "remove link icon",
+	            onClick: passive })
+	        ) : _react2.default.createElement("i", { className: "search icon" })
 	      );
 	    }
 	  }]);
@@ -29247,7 +29985,7 @@
 	exports.default = PersonalFilter;
 
 /***/ },
-/* 202 */
+/* 210 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -29269,7 +30007,11 @@
 
 	var _reactRedux = __webpack_require__(159);
 
-	var _table = __webpack_require__(187);
+	var _classnames = __webpack_require__(186);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _table = __webpack_require__(188);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -29375,13 +30117,18 @@
 	      return _react2.default.createElement(
 	        "tr",
 	        null,
-	        showCheckbox && _react2.default.createElement(
+	        _react2.default.createElement(
 	          "td",
 	          null,
-	          _react2.default.createElement("input", {
-	            type: "checkbox",
-	            onChange: selectToggler,
-	            checked: selected })
+	          _react2.default.createElement(
+	            "div",
+	            { className: "ui fitted slider checkbox" },
+	            _react2.default.createElement("input", {
+	              type: "checkbox",
+	              onChange: selectToggler,
+	              checked: selected }),
+	            _react2.default.createElement("label", null)
+	          )
 	        ),
 	        showId && _react2.default.createElement(
 	          "td",
@@ -29390,35 +30137,31 @@
 	        ),
 	        showTitle && _react2.default.createElement(
 	          "td",
-	          null,
+	          { className: "nowrap" },
 	          title
 	        ),
 	        showDescription && _react2.default.createElement(
 	          "td",
-	          null,
+	          { className: "nowrap" },
 	          description
 	        ),
 	        showCreatedIn && _react2.default.createElement(
 	          "td",
-	          null,
+	          { className: "nowrap" },
 	          createdIn
 	        ),
-	        showRemove && _react2.default.createElement(
+	        _react2.default.createElement(
 	          "td",
 	          null,
-	          !isRemoving ? _react2.default.createElement(
+	          _react2.default.createElement(
 	            "button",
-	            { onClick: remove },
-	            "remove"
-	          ) : _react2.default.createElement(
-	            "div",
-	            null,
-	            "Removing"
-	          ),
-	          isRemoveResponseError && _react2.default.createElement(
-	            "span",
-	            null,
-	            "!"
+	            {
+	              className: (0, _classnames2.default)("ui red button", {
+	                loading: isRemoving
+	              }),
+	              onClick: remove },
+	            "Remove",
+	            isRemoveResponseError && _react2.default.createElement("i", { className: "right warning circle icon" })
 	          )
 	        )
 	      );
@@ -29430,7 +30173,7 @@
 	exports.default = Item;
 
 /***/ },
-/* 203 */
+/* 211 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -29452,7 +30195,11 @@
 
 	var _reactRedux = __webpack_require__(159);
 
-	var _table = __webpack_require__(187);
+	var _classnames = __webpack_require__(186);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _table = __webpack_require__(188);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -29488,10 +30235,11 @@
 
 	    var settings = {
 	      minLimit: 1,
+	      spaceLimit: 2,
 	      prevPage: _this.prevPage.bind(_this),
 	      nextPage: _this.nextPage.bind(_this),
-	      changePage: _this.changePage.bind(_this),
-	      select: _this.select.bind(_this)
+	      selectPage: _this.selectPage.bind(_this),
+	      calculatePagination: _this.calculatePagination.bind(_this)
 	    };
 
 	    Object.assign(_this, settings);
@@ -29528,40 +30276,73 @@
 	      }
 	    }
 	  }, {
-	    key: "changePage",
-	    value: function changePage(event) {
+	    key: "selectPage",
+	    value: function selectPage(page) {
+	      var changePage = this.props.changePage;
+
+
+	      changePage(page);
+	    }
+	  }, {
+	    key: "calculatePagination",
+	    value: function calculatePagination() {
 	      var minLimit = this.minLimit;
-	      var select = this.select;
+	      var spaceLimit = this.spaceLimit;
+	      var selectPage = this.selectPage;
 	      var _props3 = this.props;
 	      var page = _props3.page;
 	      var pages = _props3.pages;
-	      var changePage = _props3.changePage;
-	      var value = event.target.value;
 
-	      var newPage = value >= minLimit ? value <= pages ? value : pages : minLimit;
+	      var pagesList = [];
+	      var startSpacePushed = false;
+	      var endSpacePushed = false;
 
-	      changePage(newPage);
+	      for (var index = minLimit; index < pages + minLimit; index++) {
+	        if (index === minLimit || index >= page - spaceLimit && index <= page + spaceLimit || index === pages) {
+	          pagesList.push(_react2.default.createElement(
+	            "a",
+	            {
+	              className: (0, _classnames2.default)("item", {
+	                active: page === index
+	              }),
+	              key: index,
+	              onClick: selectPage.bind(null, index) },
+	            index
+	          ));
+	        } else if (!startSpacePushed && index > minLimit && index < page - spaceLimit) {
+	          pagesList.push(_react2.default.createElement(
+	            "div",
+	            {
+	              className: "disabled item",
+	              key: index },
+	            "..."
+	          ));
 
-	      select(event);
-	    }
-	  }, {
-	    key: "select",
-	    value: function select(event) {
-	      var target = event.target;
+	          startSpacePushed = true;
+	        } else if (!endSpacePushed && index > page + minLimit && index < pages + spaceLimit) {
+	          pagesList.push(_react2.default.createElement(
+	            "div",
+	            {
+	              className: "disabled item",
+	              key: index },
+	            "..."
+	          ));
 
+	          endSpacePushed = true;
+	        }
+	      }
 
-	      setTimeout(function () {
-	        target.select();
-	      });
+	      return pagesList;
 	    }
 	  }, {
 	    key: "render",
 	    value: function render() {
 	      var minLimit = this.minLimit;
+	      var calculatePagination = this.calculatePagination;
 	      var prevPage = this.prevPage;
 	      var nextPage = this.nextPage;
 	      var changePage = this.changePage;
-	      var select = this.select;
+	      var selectPage = this.selectPage;
 	      var _props4 = this.props;
 	      var page = _props4.page;
 	      var pages = _props4.pages;
@@ -29569,32 +30350,25 @@
 
 	      return pages > minLimit && _react2.default.createElement(
 	        "div",
-	        null,
-	        page > minLimit && _react2.default.createElement(
-	          "a",
-	          { onClick: prevPage },
-	          "prev"
-	        ),
-	        _react2.default.createElement("input", {
-	          type: "text",
-	          onFocus: select,
-	          onChange: changePage,
-	          value: page,
-	          defaultValue: page }),
+	        { className: "ui left floated pagination menu" },
 	        _react2.default.createElement(
-	          "span",
-	          null,
-	          "of"
-	        ),
-	        _react2.default.createElement(
-	          "span",
-	          null,
-	          pages || "..."
-	        ),
-	        page < pages && _react2.default.createElement(
 	          "a",
-	          { onClick: nextPage },
-	          "next"
+	          {
+	            className: (0, _classnames2.default)("icon item", {
+	              disabled: page === minLimit
+	            }),
+	            onClick: prevPage },
+	          _react2.default.createElement("i", { className: "left chevron icon" })
+	        ),
+	        calculatePagination(),
+	        _react2.default.createElement(
+	          "a",
+	          {
+	            className: (0, _classnames2.default)("icon item", {
+	              disabled: page === pages
+	            }),
+	            onClick: nextPage },
+	          _react2.default.createElement("i", { className: "right chevron icon" })
 	        )
 	      );
 	    }
@@ -29605,7 +30379,7 @@
 	exports.default = Pagination;
 
 /***/ },
-/* 204 */
+/* 212 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -29627,7 +30401,11 @@
 
 	var _reactRedux = __webpack_require__(159);
 
-	var _table = __webpack_require__(187);
+	var _classnames = __webpack_require__(186);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _table = __webpack_require__(188);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -29736,21 +30514,37 @@
 
 	      return _react2.default.createElement(
 	        "div",
-	        null,
+	        { className: "ui right floated pagination menu" },
 	        _react2.default.createElement(
-	          "span",
-	          { onClick: decrementLimit },
-	          "-"
+	          "a",
+	          {
+	            className: (0, _classnames2.default)("icon item", {
+	              disabled: false
+	            }),
+	            onClick: decrementLimit },
+	          _react2.default.createElement("i", { className: "left angle down icon" })
 	        ),
-	        _react2.default.createElement("input", {
-	          value: limit,
-	          onFocus: select,
-	          onChange: changeLimit,
-	          type: "number" }),
 	        _react2.default.createElement(
-	          "span",
-	          { onClick: incrementLimit },
-	          "+"
+	          "div",
+	          { className: "item disabled" },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "ui input" },
+	            _react2.default.createElement("input", {
+	              value: limit,
+	              onFocus: select,
+	              onChange: changeLimit,
+	              type: "number" })
+	          )
+	        ),
+	        _react2.default.createElement(
+	          "a",
+	          {
+	            className: (0, _classnames2.default)("icon item", {
+	              disabled: false
+	            }),
+	            onClick: incrementLimit },
+	          _react2.default.createElement("i", { className: "left angle up icon" })
 	        )
 	      );
 	    }
@@ -29761,7 +30555,7 @@
 	exports.default = PerPage;
 
 /***/ },
-/* 205 */
+/* 213 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -29783,6 +30577,10 @@
 
 	var _reactRedux = __webpack_require__(159);
 
+	var _classnames = __webpack_require__(186);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -29800,51 +30598,49 @@
 	  };
 	}
 
-	var Loading = (_dec = (0, _reactRedux.connect)(mapStateToProps), _dec(_class = function (_Component) {
-	  _inherits(Loading, _Component);
+	var Loader = (_dec = (0, _reactRedux.connect)(mapStateToProps), _dec(_class = function (_Component) {
+	  _inherits(Loader, _Component);
 
-	  function Loading() {
-	    _classCallCheck(this, Loading);
+	  function Loader() {
+	    _classCallCheck(this, Loader);
 
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Loading).apply(this, arguments));
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Loader).apply(this, arguments));
 	  }
 
-	  _createClass(Loading, [{
+	  _createClass(Loader, [{
 	    key: "render",
 	    value: function render() {
 	      var isFetching = this.props.isFetching;
 
 
-	      return isFetching && _react2.default.createElement(
-	        "div",
-	        null,
-	        "loading"
-	      );
+	      return _react2.default.createElement("div", { className: (0, _classnames2.default)("ui loader", {
+	          active: isFetching
+	        }) });
 	    }
 	  }]);
 
-	  return Loading;
+	  return Loader;
 	}(_react.Component)) || _class);
-	exports.default = Loading;
+	exports.default = Loader;
 
 /***/ },
-/* 206 */
+/* 214 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(207);
+	var content = __webpack_require__(215);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(209)(content, {});
+	var update = __webpack_require__(217)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/less-loader/index.js!./common.less", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/less-loader/index.js!./common.less");
+			module.hot.accept("!!./../css-loader/index.js!./reset.css", function() {
+				var newContent = require("!!./../css-loader/index.js!./reset.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -29854,21 +30650,21 @@
 	}
 
 /***/ },
-/* 207 */
+/* 215 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(208)();
+	exports = module.exports = __webpack_require__(216)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "body {\n  font-family: Lato, Arial, Helvetica, sans-serif;\n}\n", ""]);
+	exports.push([module.id, "/*!\n * # Semantic UI 2.1.7 - Reset\n * http://github.com/semantic-org/semantic-ui/\n *\n *\n * Copyright 2015 Contributors\n * Released under the MIT license\n * http://opensource.org/licenses/MIT\n *\n */\n\n\n/*******************************\n             Reset\n*******************************/\n\n\n/* Border-Box */\n*,\n*:before,\n*:after {\n  box-sizing: inherit;\n}\nhtml {\n  box-sizing: border-box;\n}\n\n/* iPad Input Shadows */\ninput[type=\"text\"],\ninput[type=\"email\"],\ninput[type=\"search\"],\ninput[type=\"password\"] {\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  \n/* mobile firefox too! */\n}\n\n\n/*******************************\n         Theme Overrides\n*******************************/\n\n/*! normalize.css v3.0.1 | MIT License | git.io/normalize */\n/**\n * Correct `block` display not defined in IE 8/9.\n */\n/*! normalize.css v3.0.1 | MIT License | git.io/normalize */\n/**\n * 1. Set default font family to sans-serif.\n * 2. Prevent iOS text size adjust after orientation change, without disabling\n *    user zoom.\n */\nhtml {\n  font-family: sans-serif;\n  \n/* 1 */\n  -ms-text-size-adjust: 100%;\n  \n/* 2 */\n  -webkit-text-size-adjust: 100%;\n  \n/* 2 */\n}\n/**\n * Remove default margin.\n */\nbody {\n  margin: 0;\n}\n\n/* HTML5 display definitions\n   ========================================================================== */\n/**\n * Correct `block` display not defined for any HTML5 element in IE 8/9.\n * Correct `block` display not defined for `details` or `summary` in IE 10/11 and Firefox.\n * Correct `block` display not defined for `main` in IE 11.\n */\narticle,\naside,\ndetails,\nfigcaption,\nfigure,\nfooter,\nheader,\nhgroup,\nmain,\nnav,\nsection,\nsummary {\n  display: block;\n}\n/**\n * 1. Correct `inline-block` display not defined in IE 8/9.\n * 2. Normalize vertical alignment of `progress` in Chrome, Firefox, and Opera.\n */\naudio,\ncanvas,\nprogress,\nvideo {\n  display: inline-block;\n  \n/* 1 */\n  vertical-align: baseline;\n  \n/* 2 */\n}\n/**\n * Prevent modern browsers from displaying `audio` without controls.\n * Remove excess height in iOS 5 devices.\n */\naudio:not([controls]) {\n  display: none;\n  height: 0;\n}\n/**\n * Address `[hidden]` styling not present in IE 8/9/10.\n * Hide the `template` element in IE 8/9/11, Safari, and Firefox < 22.\n */\n[hidden],\ntemplate {\n  display: none;\n}\n\n/* Links\n   ========================================================================== */\n/**\n * Remove the gray background color from active links in IE 10.\n */\na {\n  background: transparent;\n}\n/**\n * Improve readability when focused and also mouse hovered in all browsers.\n */\na:active,\na:hover {\n  outline: 0;\n}\n\n/* Text-level semantics\n   ========================================================================== */\n/**\n * Address styling not present in IE 8/9/10/11, Safari, and Chrome.\n */\nabbr[title] {\n  border-bottom: 1px dotted;\n}\n/**\n * Address style set to `bolder` in Firefox 4+, Safari, and Chrome.\n */\nb,\nstrong {\n  font-weight: bold;\n}\n/**\n * Address styling not present in Safari and Chrome.\n */\ndfn {\n  font-style: italic;\n}\n/**\n * Address variable `h1` font-size and margin within `section` and `article`\n * contexts in Firefox 4+, Safari, and Chrome.\n */\nh1 {\n  font-size: 2em;\n  margin: 0.67em 0;\n}\n/**\n * Address styling not present in IE 8/9.\n */\nmark {\n  background: #ff0;\n  color: #000;\n}\n/**\n * Address inconsistent and variable font size in all browsers.\n */\nsmall {\n  font-size: 80%;\n}\n/**\n * Prevent `sub` and `sup` affecting `line-height` in all browsers.\n */\nsub,\nsup {\n  font-size: 75%;\n  line-height: 0;\n  position: relative;\n  vertical-align: baseline;\n}\nsup {\n  top: -0.5em;\n}\nsub {\n  bottom: -0.25em;\n}\n\n/* Embedded content\n   ========================================================================== */\n/**\n * Remove border when inside `a` element in IE 8/9/10.\n */\nimg {\n  border: 0;\n}\n/**\n * Correct overflow not hidden in IE 9/10/11.\n */\nsvg:not(:root) {\n  overflow: hidden;\n}\n\n/* Grouping content\n   ========================================================================== */\n/**\n * Address margin not present in IE 8/9 and Safari.\n */\nfigure {\n  margin: 1em 40px;\n}\n/**\n * Address differences between Firefox and other browsers.\n */\nhr {\n  box-sizing: content-box;\n  height: 0;\n}\n/**\n * Contain overflow in all browsers.\n */\npre {\n  overflow: auto;\n}\n/**\n * Address odd `em`-unit font size rendering in all browsers.\n */\ncode,\nkbd,\npre,\nsamp {\n  font-family: monospace, monospace;\n  font-size: 1em;\n}\n\n/* Forms\n   ========================================================================== */\n/**\n * Known limitation: by default, Chrome and Safari on OS X allow very limited\n * styling of `select`, unless a `border` property is set.\n */\n/**\n * 1. Correct color not being inherited.\n *    Known issue: affects color of disabled elements.\n * 2. Correct font properties not being inherited.\n * 3. Address margins set differently in Firefox 4+, Safari, and Chrome.\n */\nbutton,\ninput,\noptgroup,\nselect,\ntextarea {\n  color: inherit;\n  \n/* 1 */\n  font: inherit;\n  \n/* 2 */\n  margin: 0;\n  \n/* 3 */\n}\n/**\n * Address `overflow` set to `hidden` in IE 8/9/10/11.\n */\nbutton {\n  overflow: visible;\n}\n/**\n * Address inconsistent `text-transform` inheritance for `button` and `select`.\n * All other form control elements do not inherit `text-transform` values.\n * Correct `button` style inheritance in Firefox, IE 8/9/10/11, and Opera.\n * Correct `select` style inheritance in Firefox.\n */\nbutton,\nselect {\n  text-transform: none;\n}\n/**\n * 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`\n *    and `video` controls.\n * 2. Correct inability to style clickable `input` types in iOS.\n * 3. Improve usability and consistency of cursor style between image-type\n *    `input` and others.\n */\nbutton,\nhtml input[type=\"button\"],\ninput[type=\"reset\"],\ninput[type=\"submit\"] {\n  -webkit-appearance: button;\n  \n/* 2 */\n  cursor: pointer;\n  \n/* 3 */\n}\n/**\n * Re-set default cursor for disabled elements.\n */\nbutton[disabled],\nhtml input[disabled] {\n  cursor: default;\n}\n/**\n * Remove inner padding and border in Firefox 4+.\n */\nbutton::-moz-focus-inner,\ninput::-moz-focus-inner {\n  border: 0;\n  padding: 0;\n}\n/**\n * Address Firefox 4+ setting `line-height` on `input` using `!important` in\n * the UA stylesheet.\n */\ninput {\n  line-height: normal;\n}\n/**\n * It's recommended that you don't attempt to style these elements.\n * Firefox's implementation doesn't respect box-sizing, padding, or width.\n *\n * 1. Address box sizing set to `content-box` in IE 8/9/10.\n * 2. Remove excess padding in IE 8/9/10.\n */\ninput[type=\"checkbox\"],\ninput[type=\"radio\"] {\n  box-sizing: border-box;\n  \n/* 1 */\n  padding: 0;\n  \n/* 2 */\n}\n/**\n * Fix the cursor style for Chrome's increment/decrement buttons. For certain\n * `font-size` values of the `input`, it causes the cursor style of the\n * decrement button to change from `default` to `text`.\n */\ninput[type=\"number\"]::-webkit-inner-spin-button,\ninput[type=\"number\"]::-webkit-outer-spin-button {\n  height: auto;\n}\n/**\n * 1. Address `appearance` set to `searchfield` in Safari and Chrome.\n * 2. Address `box-sizing` set to `border-box` in Safari and Chrome\n *    (include `-moz` to future-proof).\n */\ninput[type=\"search\"] {\n  -webkit-appearance: textfield;\n  \n/* 1 */\n  \n/* 2 */\n  box-sizing: content-box;\n}\n/**\n * Remove inner padding and search cancel button in Safari and Chrome on OS X.\n * Safari (but not Chrome) clips the cancel button when the search input has\n * padding (and `textfield` appearance).\n */\ninput[type=\"search\"]::-webkit-search-cancel-button,\ninput[type=\"search\"]::-webkit-search-decoration {\n  -webkit-appearance: none;\n}\n/**\n * Define consistent border, margin, and padding.\n */\nfieldset {\n  border: 1px solid #c0c0c0;\n  margin: 0 2px;\n  padding: 0.35em 0.625em 0.75em;\n}\n/**\n * 1. Correct `color` not being inherited in IE 8/9/10/11.\n * 2. Remove padding so people aren't caught out if they zero out fieldsets.\n */\nlegend {\n  border: 0;\n  \n/* 1 */\n  padding: 0;\n  \n/* 2 */\n}\n/**\n * Remove default vertical scrollbar in IE 8/9/10/11.\n */\ntextarea {\n  overflow: auto;\n}\n/**\n * Don't inherit the `font-weight` (applied by a rule above).\n * NOTE: the default cannot safely be changed in Chrome and Safari on OS X.\n */\noptgroup {\n  font-weight: bold;\n}\n\n/* Tables\n   ========================================================================== */\n/**\n * Remove most spacing between table cells.\n */\ntable {\n  border-collapse: collapse;\n  border-spacing: 0;\n}\ntd,\nth {\n  padding: 0;\n}\n\n\n/*******************************\n         Site Overrides\n*******************************/\n\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 208 */
+/* 216 */
 /***/ function(module, exports) {
 
 	/*
@@ -29924,7 +30720,7 @@
 
 
 /***/ },
-/* 209 */
+/* 217 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -30176,16 +30972,526 @@
 
 
 /***/ },
-/* 210 */
+/* 218 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(211);
+	var content = __webpack_require__(219);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(209)(content, {});
+	var update = __webpack_require__(217)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../css-loader/index.js!./grid.css", function() {
+				var newContent = require("!!./../css-loader/index.js!./grid.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 219 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(216)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "/*!\n * # Semantic UI 2.1.7 - Grid\n * http://github.com/semantic-org/semantic-ui/\n *\n *\n * Copyright 2015 Contributors\n * Released under the MIT license\n * http://opensource.org/licenses/MIT\n *\n */\n\n\n/*******************************\n            Standard\n*******************************/\n\n.ui.grid {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: row;\n      -ms-flex-direction: row;\n          flex-direction: row;\n  -webkit-flex-wrap: wrap;\n      -ms-flex-wrap: wrap;\n          flex-wrap: wrap;\n  -webkit-box-align: stretch;\n  -webkit-align-items: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch;\n  padding: 0em;\n}\n\n/*----------------------\n      Remove Gutters\n-----------------------*/\n\n.ui.grid {\n  margin-top: -1rem;\n  margin-bottom: -1rem;\n  margin-left: -1rem;\n  margin-right: -1rem;\n}\n.ui.relaxed.grid {\n  margin-left: -1.5rem;\n  margin-right: -1.5rem;\n}\n.ui[class*=\"very relaxed\"].grid {\n  margin-left: -2.5rem;\n  margin-right: -2.5rem;\n}\n\n/* Preserve Rows Spacing on Consecutive Grids */\n.ui.grid + .grid {\n  margin-top: 1rem;\n}\n\n/*-------------------\n       Columns\n--------------------*/\n\n\n/* Standard 16 column */\n.ui.grid > .column:not(.row),\n.ui.grid > .row > .column {\n  position: relative;\n  display: inline-block;\n  width: 6.25%;\n  padding-left: 1rem;\n  padding-right: 1rem;\n  vertical-align: top;\n}\n.ui.grid > * {\n  padding-left: 1rem;\n  padding-right: 1rem;\n}\n\n/*-------------------\n        Rows\n--------------------*/\n\n.ui.grid > .row {\n  position: relative;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: row;\n      -ms-flex-direction: row;\n          flex-direction: row;\n  -webkit-flex-wrap: wrap;\n      -ms-flex-wrap: wrap;\n          flex-wrap: wrap;\n  -webkit-box-pack: inherit;\n  -webkit-justify-content: inherit;\n      -ms-flex-pack: inherit;\n          justify-content: inherit;\n  -webkit-box-align: stretch;\n  -webkit-align-items: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch;\n  width: 100% !important;\n  padding: 0rem;\n  padding-top: 1rem;\n  padding-bottom: 1rem;\n}\n\n/*-------------------\n       Columns\n--------------------*/\n\n\n/* Vertical padding when no rows */\n.ui.grid > .column:not(.row) {\n  padding-top: 1rem;\n  padding-bottom: 1rem;\n}\n.ui.grid > .row > .column {\n  margin-top: 0em;\n  margin-bottom: 0em;\n}\n\n/*-------------------\n      Content\n--------------------*/\n\n.ui.grid > .row > img,\n.ui.grid > .row > .column > img {\n  max-width: 100%;\n}\n\n/*-------------------\n    Loose Coupling\n--------------------*/\n\n\n/* Collapse Margin on Consecutive Grid */\n.ui.grid > .ui.grid:first-child {\n  margin-top: 0em;\n}\n.ui.grid > .ui.grid:last-child {\n  margin-bottom: 0em;\n}\n\n/* Segment inside Aligned Grid */\n.ui.grid .aligned.row > .column > .segment:not(.compact):not(.attached),\n.ui.aligned.grid .column > .segment:not(.compact):not(.attached) {\n  width: 100%;\n}\n\n/* Align Dividers with Gutter */\n.ui.grid .row + .ui.divider {\n  -webkit-box-flex: 1;\n  -webkit-flex-grow: 1;\n      -ms-flex-positive: 1;\n          flex-grow: 1;\n  margin: 1rem 1rem;\n}\n.ui.grid .column + .ui.vertical.divider {\n  height: calc(50% -  1rem );\n}\n\n/* Remove Border on Last Horizontal Segment */\n.ui.grid > .row > .column:last-child > .horizontal.segment,\n.ui.grid > .column:last-child > .horizontal.segment {\n  box-shadow: none;\n}\n\n\n/*******************************\n           Variations\n*******************************/\n\n\n/*-----------------------\n       Page Grid\n-------------------------*/\n\n@media only screen and (max-width: 767px) {\n  .ui.page.grid {\n    width: auto;\n    padding-left: 0em;\n    padding-right: 0em;\n    margin-left: 0em;\n    margin-right: 0em;\n  }\n}\n@media only screen and (min-width: 768px) and (max-width: 991px) {\n  .ui.page.grid {\n    width: auto;\n    margin-left: 0em;\n    margin-right: 0em;\n    padding-left: 2em;\n    padding-right: 2em;\n  }\n}\n@media only screen and (min-width: 992px) and (max-width: 1199px) {\n  .ui.page.grid {\n    width: auto;\n    margin-left: 0em;\n    margin-right: 0em;\n    padding-left: 3%;\n    padding-right: 3%;\n  }\n}\n@media only screen and (min-width: 1200px) and (max-width: 1919px) {\n  .ui.page.grid {\n    width: auto;\n    margin-left: 0em;\n    margin-right: 0em;\n    padding-left: 15%;\n    padding-right: 15%;\n  }\n}\n@media only screen and (min-width: 1920px) {\n  .ui.page.grid {\n    width: auto;\n    margin-left: 0em;\n    margin-right: 0em;\n    padding-left: 23%;\n    padding-right: 23%;\n  }\n}\n\n/*-------------------\n     Column Count\n--------------------*/\n\n\n/* Assume full width with one column */\n.ui.grid > .column:only-child,\n.ui.grid > .row > .column:only-child {\n  width: 100%;\n}\n\n/* Grid Based */\n.ui[class*=\"one column\"].grid > .row > .column,\n.ui[class*=\"one column\"].grid > .column:not(.row) {\n  width: 100%;\n}\n.ui[class*=\"two column\"].grid > .row > .column,\n.ui[class*=\"two column\"].grid > .column:not(.row) {\n  width: 50%;\n}\n.ui[class*=\"three column\"].grid > .row > .column,\n.ui[class*=\"three column\"].grid > .column:not(.row) {\n  width: 33.33333333%;\n}\n.ui[class*=\"four column\"].grid > .row > .column,\n.ui[class*=\"four column\"].grid > .column:not(.row) {\n  width: 25%;\n}\n.ui[class*=\"five column\"].grid > .row > .column,\n.ui[class*=\"five column\"].grid > .column:not(.row) {\n  width: 20%;\n}\n.ui[class*=\"six column\"].grid > .row > .column,\n.ui[class*=\"six column\"].grid > .column:not(.row) {\n  width: 16.66666667%;\n}\n.ui[class*=\"seven column\"].grid > .row > .column,\n.ui[class*=\"seven column\"].grid > .column:not(.row) {\n  width: 14.28571429%;\n}\n.ui[class*=\"eight column\"].grid > .row > .column,\n.ui[class*=\"eight column\"].grid > .column:not(.row) {\n  width: 12.5%;\n}\n.ui[class*=\"nine column\"].grid > .row > .column,\n.ui[class*=\"nine column\"].grid > .column:not(.row) {\n  width: 11.11111111%;\n}\n.ui[class*=\"ten column\"].grid > .row > .column,\n.ui[class*=\"ten column\"].grid > .column:not(.row) {\n  width: 10%;\n}\n.ui[class*=\"eleven column\"].grid > .row > .column,\n.ui[class*=\"eleven column\"].grid > .column:not(.row) {\n  width: 9.09090909%;\n}\n.ui[class*=\"twelve column\"].grid > .row > .column,\n.ui[class*=\"twelve column\"].grid > .column:not(.row) {\n  width: 8.33333333%;\n}\n.ui[class*=\"thirteen column\"].grid > .row > .column,\n.ui[class*=\"thirteen column\"].grid > .column:not(.row) {\n  width: 7.69230769%;\n}\n.ui[class*=\"fourteen column\"].grid > .row > .column,\n.ui[class*=\"fourteen column\"].grid > .column:not(.row) {\n  width: 7.14285714%;\n}\n.ui[class*=\"fifteen column\"].grid > .row > .column,\n.ui[class*=\"fifteen column\"].grid > .column:not(.row) {\n  width: 6.66666667%;\n}\n.ui[class*=\"sixteen column\"].grid > .row > .column,\n.ui[class*=\"sixteen column\"].grid > .column:not(.row) {\n  width: 6.25%;\n}\n\n/* Row Based Overrides */\n.ui.grid > [class*=\"one column\"].row > .column {\n  width: 100% !important;\n}\n.ui.grid > [class*=\"two column\"].row > .column {\n  width: 50% !important;\n}\n.ui.grid > [class*=\"three column\"].row > .column {\n  width: 33.33333333% !important;\n}\n.ui.grid > [class*=\"four column\"].row > .column {\n  width: 25% !important;\n}\n.ui.grid > [class*=\"five column\"].row > .column {\n  width: 20% !important;\n}\n.ui.grid > [class*=\"six column\"].row > .column {\n  width: 16.66666667% !important;\n}\n.ui.grid > [class*=\"seven column\"].row > .column {\n  width: 14.28571429% !important;\n}\n.ui.grid > [class*=\"eight column\"].row > .column {\n  width: 12.5% !important;\n}\n.ui.grid > [class*=\"nine column\"].row > .column {\n  width: 11.11111111% !important;\n}\n.ui.grid > [class*=\"ten column\"].row > .column {\n  width: 10% !important;\n}\n.ui.grid > [class*=\"eleven column\"].row > .column {\n  width: 9.09090909% !important;\n}\n.ui.grid > [class*=\"twelve column\"].row > .column {\n  width: 8.33333333% !important;\n}\n.ui.grid > [class*=\"thirteen column\"].row > .column {\n  width: 7.69230769% !important;\n}\n.ui.grid > [class*=\"fourteen column\"].row > .column {\n  width: 7.14285714% !important;\n}\n.ui.grid > [class*=\"fifteen column\"].row > .column {\n  width: 6.66666667% !important;\n}\n.ui.grid > [class*=\"sixteen column\"].row > .column {\n  width: 6.25% !important;\n}\n\n/* Celled Page */\n.ui.celled.page.grid {\n  box-shadow: none;\n}\n\n/*-------------------\n    Column Width\n--------------------*/\n\n\n/* Sizing Combinations */\n.ui.grid > .row > [class*=\"one wide\"].column,\n.ui.grid > .column.row > [class*=\"one wide\"].column,\n.ui.grid > [class*=\"one wide\"].column,\n.ui.column.grid > [class*=\"one wide\"].column {\n  width: 6.25% !important;\n}\n.ui.grid > .row > [class*=\"two wide\"].column,\n.ui.grid > .column.row > [class*=\"two wide\"].column,\n.ui.grid > [class*=\"two wide\"].column,\n.ui.column.grid > [class*=\"two wide\"].column {\n  width: 12.5% !important;\n}\n.ui.grid > .row > [class*=\"three wide\"].column,\n.ui.grid > .column.row > [class*=\"three wide\"].column,\n.ui.grid > [class*=\"three wide\"].column,\n.ui.column.grid > [class*=\"three wide\"].column {\n  width: 18.75% !important;\n}\n.ui.grid > .row > [class*=\"four wide\"].column,\n.ui.grid > .column.row > [class*=\"four wide\"].column,\n.ui.grid > [class*=\"four wide\"].column,\n.ui.column.grid > [class*=\"four wide\"].column {\n  width: 25% !important;\n}\n.ui.grid > .row > [class*=\"five wide\"].column,\n.ui.grid > .column.row > [class*=\"five wide\"].column,\n.ui.grid > [class*=\"five wide\"].column,\n.ui.column.grid > [class*=\"five wide\"].column {\n  width: 31.25% !important;\n}\n.ui.grid > .row > [class*=\"six wide\"].column,\n.ui.grid > .column.row > [class*=\"six wide\"].column,\n.ui.grid > [class*=\"six wide\"].column,\n.ui.column.grid > [class*=\"six wide\"].column {\n  width: 37.5% !important;\n}\n.ui.grid > .row > [class*=\"seven wide\"].column,\n.ui.grid > .column.row > [class*=\"seven wide\"].column,\n.ui.grid > [class*=\"seven wide\"].column,\n.ui.column.grid > [class*=\"seven wide\"].column {\n  width: 43.75% !important;\n}\n.ui.grid > .row > [class*=\"eight wide\"].column,\n.ui.grid > .column.row > [class*=\"eight wide\"].column,\n.ui.grid > [class*=\"eight wide\"].column,\n.ui.column.grid > [class*=\"eight wide\"].column {\n  width: 50% !important;\n}\n.ui.grid > .row > [class*=\"nine wide\"].column,\n.ui.grid > .column.row > [class*=\"nine wide\"].column,\n.ui.grid > [class*=\"nine wide\"].column,\n.ui.column.grid > [class*=\"nine wide\"].column {\n  width: 56.25% !important;\n}\n.ui.grid > .row > [class*=\"ten wide\"].column,\n.ui.grid > .column.row > [class*=\"ten wide\"].column,\n.ui.grid > [class*=\"ten wide\"].column,\n.ui.column.grid > [class*=\"ten wide\"].column {\n  width: 62.5% !important;\n}\n.ui.grid > .row > [class*=\"eleven wide\"].column,\n.ui.grid > .column.row > [class*=\"eleven wide\"].column,\n.ui.grid > [class*=\"eleven wide\"].column,\n.ui.column.grid > [class*=\"eleven wide\"].column {\n  width: 68.75% !important;\n}\n.ui.grid > .row > [class*=\"twelve wide\"].column,\n.ui.grid > .column.row > [class*=\"twelve wide\"].column,\n.ui.grid > [class*=\"twelve wide\"].column,\n.ui.column.grid > [class*=\"twelve wide\"].column {\n  width: 75% !important;\n}\n.ui.grid > .row > [class*=\"thirteen wide\"].column,\n.ui.grid > .column.row > [class*=\"thirteen wide\"].column,\n.ui.grid > [class*=\"thirteen wide\"].column,\n.ui.column.grid > [class*=\"thirteen wide\"].column {\n  width: 81.25% !important;\n}\n.ui.grid > .row > [class*=\"fourteen wide\"].column,\n.ui.grid > .column.row > [class*=\"fourteen wide\"].column,\n.ui.grid > [class*=\"fourteen wide\"].column,\n.ui.column.grid > [class*=\"fourteen wide\"].column {\n  width: 87.5% !important;\n}\n.ui.grid > .row > [class*=\"fifteen wide\"].column,\n.ui.grid > .column.row > [class*=\"fifteen wide\"].column,\n.ui.grid > [class*=\"fifteen wide\"].column,\n.ui.column.grid > [class*=\"fifteen wide\"].column {\n  width: 93.75% !important;\n}\n.ui.grid > .row > [class*=\"sixteen wide\"].column,\n.ui.grid > .column.row > [class*=\"sixteen wide\"].column,\n.ui.grid > [class*=\"sixteen wide\"].column,\n.ui.column.grid > [class*=\"sixteen wide\"].column {\n  width: 100% !important;\n}\n\n/*----------------------\n    Width per Device\n-----------------------*/\n\n\n/* Mobile Sizing Combinations */\n@media only screen and (min-width: 320px) and (max-width: 767px) {\n  .ui.grid > .row > [class*=\"one wide mobile\"].column,\n  .ui.grid > .column.row > [class*=\"one wide mobile\"].column,\n  .ui.grid > [class*=\"one wide mobile\"].column,\n  .ui.column.grid > [class*=\"one wide mobile\"].column {\n    width: 6.25% !important;\n  }\n  .ui.grid > .row > [class*=\"two wide mobile\"].column,\n  .ui.grid > .column.row > [class*=\"two wide mobile\"].column,\n  .ui.grid > [class*=\"two wide mobile\"].column,\n  .ui.column.grid > [class*=\"two wide mobile\"].column {\n    width: 12.5% !important;\n  }\n  .ui.grid > .row > [class*=\"three wide mobile\"].column,\n  .ui.grid > .column.row > [class*=\"three wide mobile\"].column,\n  .ui.grid > [class*=\"three wide mobile\"].column,\n  .ui.column.grid > [class*=\"three wide mobile\"].column {\n    width: 18.75% !important;\n  }\n  .ui.grid > .row > [class*=\"four wide mobile\"].column,\n  .ui.grid > .column.row > [class*=\"four wide mobile\"].column,\n  .ui.grid > [class*=\"four wide mobile\"].column,\n  .ui.column.grid > [class*=\"four wide mobile\"].column {\n    width: 25% !important;\n  }\n  .ui.grid > .row > [class*=\"five wide mobile\"].column,\n  .ui.grid > .column.row > [class*=\"five wide mobile\"].column,\n  .ui.grid > [class*=\"five wide mobile\"].column,\n  .ui.column.grid > [class*=\"five wide mobile\"].column {\n    width: 31.25% !important;\n  }\n  .ui.grid > .row > [class*=\"six wide mobile\"].column,\n  .ui.grid > .column.row > [class*=\"six wide mobile\"].column,\n  .ui.grid > [class*=\"six wide mobile\"].column,\n  .ui.column.grid > [class*=\"six wide mobile\"].column {\n    width: 37.5% !important;\n  }\n  .ui.grid > .row > [class*=\"seven wide mobile\"].column,\n  .ui.grid > .column.row > [class*=\"seven wide mobile\"].column,\n  .ui.grid > [class*=\"seven wide mobile\"].column,\n  .ui.column.grid > [class*=\"seven wide mobile\"].column {\n    width: 43.75% !important;\n  }\n  .ui.grid > .row > [class*=\"eight wide mobile\"].column,\n  .ui.grid > .column.row > [class*=\"eight wide mobile\"].column,\n  .ui.grid > [class*=\"eight wide mobile\"].column,\n  .ui.column.grid > [class*=\"eight wide mobile\"].column {\n    width: 50% !important;\n  }\n  .ui.grid > .row > [class*=\"nine wide mobile\"].column,\n  .ui.grid > .column.row > [class*=\"nine wide mobile\"].column,\n  .ui.grid > [class*=\"nine wide mobile\"].column,\n  .ui.column.grid > [class*=\"nine wide mobile\"].column {\n    width: 56.25% !important;\n  }\n  .ui.grid > .row > [class*=\"ten wide mobile\"].column,\n  .ui.grid > .column.row > [class*=\"ten wide mobile\"].column,\n  .ui.grid > [class*=\"ten wide mobile\"].column,\n  .ui.column.grid > [class*=\"ten wide mobile\"].column {\n    width: 62.5% !important;\n  }\n  .ui.grid > .row > [class*=\"eleven wide mobile\"].column,\n  .ui.grid > .column.row > [class*=\"eleven wide mobile\"].column,\n  .ui.grid > [class*=\"eleven wide mobile\"].column,\n  .ui.column.grid > [class*=\"eleven wide mobile\"].column {\n    width: 68.75% !important;\n  }\n  .ui.grid > .row > [class*=\"twelve wide mobile\"].column,\n  .ui.grid > .column.row > [class*=\"twelve wide mobile\"].column,\n  .ui.grid > [class*=\"twelve wide mobile\"].column,\n  .ui.column.grid > [class*=\"twelve wide mobile\"].column {\n    width: 75% !important;\n  }\n  .ui.grid > .row > [class*=\"thirteen wide mobile\"].column,\n  .ui.grid > .column.row > [class*=\"thirteen wide mobile\"].column,\n  .ui.grid > [class*=\"thirteen wide mobile\"].column,\n  .ui.column.grid > [class*=\"thirteen wide mobile\"].column {\n    width: 81.25% !important;\n  }\n  .ui.grid > .row > [class*=\"fourteen wide mobile\"].column,\n  .ui.grid > .column.row > [class*=\"fourteen wide mobile\"].column,\n  .ui.grid > [class*=\"fourteen wide mobile\"].column,\n  .ui.column.grid > [class*=\"fourteen wide mobile\"].column {\n    width: 87.5% !important;\n  }\n  .ui.grid > .row > [class*=\"fifteen wide mobile\"].column,\n  .ui.grid > .column.row > [class*=\"fifteen wide mobile\"].column,\n  .ui.grid > [class*=\"fifteen wide mobile\"].column,\n  .ui.column.grid > [class*=\"fifteen wide mobile\"].column {\n    width: 93.75% !important;\n  }\n  .ui.grid > .row > [class*=\"sixteen wide mobile\"].column,\n  .ui.grid > .column.row > [class*=\"sixteen wide mobile\"].column,\n  .ui.grid > [class*=\"sixteen wide mobile\"].column,\n  .ui.column.grid > [class*=\"sixteen wide mobile\"].column {\n    width: 100% !important;\n  }\n}\n\n/* Tablet Sizing Combinations */\n@media only screen and (min-width: 768px) and (max-width: 991px) {\n  .ui.grid > .row > [class*=\"one wide tablet\"].column,\n  .ui.grid > .column.row > [class*=\"one wide tablet\"].column,\n  .ui.grid > [class*=\"one wide tablet\"].column,\n  .ui.column.grid > [class*=\"one wide tablet\"].column {\n    width: 6.25% !important;\n  }\n  .ui.grid > .row > [class*=\"two wide tablet\"].column,\n  .ui.grid > .column.row > [class*=\"two wide tablet\"].column,\n  .ui.grid > [class*=\"two wide tablet\"].column,\n  .ui.column.grid > [class*=\"two wide tablet\"].column {\n    width: 12.5% !important;\n  }\n  .ui.grid > .row > [class*=\"three wide tablet\"].column,\n  .ui.grid > .column.row > [class*=\"three wide tablet\"].column,\n  .ui.grid > [class*=\"three wide tablet\"].column,\n  .ui.column.grid > [class*=\"three wide tablet\"].column {\n    width: 18.75% !important;\n  }\n  .ui.grid > .row > [class*=\"four wide tablet\"].column,\n  .ui.grid > .column.row > [class*=\"four wide tablet\"].column,\n  .ui.grid > [class*=\"four wide tablet\"].column,\n  .ui.column.grid > [class*=\"four wide tablet\"].column {\n    width: 25% !important;\n  }\n  .ui.grid > .row > [class*=\"five wide tablet\"].column,\n  .ui.grid > .column.row > [class*=\"five wide tablet\"].column,\n  .ui.grid > [class*=\"five wide tablet\"].column,\n  .ui.column.grid > [class*=\"five wide tablet\"].column {\n    width: 31.25% !important;\n  }\n  .ui.grid > .row > [class*=\"six wide tablet\"].column,\n  .ui.grid > .column.row > [class*=\"six wide tablet\"].column,\n  .ui.grid > [class*=\"six wide tablet\"].column,\n  .ui.column.grid > [class*=\"six wide tablet\"].column {\n    width: 37.5% !important;\n  }\n  .ui.grid > .row > [class*=\"seven wide tablet\"].column,\n  .ui.grid > .column.row > [class*=\"seven wide tablet\"].column,\n  .ui.grid > [class*=\"seven wide tablet\"].column,\n  .ui.column.grid > [class*=\"seven wide tablet\"].column {\n    width: 43.75% !important;\n  }\n  .ui.grid > .row > [class*=\"eight wide tablet\"].column,\n  .ui.grid > .column.row > [class*=\"eight wide tablet\"].column,\n  .ui.grid > [class*=\"eight wide tablet\"].column,\n  .ui.column.grid > [class*=\"eight wide tablet\"].column {\n    width: 50% !important;\n  }\n  .ui.grid > .row > [class*=\"nine wide tablet\"].column,\n  .ui.grid > .column.row > [class*=\"nine wide tablet\"].column,\n  .ui.grid > [class*=\"nine wide tablet\"].column,\n  .ui.column.grid > [class*=\"nine wide tablet\"].column {\n    width: 56.25% !important;\n  }\n  .ui.grid > .row > [class*=\"ten wide tablet\"].column,\n  .ui.grid > .column.row > [class*=\"ten wide tablet\"].column,\n  .ui.grid > [class*=\"ten wide tablet\"].column,\n  .ui.column.grid > [class*=\"ten wide tablet\"].column {\n    width: 62.5% !important;\n  }\n  .ui.grid > .row > [class*=\"eleven wide tablet\"].column,\n  .ui.grid > .column.row > [class*=\"eleven wide tablet\"].column,\n  .ui.grid > [class*=\"eleven wide tablet\"].column,\n  .ui.column.grid > [class*=\"eleven wide tablet\"].column {\n    width: 68.75% !important;\n  }\n  .ui.grid > .row > [class*=\"twelve wide tablet\"].column,\n  .ui.grid > .column.row > [class*=\"twelve wide tablet\"].column,\n  .ui.grid > [class*=\"twelve wide tablet\"].column,\n  .ui.column.grid > [class*=\"twelve wide tablet\"].column {\n    width: 75% !important;\n  }\n  .ui.grid > .row > [class*=\"thirteen wide tablet\"].column,\n  .ui.grid > .column.row > [class*=\"thirteen wide tablet\"].column,\n  .ui.grid > [class*=\"thirteen wide tablet\"].column,\n  .ui.column.grid > [class*=\"thirteen wide tablet\"].column {\n    width: 81.25% !important;\n  }\n  .ui.grid > .row > [class*=\"fourteen wide tablet\"].column,\n  .ui.grid > .column.row > [class*=\"fourteen wide tablet\"].column,\n  .ui.grid > [class*=\"fourteen wide tablet\"].column,\n  .ui.column.grid > [class*=\"fourteen wide tablet\"].column {\n    width: 87.5% !important;\n  }\n  .ui.grid > .row > [class*=\"fifteen wide tablet\"].column,\n  .ui.grid > .column.row > [class*=\"fifteen wide tablet\"].column,\n  .ui.grid > [class*=\"fifteen wide tablet\"].column,\n  .ui.column.grid > [class*=\"fifteen wide tablet\"].column {\n    width: 93.75% !important;\n  }\n  .ui.grid > .row > [class*=\"sixteen wide tablet\"].column,\n  .ui.grid > .column.row > [class*=\"sixteen wide tablet\"].column,\n  .ui.grid > [class*=\"sixteen wide tablet\"].column,\n  .ui.column.grid > [class*=\"sixteen wide tablet\"].column {\n    width: 100% !important;\n  }\n}\n\n/* Computer/Desktop Sizing Combinations */\n@media only screen and (min-width: 992px) {\n  .ui.grid > .row > [class*=\"one wide computer\"].column,\n  .ui.grid > .column.row > [class*=\"one wide computer\"].column,\n  .ui.grid > [class*=\"one wide computer\"].column,\n  .ui.column.grid > [class*=\"one wide computer\"].column {\n    width: 6.25% !important;\n  }\n  .ui.grid > .row > [class*=\"two wide computer\"].column,\n  .ui.grid > .column.row > [class*=\"two wide computer\"].column,\n  .ui.grid > [class*=\"two wide computer\"].column,\n  .ui.column.grid > [class*=\"two wide computer\"].column {\n    width: 12.5% !important;\n  }\n  .ui.grid > .row > [class*=\"three wide computer\"].column,\n  .ui.grid > .column.row > [class*=\"three wide computer\"].column,\n  .ui.grid > [class*=\"three wide computer\"].column,\n  .ui.column.grid > [class*=\"three wide computer\"].column {\n    width: 18.75% !important;\n  }\n  .ui.grid > .row > [class*=\"four wide computer\"].column,\n  .ui.grid > .column.row > [class*=\"four wide computer\"].column,\n  .ui.grid > [class*=\"four wide computer\"].column,\n  .ui.column.grid > [class*=\"four wide computer\"].column {\n    width: 25% !important;\n  }\n  .ui.grid > .row > [class*=\"five wide computer\"].column,\n  .ui.grid > .column.row > [class*=\"five wide computer\"].column,\n  .ui.grid > [class*=\"five wide computer\"].column,\n  .ui.column.grid > [class*=\"five wide computer\"].column {\n    width: 31.25% !important;\n  }\n  .ui.grid > .row > [class*=\"six wide computer\"].column,\n  .ui.grid > .column.row > [class*=\"six wide computer\"].column,\n  .ui.grid > [class*=\"six wide computer\"].column,\n  .ui.column.grid > [class*=\"six wide computer\"].column {\n    width: 37.5% !important;\n  }\n  .ui.grid > .row > [class*=\"seven wide computer\"].column,\n  .ui.grid > .column.row > [class*=\"seven wide computer\"].column,\n  .ui.grid > [class*=\"seven wide computer\"].column,\n  .ui.column.grid > [class*=\"seven wide computer\"].column {\n    width: 43.75% !important;\n  }\n  .ui.grid > .row > [class*=\"eight wide computer\"].column,\n  .ui.grid > .column.row > [class*=\"eight wide computer\"].column,\n  .ui.grid > [class*=\"eight wide computer\"].column,\n  .ui.column.grid > [class*=\"eight wide computer\"].column {\n    width: 50% !important;\n  }\n  .ui.grid > .row > [class*=\"nine wide computer\"].column,\n  .ui.grid > .column.row > [class*=\"nine wide computer\"].column,\n  .ui.grid > [class*=\"nine wide computer\"].column,\n  .ui.column.grid > [class*=\"nine wide computer\"].column {\n    width: 56.25% !important;\n  }\n  .ui.grid > .row > [class*=\"ten wide computer\"].column,\n  .ui.grid > .column.row > [class*=\"ten wide computer\"].column,\n  .ui.grid > [class*=\"ten wide computer\"].column,\n  .ui.column.grid > [class*=\"ten wide computer\"].column {\n    width: 62.5% !important;\n  }\n  .ui.grid > .row > [class*=\"eleven wide computer\"].column,\n  .ui.grid > .column.row > [class*=\"eleven wide computer\"].column,\n  .ui.grid > [class*=\"eleven wide computer\"].column,\n  .ui.column.grid > [class*=\"eleven wide computer\"].column {\n    width: 68.75% !important;\n  }\n  .ui.grid > .row > [class*=\"twelve wide computer\"].column,\n  .ui.grid > .column.row > [class*=\"twelve wide computer\"].column,\n  .ui.grid > [class*=\"twelve wide computer\"].column,\n  .ui.column.grid > [class*=\"twelve wide computer\"].column {\n    width: 75% !important;\n  }\n  .ui.grid > .row > [class*=\"thirteen wide computer\"].column,\n  .ui.grid > .column.row > [class*=\"thirteen wide computer\"].column,\n  .ui.grid > [class*=\"thirteen wide computer\"].column,\n  .ui.column.grid > [class*=\"thirteen wide computer\"].column {\n    width: 81.25% !important;\n  }\n  .ui.grid > .row > [class*=\"fourteen wide computer\"].column,\n  .ui.grid > .column.row > [class*=\"fourteen wide computer\"].column,\n  .ui.grid > [class*=\"fourteen wide computer\"].column,\n  .ui.column.grid > [class*=\"fourteen wide computer\"].column {\n    width: 87.5% !important;\n  }\n  .ui.grid > .row > [class*=\"fifteen wide computer\"].column,\n  .ui.grid > .column.row > [class*=\"fifteen wide computer\"].column,\n  .ui.grid > [class*=\"fifteen wide computer\"].column,\n  .ui.column.grid > [class*=\"fifteen wide computer\"].column {\n    width: 93.75% !important;\n  }\n  .ui.grid > .row > [class*=\"sixteen wide computer\"].column,\n  .ui.grid > .column.row > [class*=\"sixteen wide computer\"].column,\n  .ui.grid > [class*=\"sixteen wide computer\"].column,\n  .ui.column.grid > [class*=\"sixteen wide computer\"].column {\n    width: 100% !important;\n  }\n}\n\n/* Large Monitor Sizing Combinations */\n@media only screen and (min-width: 1200px) and (max-width: 1919px) {\n  .ui.grid > .row > [class*=\"one wide large screen\"].column,\n  .ui.grid > .column.row > [class*=\"one wide large screen\"].column,\n  .ui.grid > [class*=\"one wide large screen\"].column,\n  .ui.column.grid > [class*=\"one wide large screen\"].column {\n    width: 6.25% !important;\n  }\n  .ui.grid > .row > [class*=\"two wide large screen\"].column,\n  .ui.grid > .column.row > [class*=\"two wide large screen\"].column,\n  .ui.grid > [class*=\"two wide large screen\"].column,\n  .ui.column.grid > [class*=\"two wide large screen\"].column {\n    width: 12.5% !important;\n  }\n  .ui.grid > .row > [class*=\"three wide large screen\"].column,\n  .ui.grid > .column.row > [class*=\"three wide large screen\"].column,\n  .ui.grid > [class*=\"three wide large screen\"].column,\n  .ui.column.grid > [class*=\"three wide large screen\"].column {\n    width: 18.75% !important;\n  }\n  .ui.grid > .row > [class*=\"four wide large screen\"].column,\n  .ui.grid > .column.row > [class*=\"four wide large screen\"].column,\n  .ui.grid > [class*=\"four wide large screen\"].column,\n  .ui.column.grid > [class*=\"four wide large screen\"].column {\n    width: 25% !important;\n  }\n  .ui.grid > .row > [class*=\"five wide large screen\"].column,\n  .ui.grid > .column.row > [class*=\"five wide large screen\"].column,\n  .ui.grid > [class*=\"five wide large screen\"].column,\n  .ui.column.grid > [class*=\"five wide large screen\"].column {\n    width: 31.25% !important;\n  }\n  .ui.grid > .row > [class*=\"six wide large screen\"].column,\n  .ui.grid > .column.row > [class*=\"six wide large screen\"].column,\n  .ui.grid > [class*=\"six wide large screen\"].column,\n  .ui.column.grid > [class*=\"six wide large screen\"].column {\n    width: 37.5% !important;\n  }\n  .ui.grid > .row > [class*=\"seven wide large screen\"].column,\n  .ui.grid > .column.row > [class*=\"seven wide large screen\"].column,\n  .ui.grid > [class*=\"seven wide large screen\"].column,\n  .ui.column.grid > [class*=\"seven wide large screen\"].column {\n    width: 43.75% !important;\n  }\n  .ui.grid > .row > [class*=\"eight wide large screen\"].column,\n  .ui.grid > .column.row > [class*=\"eight wide large screen\"].column,\n  .ui.grid > [class*=\"eight wide large screen\"].column,\n  .ui.column.grid > [class*=\"eight wide large screen\"].column {\n    width: 50% !important;\n  }\n  .ui.grid > .row > [class*=\"nine wide large screen\"].column,\n  .ui.grid > .column.row > [class*=\"nine wide large screen\"].column,\n  .ui.grid > [class*=\"nine wide large screen\"].column,\n  .ui.column.grid > [class*=\"nine wide large screen\"].column {\n    width: 56.25% !important;\n  }\n  .ui.grid > .row > [class*=\"ten wide large screen\"].column,\n  .ui.grid > .column.row > [class*=\"ten wide large screen\"].column,\n  .ui.grid > [class*=\"ten wide large screen\"].column,\n  .ui.column.grid > [class*=\"ten wide large screen\"].column {\n    width: 62.5% !important;\n  }\n  .ui.grid > .row > [class*=\"eleven wide large screen\"].column,\n  .ui.grid > .column.row > [class*=\"eleven wide large screen\"].column,\n  .ui.grid > [class*=\"eleven wide large screen\"].column,\n  .ui.column.grid > [class*=\"eleven wide large screen\"].column {\n    width: 68.75% !important;\n  }\n  .ui.grid > .row > [class*=\"twelve wide large screen\"].column,\n  .ui.grid > .column.row > [class*=\"twelve wide large screen\"].column,\n  .ui.grid > [class*=\"twelve wide large screen\"].column,\n  .ui.column.grid > [class*=\"twelve wide large screen\"].column {\n    width: 75% !important;\n  }\n  .ui.grid > .row > [class*=\"thirteen wide large screen\"].column,\n  .ui.grid > .column.row > [class*=\"thirteen wide large screen\"].column,\n  .ui.grid > [class*=\"thirteen wide large screen\"].column,\n  .ui.column.grid > [class*=\"thirteen wide large screen\"].column {\n    width: 81.25% !important;\n  }\n  .ui.grid > .row > [class*=\"fourteen wide large screen\"].column,\n  .ui.grid > .column.row > [class*=\"fourteen wide large screen\"].column,\n  .ui.grid > [class*=\"fourteen wide large screen\"].column,\n  .ui.column.grid > [class*=\"fourteen wide large screen\"].column {\n    width: 87.5% !important;\n  }\n  .ui.grid > .row > [class*=\"fifteen wide large screen\"].column,\n  .ui.grid > .column.row > [class*=\"fifteen wide large screen\"].column,\n  .ui.grid > [class*=\"fifteen wide large screen\"].column,\n  .ui.column.grid > [class*=\"fifteen wide large screen\"].column {\n    width: 93.75% !important;\n  }\n  .ui.grid > .row > [class*=\"sixteen wide large screen\"].column,\n  .ui.grid > .column.row > [class*=\"sixteen wide large screen\"].column,\n  .ui.grid > [class*=\"sixteen wide large screen\"].column,\n  .ui.column.grid > [class*=\"sixteen wide large screen\"].column {\n    width: 100% !important;\n  }\n}\n\n/* Widescreen Sizing Combinations */\n@media only screen and (min-width: 1920px) {\n  .ui.grid > .row > [class*=\"one wide widescreen\"].column,\n  .ui.grid > .column.row > [class*=\"one wide widescreen\"].column,\n  .ui.grid > [class*=\"one wide widescreen\"].column,\n  .ui.column.grid > [class*=\"one wide widescreen\"].column {\n    width: 6.25% !important;\n  }\n  .ui.grid > .row > [class*=\"two wide widescreen\"].column,\n  .ui.grid > .column.row > [class*=\"two wide widescreen\"].column,\n  .ui.grid > [class*=\"two wide widescreen\"].column,\n  .ui.column.grid > [class*=\"two wide widescreen\"].column {\n    width: 12.5% !important;\n  }\n  .ui.grid > .row > [class*=\"three wide widescreen\"].column,\n  .ui.grid > .column.row > [class*=\"three wide widescreen\"].column,\n  .ui.grid > [class*=\"three wide widescreen\"].column,\n  .ui.column.grid > [class*=\"three wide widescreen\"].column {\n    width: 18.75% !important;\n  }\n  .ui.grid > .row > [class*=\"four wide widescreen\"].column,\n  .ui.grid > .column.row > [class*=\"four wide widescreen\"].column,\n  .ui.grid > [class*=\"four wide widescreen\"].column,\n  .ui.column.grid > [class*=\"four wide widescreen\"].column {\n    width: 25% !important;\n  }\n  .ui.grid > .row > [class*=\"five wide widescreen\"].column,\n  .ui.grid > .column.row > [class*=\"five wide widescreen\"].column,\n  .ui.grid > [class*=\"five wide widescreen\"].column,\n  .ui.column.grid > [class*=\"five wide widescreen\"].column {\n    width: 31.25% !important;\n  }\n  .ui.grid > .row > [class*=\"six wide widescreen\"].column,\n  .ui.grid > .column.row > [class*=\"six wide widescreen\"].column,\n  .ui.grid > [class*=\"six wide widescreen\"].column,\n  .ui.column.grid > [class*=\"six wide widescreen\"].column {\n    width: 37.5% !important;\n  }\n  .ui.grid > .row > [class*=\"seven wide widescreen\"].column,\n  .ui.grid > .column.row > [class*=\"seven wide widescreen\"].column,\n  .ui.grid > [class*=\"seven wide widescreen\"].column,\n  .ui.column.grid > [class*=\"seven wide widescreen\"].column {\n    width: 43.75% !important;\n  }\n  .ui.grid > .row > [class*=\"eight wide widescreen\"].column,\n  .ui.grid > .column.row > [class*=\"eight wide widescreen\"].column,\n  .ui.grid > [class*=\"eight wide widescreen\"].column,\n  .ui.column.grid > [class*=\"eight wide widescreen\"].column {\n    width: 50% !important;\n  }\n  .ui.grid > .row > [class*=\"nine wide widescreen\"].column,\n  .ui.grid > .column.row > [class*=\"nine wide widescreen\"].column,\n  .ui.grid > [class*=\"nine wide widescreen\"].column,\n  .ui.column.grid > [class*=\"nine wide widescreen\"].column {\n    width: 56.25% !important;\n  }\n  .ui.grid > .row > [class*=\"ten wide widescreen\"].column,\n  .ui.grid > .column.row > [class*=\"ten wide widescreen\"].column,\n  .ui.grid > [class*=\"ten wide widescreen\"].column,\n  .ui.column.grid > [class*=\"ten wide widescreen\"].column {\n    width: 62.5% !important;\n  }\n  .ui.grid > .row > [class*=\"eleven wide widescreen\"].column,\n  .ui.grid > .column.row > [class*=\"eleven wide widescreen\"].column,\n  .ui.grid > [class*=\"eleven wide widescreen\"].column,\n  .ui.column.grid > [class*=\"eleven wide widescreen\"].column {\n    width: 68.75% !important;\n  }\n  .ui.grid > .row > [class*=\"twelve wide widescreen\"].column,\n  .ui.grid > .column.row > [class*=\"twelve wide widescreen\"].column,\n  .ui.grid > [class*=\"twelve wide widescreen\"].column,\n  .ui.column.grid > [class*=\"twelve wide widescreen\"].column {\n    width: 75% !important;\n  }\n  .ui.grid > .row > [class*=\"thirteen wide widescreen\"].column,\n  .ui.grid > .column.row > [class*=\"thirteen wide widescreen\"].column,\n  .ui.grid > [class*=\"thirteen wide widescreen\"].column,\n  .ui.column.grid > [class*=\"thirteen wide widescreen\"].column {\n    width: 81.25% !important;\n  }\n  .ui.grid > .row > [class*=\"fourteen wide widescreen\"].column,\n  .ui.grid > .column.row > [class*=\"fourteen wide widescreen\"].column,\n  .ui.grid > [class*=\"fourteen wide widescreen\"].column,\n  .ui.column.grid > [class*=\"fourteen wide widescreen\"].column {\n    width: 87.5% !important;\n  }\n  .ui.grid > .row > [class*=\"fifteen wide widescreen\"].column,\n  .ui.grid > .column.row > [class*=\"fifteen wide widescreen\"].column,\n  .ui.grid > [class*=\"fifteen wide widescreen\"].column,\n  .ui.column.grid > [class*=\"fifteen wide widescreen\"].column {\n    width: 93.75% !important;\n  }\n  .ui.grid > .row > [class*=\"sixteen wide widescreen\"].column,\n  .ui.grid > .column.row > [class*=\"sixteen wide widescreen\"].column,\n  .ui.grid > [class*=\"sixteen wide widescreen\"].column,\n  .ui.column.grid > [class*=\"sixteen wide widescreen\"].column {\n    width: 100% !important;\n  }\n}\n\n/*----------------------\n        Centered\n-----------------------*/\n\n.ui.centered.grid,\n.ui.centered.grid > .row,\n.ui.grid > .centered.row {\n  text-align: center;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n}\n.ui.centered.grid > .column:not(.aligned):not(.row),\n.ui.centered.grid > .row > .column:not(.aligned),\n.ui.grid .centered.row > .column:not(.aligned) {\n  text-align: left;\n}\n.ui.grid > .centered.column,\n.ui.grid > .row > .centered.column {\n  display: block;\n  margin-left: auto;\n  margin-right: auto;\n}\n\n/*----------------------\n        Relaxed\n-----------------------*/\n\n.ui.relaxed.grid > .column:not(.row),\n.ui.relaxed.grid > .row > .column,\n.ui.grid > .relaxed.row > .column {\n  padding-left: 1.5rem;\n  padding-right: 1.5rem;\n}\n.ui[class*=\"very relaxed\"].grid > .column:not(.row),\n.ui[class*=\"very relaxed\"].grid > .row > .column,\n.ui.grid > [class*=\"very relaxed\"].row > .column {\n  padding-left: 2.5rem;\n  padding-right: 2.5rem;\n}\n\n/* Coupling with UI Divider */\n.ui.relaxed.grid .row + .ui.divider,\n.ui.grid .relaxed.row + .ui.divider {\n  margin-left: 1.5rem;\n  margin-right: 1.5rem;\n}\n.ui[class*=\"very relaxed\"].grid .row + .ui.divider,\n.ui.grid [class*=\"very relaxed\"].row + .ui.divider {\n  margin-left: 2.5rem;\n  margin-right: 2.5rem;\n}\n\n/*----------------------\n        Padded\n-----------------------*/\n\n.ui.padded.grid:not(.vertically):not(.horizontally) {\n  margin: 0em !important;\n}\n[class*=\"horizontally padded\"].ui.grid {\n  margin-left: 0em !important;\n  margin-right: 0em !important;\n}\n[class*=\"vertically padded\"].ui.grid {\n  margin-top: 0em !important;\n  margin-bottom: 0em !important;\n}\n\n/*----------------------\n       \"Floated\"\n-----------------------*/\n\n.ui.grid [class*=\"left floated\"].column {\n  margin-right: auto;\n}\n.ui.grid [class*=\"right floated\"].column {\n  margin-left: auto;\n}\n\n/*----------------------\n        Divided\n-----------------------*/\n\n.ui.divided.grid:not([class*=\"vertically divided\"]) > .column:not(.row),\n.ui.divided.grid:not([class*=\"vertically divided\"]) > .row > .column {\n  box-shadow: -1px 0px 0px 0px rgba(34, 36, 38, 0.15);\n}\n\n/* Swap from padding to margin on columns to have dividers align */\n.ui[class*=\"vertically divided\"].grid > .column:not(.row),\n.ui[class*=\"vertically divided\"].grid > .row > .column {\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n  padding-top: 0rem;\n  padding-bottom: 0rem;\n}\n.ui[class*=\"vertically divided\"].grid > .row {\n  margin-top: 0em;\n  margin-bottom: 0em;\n}\n\n/* No divider on first column on row */\n.ui.divided.grid:not([class*=\"vertically divided\"]) > .column:first-child,\n.ui.divided.grid:not([class*=\"vertically divided\"]) > .row > .column:first-child {\n  box-shadow: none;\n}\n\n/* Divided Row */\n.ui.grid > .divided.row > .column {\n  box-shadow: -1px 0px 0px 0px rgba(34, 36, 38, 0.15);\n}\n.ui.grid > .divided.row > .column:first-child {\n  box-shadow: none;\n}\n\n/* Vertically Divided */\n.ui[class*=\"vertically divided\"].grid > .row {\n  position: relative;\n}\n.ui[class*=\"vertically divided\"].grid > .row:before {\n  position: absolute;\n  content: \"\";\n  top: 0em;\n  left: 0px;\n  width: calc(100% -  2rem );\n  height: 1px;\n  margin: 0% 1rem;\n  box-shadow: 0px -1px 0px 0px rgba(34, 36, 38, 0.15);\n}\n\n/* Padded Horizontally Divided */\n[class*=\"horizontally padded\"].ui.divided.grid,\n.ui.padded.divided.grid:not(.vertically):not(.horizontally) {\n  width: 100%;\n}\n\n/* First Row Vertically Divided */\n.ui[class*=\"vertically divided\"].grid > .row:first-child:before {\n  box-shadow: none;\n}\n\n/* Inverted Divided */\n.ui.inverted.divided.grid:not([class*=\"vertically divided\"]) > .column:not(.row),\n.ui.inverted.divided.grid:not([class*=\"vertically divided\"]) > .row > .column {\n  box-shadow: -1px 0px 0px 0px rgba(255, 255, 255, 0.1);\n}\n.ui.inverted.divided.grid:not([class*=\"vertically divided\"]) > .column:not(.row):first-child,\n.ui.inverted.divided.grid:not([class*=\"vertically divided\"]) > .row > .column:first-child {\n  box-shadow: none;\n}\n.ui.inverted[class*=\"vertically divided\"].grid > .row:before {\n  box-shadow: 0px -1px 0px 0px rgba(255, 255, 255, 0.1);\n}\n\n/* Relaxed */\n.ui.relaxed[class*=\"vertically divided\"].grid > .row:before {\n  margin-left: 1.5rem;\n  margin-right: 1.5rem;\n  width: calc(100% -  3rem );\n}\n.ui[class*=\"very relaxed\"][class*=\"vertically divided\"].grid > .row:before {\n  margin-left: 5rem;\n  margin-right: 5rem;\n  width: calc(100% -  5rem );\n}\n\n/*----------------------\n         Celled\n-----------------------*/\n\n.ui.celled.grid {\n  width: 100%;\n  margin: 1em 0em;\n  box-shadow: 0px 0px 0px 1px #D4D4D5;\n}\n.ui.celled.grid > .row {\n  width: 100% !important;\n  margin: 0em;\n  padding: 0em;\n  box-shadow: 0px -1px 0px 0px #D4D4D5;\n}\n.ui.celled.grid > .column:not(.row),\n.ui.celled.grid > .row > .column {\n  box-shadow: -1px 0px 0px 0px #D4D4D5;\n}\n.ui.celled.grid > .column:first-child,\n.ui.celled.grid > .row > .column:first-child {\n  box-shadow: none;\n}\n.ui.celled.grid > .column:not(.row),\n.ui.celled.grid > .row > .column {\n  padding: 1em;\n}\n.ui.relaxed.celled.grid > .column:not(.row),\n.ui.relaxed.celled.grid > .row > .column {\n  padding: 1.5em;\n}\n.ui[class*=\"very relaxed\"].celled.grid > .column:not(.row),\n.ui[class*=\"very relaxed\"].celled.grid > .row > .column {\n  padding: 2em;\n}\n\n/* Internally Celled */\n.ui[class*=\"internally celled\"].grid {\n  box-shadow: none;\n  margin: 0em;\n}\n.ui[class*=\"internally celled\"].grid > .row:first-child {\n  box-shadow: none;\n}\n.ui[class*=\"internally celled\"].grid > .row > .column:first-child {\n  box-shadow: none;\n}\n\n/*----------------------\n   Vertically Aligned\n-----------------------*/\n\n\n/* Top Aligned */\n.ui[class*=\"top aligned\"].grid > .column:not(.row),\n.ui[class*=\"top aligned\"].grid > .row > .column,\n.ui.grid > [class*=\"top aligned\"].row > .column,\n.ui.grid > [class*=\"top aligned\"].column:not(.row),\n.ui.grid > .row > [class*=\"top aligned\"].column {\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: column;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  vertical-align: top;\n  -webkit-align-self: flex-start !important;\n      -ms-flex-item-align: start !important;\n          align-self: flex-start !important;\n}\n\n/* Middle Aligned */\n.ui[class*=\"middle aligned\"].grid > .column:not(.row),\n.ui[class*=\"middle aligned\"].grid > .row > .column,\n.ui.grid > [class*=\"middle aligned\"].row > .column,\n.ui.grid > [class*=\"middle aligned\"].column:not(.row),\n.ui.grid > .row > [class*=\"middle aligned\"].column {\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: column;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  vertical-align: middle;\n  -webkit-align-self: center !important;\n      -ms-flex-item-align: center !important;\n          align-self: center !important;\n}\n\n/* Bottom Aligned */\n.ui[class*=\"bottom aligned\"].grid > .column:not(.row),\n.ui[class*=\"bottom aligned\"].grid > .row > .column,\n.ui.grid > [class*=\"bottom aligned\"].row > .column,\n.ui.grid > [class*=\"bottom aligned\"].column:not(.row),\n.ui.grid > .row > [class*=\"bottom aligned\"].column {\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: column;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  vertical-align: bottom;\n  -webkit-align-self: flex-end !important;\n      -ms-flex-item-align: end !important;\n          align-self: flex-end !important;\n}\n\n/* Stretched */\n.ui.stretched.grid > .row > .column,\n.ui.stretched.grid > .column,\n.ui.grid > .stretched.row > .column,\n.ui.grid > .stretched.column:not(.row),\n.ui.grid > .row > .stretched.column {\n  display: -webkit-inline-box !important;\n  display: -webkit-inline-flex !important;\n  display: -ms-inline-flexbox !important;\n  display: inline-flex !important;\n  -webkit-align-self: stretch;\n      -ms-flex-item-align: stretch;\n          align-self: stretch;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: column;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.ui.stretched.grid > .row > .column > *,\n.ui.stretched.grid > .column > *,\n.ui.grid > .stretched.row > .column > *,\n.ui.grid > .stretched.column:not(.row) > *,\n.ui.grid > .row > .stretched.column > * {\n  -webkit-box-flex: 1;\n  -webkit-flex-grow: 1;\n      -ms-flex-positive: 1;\n          flex-grow: 1;\n}\n\n/*----------------------\n  Horizontally Centered\n-----------------------*/\n\n\n/* Left Aligned */\n.ui[class*=\"left aligned\"].grid > .column,\n.ui[class*=\"left aligned\"].grid > .row > .column,\n.ui.grid > [class*=\"left aligned\"].row > .column,\n.ui.grid > [class*=\"left aligned\"].column.column,\n.ui.grid > .row > [class*=\"left aligned\"].column {\n  text-align: left;\n  -webkit-align-self: inherit;\n      -ms-flex-item-align: inherit;\n          align-self: inherit;\n}\n\n/* Center Aligned */\n.ui[class*=\"center aligned\"].grid > .column,\n.ui[class*=\"center aligned\"].grid > .row > .column,\n.ui.grid > [class*=\"center aligned\"].row > .column,\n.ui.grid > [class*=\"center aligned\"].column.column,\n.ui.grid > .row > [class*=\"center aligned\"].column {\n  text-align: center;\n  -webkit-align-self: inherit;\n      -ms-flex-item-align: inherit;\n          align-self: inherit;\n}\n.ui[class*=\"center aligned\"].grid {\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n}\n\n/* Right Aligned */\n.ui[class*=\"right aligned\"].grid > .column,\n.ui[class*=\"right aligned\"].grid > .row > .column,\n.ui.grid > [class*=\"right aligned\"].row > .column,\n.ui.grid > [class*=\"right aligned\"].column.column,\n.ui.grid > .row > [class*=\"right aligned\"].column {\n  text-align: right;\n  -webkit-align-self: inherit;\n      -ms-flex-item-align: inherit;\n          align-self: inherit;\n}\n\n/* Justified */\n.ui.justified.grid > .column,\n.ui.justified.grid > .row > .column,\n.ui.grid > .justified.row > .column,\n.ui.grid > .justified.column.column,\n.ui.grid > .row > .justified.column {\n  text-align: justify;\n  -webkit-hyphens: auto;\n     -moz-hyphens: auto;\n      -ms-hyphens: auto;\n          hyphens: auto;\n}\n\n/*----------------------\n         Colored\n-----------------------*/\n\n.ui.grid > .row > .red.column,\n.ui.grid > .row > .orange.column,\n.ui.grid > .row > .yellow.column,\n.ui.grid > .row > .olive.column,\n.ui.grid > .row > .green.column,\n.ui.grid > .row > .teal.column,\n.ui.grid > .row > .blue.column,\n.ui.grid > .row > .violet.column,\n.ui.grid > .row > .purple.column,\n.ui.grid > .row > .pink.column,\n.ui.grid > .row > .brown.column,\n.ui.grid > .row > .grey.column,\n.ui.grid > .row > .black.column {\n  margin-top: -1rem;\n  margin-bottom: -1rem;\n  padding-top: 1rem;\n  padding-bottom: 1rem;\n}\n\n/* Red */\n.ui.grid > .red.row,\n.ui.grid > .red.column,\n.ui.grid > .row > .red.column {\n  background-color: #DB2828 !important;\n  color: #FFFFFF;\n}\n\n/* Orange */\n.ui.grid > .orange.row,\n.ui.grid > .orange.column,\n.ui.grid > .row > .orange.column {\n  background-color: #F2711C !important;\n  color: #FFFFFF;\n}\n\n/* Yellow */\n.ui.grid > .yellow.row,\n.ui.grid > .yellow.column,\n.ui.grid > .row > .yellow.column {\n  background-color: #FBBD08 !important;\n  color: #FFFFFF;\n}\n\n/* Olive */\n.ui.grid > .olive.row,\n.ui.grid > .olive.column,\n.ui.grid > .row > .olive.column {\n  background-color: #B5CC18 !important;\n  color: #FFFFFF;\n}\n\n/* Green */\n.ui.grid > .green.row,\n.ui.grid > .green.column,\n.ui.grid > .row > .green.column {\n  background-color: #21BA45 !important;\n  color: #FFFFFF;\n}\n\n/* Teal */\n.ui.grid > .teal.row,\n.ui.grid > .teal.column,\n.ui.grid > .row > .teal.column {\n  background-color: #00B5AD !important;\n  color: #FFFFFF;\n}\n\n/* Blue */\n.ui.grid > .blue.row,\n.ui.grid > .blue.column,\n.ui.grid > .row > .blue.column {\n  background-color: #2185D0 !important;\n  color: #FFFFFF;\n}\n\n/* Violet */\n.ui.grid > .violet.row,\n.ui.grid > .violet.column,\n.ui.grid > .row > .violet.column {\n  background-color: #6435C9 !important;\n  color: #FFFFFF;\n}\n\n/* Purple */\n.ui.grid > .purple.row,\n.ui.grid > .purple.column,\n.ui.grid > .row > .purple.column {\n  background-color: #A333C8 !important;\n  color: #FFFFFF;\n}\n\n/* Pink */\n.ui.grid > .pink.row,\n.ui.grid > .pink.column,\n.ui.grid > .row > .pink.column {\n  background-color: #E03997 !important;\n  color: #FFFFFF;\n}\n\n/* Brown */\n.ui.grid > .brown.row,\n.ui.grid > .brown.column,\n.ui.grid > .row > .brown.column {\n  background-color: #A5673F !important;\n  color: #FFFFFF;\n}\n\n/* Grey */\n.ui.grid > .grey.row,\n.ui.grid > .grey.column,\n.ui.grid > .row > .grey.column {\n  background-color: #767676 !important;\n  color: #FFFFFF;\n}\n\n/* Black */\n.ui.grid > .black.row,\n.ui.grid > .black.column,\n.ui.grid > .row > .black.column {\n  background-color: #1B1C1D !important;\n  color: #FFFFFF;\n}\n\n/*----------------------\n      Equal Width\n-----------------------*/\n\n.ui[class*=\"equal width\"].grid > .column:not(.row),\n.ui[class*=\"equal width\"].grid > .row > .column,\n.ui.grid > [class*=\"equal width\"].row > .column {\n  display: inline-block;\n  -webkit-box-flex: 1;\n  -webkit-flex-grow: 1;\n      -ms-flex-positive: 1;\n          flex-grow: 1;\n}\n.ui[class*=\"equal width\"].grid > .wide.column,\n.ui[class*=\"equal width\"].grid > .row > .wide.column,\n.ui.grid > [class*=\"equal width\"].row > .wide.column {\n  -webkit-box-flex: 0;\n  -webkit-flex-grow: 0;\n      -ms-flex-positive: 0;\n          flex-grow: 0;\n}\n\n/*----------------------\n        Reverse\n-----------------------*/\n\n\n/* Mobile */\n@media only screen and (max-width: 767px) {\n  .ui[class*=\"mobile reversed\"].grid,\n  .ui[class*=\"mobile reversed\"].grid > .row,\n  .ui.grid > [class*=\"mobile reversed\"].row {\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: reverse;\n    -webkit-flex-direction: row-reverse;\n        -ms-flex-direction: row-reverse;\n            flex-direction: row-reverse;\n  }\n  .ui[class*=\"mobile vertically reversed\"].grid,\n  .ui.stackable[class*=\"mobile reversed\"] {\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: reverse;\n    -webkit-flex-direction: column-reverse;\n        -ms-flex-direction: column-reverse;\n            flex-direction: column-reverse;\n  }\n  \n/* Divided Reversed */\n  .ui[class*=\"mobile reversed\"].divided.grid:not([class*=\"vertically divided\"]) > .column:first-child,\n  .ui[class*=\"mobile reversed\"].divided.grid:not([class*=\"vertically divided\"]) > .row > .column:first-child {\n    box-shadow: -1px 0px 0px 0px rgba(34, 36, 38, 0.15);\n  }\n  .ui[class*=\"mobile reversed\"].divided.grid:not([class*=\"vertically divided\"]) > .column:last-child,\n  .ui[class*=\"mobile reversed\"].divided.grid:not([class*=\"vertically divided\"]) > .row > .column:last-child {\n    box-shadow: none;\n  }\n  \n/* Vertically Divided Reversed */\n  .ui.grid[class*=\"vertically divided\"][class*=\"mobile vertically reversed\"] > .row:first-child:before {\n    box-shadow: 0px -1px 0px 0px rgba(34, 36, 38, 0.15);\n  }\n  .ui.grid[class*=\"vertically divided\"][class*=\"mobile vertically reversed\"] > .row:last-child:before {\n    box-shadow: none;\n  }\n  \n/* Celled Reversed */\n  .ui[class*=\"mobile reversed\"].celled.grid > .row > .column:first-child {\n    box-shadow: -1px 0px 0px 0px #D4D4D5;\n  }\n  .ui[class*=\"mobile reversed\"].celled.grid > .row > .column:last-child {\n    box-shadow: none;\n  }\n}\n\n/* Tablet */\n@media only screen and (min-width: 768px) and (max-width: 991px) {\n  .ui[class*=\"tablet reversed\"].grid,\n  .ui[class*=\"tablet reversed\"].grid > .row,\n  .ui.grid > [class*=\"tablet reversed\"].row {\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: reverse;\n    -webkit-flex-direction: row-reverse;\n        -ms-flex-direction: row-reverse;\n            flex-direction: row-reverse;\n  }\n  .ui[class*=\"tablet vertically reversed\"].grid {\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: reverse;\n    -webkit-flex-direction: column-reverse;\n        -ms-flex-direction: column-reverse;\n            flex-direction: column-reverse;\n  }\n  \n/* Divided Reversed */\n  .ui[class*=\"tablet reversed\"].divided.grid:not([class*=\"vertically divided\"]) > .column:first-child,\n  .ui[class*=\"tablet reversed\"].divided.grid:not([class*=\"vertically divided\"]) > .row > .column:first-child {\n    box-shadow: -1px 0px 0px 0px rgba(34, 36, 38, 0.15);\n  }\n  .ui[class*=\"tablet reversed\"].divided.grid:not([class*=\"vertically divided\"]) > .column:last-child,\n  .ui[class*=\"tablet reversed\"].divided.grid:not([class*=\"vertically divided\"]) > .row > .column:last-child {\n    box-shadow: none;\n  }\n  \n/* Vertically Divided Reversed */\n  .ui.grid[class*=\"vertically divided\"][class*=\"tablet vertically reversed\"] > .row:first-child:before {\n    box-shadow: 0px -1px 0px 0px rgba(34, 36, 38, 0.15);\n  }\n  .ui.grid[class*=\"vertically divided\"][class*=\"tablet vertically reversed\"] > .row:last-child:before {\n    box-shadow: none;\n  }\n  \n/* Celled Reversed */\n  .ui[class*=\"tablet reversed\"].celled.grid > .row > .column:first-child {\n    box-shadow: -1px 0px 0px 0px #D4D4D5;\n  }\n  .ui[class*=\"tablet reversed\"].celled.grid > .row > .column:last-child {\n    box-shadow: none;\n  }\n}\n\n/* Computer */\n@media only screen and (min-width: 992px) {\n  .ui[class*=\"computer reversed\"].grid,\n  .ui[class*=\"computer reversed\"].grid > .row,\n  .ui.grid > [class*=\"computer reversed\"].row {\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: reverse;\n    -webkit-flex-direction: row-reverse;\n        -ms-flex-direction: row-reverse;\n            flex-direction: row-reverse;\n  }\n  .ui[class*=\"computer vertically reversed\"].grid {\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: reverse;\n    -webkit-flex-direction: column-reverse;\n        -ms-flex-direction: column-reverse;\n            flex-direction: column-reverse;\n  }\n  \n/* Divided Reversed */\n  .ui[class*=\"computer reversed\"].divided.grid:not([class*=\"vertically divided\"]) > .column:first-child,\n  .ui[class*=\"computer reversed\"].divided.grid:not([class*=\"vertically divided\"]) > .row > .column:first-child {\n    box-shadow: -1px 0px 0px 0px rgba(34, 36, 38, 0.15);\n  }\n  .ui[class*=\"computer reversed\"].divided.grid:not([class*=\"vertically divided\"]) > .column:last-child,\n  .ui[class*=\"computer reversed\"].divided.grid:not([class*=\"vertically divided\"]) > .row > .column:last-child {\n    box-shadow: none;\n  }\n  \n/* Vertically Divided Reversed */\n  .ui.grid[class*=\"vertically divided\"][class*=\"computer vertically reversed\"] > .row:first-child:before {\n    box-shadow: 0px -1px 0px 0px rgba(34, 36, 38, 0.15);\n  }\n  .ui.grid[class*=\"vertically divided\"][class*=\"computer vertically reversed\"] > .row:last-child:before {\n    box-shadow: none;\n  }\n  \n/* Celled Reversed */\n  .ui[class*=\"computer reversed\"].celled.grid > .row > .column:first-child {\n    box-shadow: -1px 0px 0px 0px #D4D4D5;\n  }\n  .ui[class*=\"computer reversed\"].celled.grid > .row > .column:last-child {\n    box-shadow: none;\n  }\n}\n\n/*-------------------\n      Doubling\n--------------------*/\n\n\n/* Tablet Only */\n@media only screen and (min-width: 768px) and (max-width: 991px) {\n  .ui.doubling.grid {\n    width: auto;\n  }\n  .ui.grid > .doubling.row,\n  .ui.doubling.grid > .row {\n    margin: 0em !important;\n    padding: 0em !important;\n  }\n  .ui.grid > .doubling.row > .column,\n  .ui.doubling.grid > .row > .column {\n    display: inline-block !important;\n    padding-top: 1rem !important;\n    padding-bottom: 1rem !important;\n    box-shadow: none !important;\n    margin: 0em;\n  }\n  .ui[class*=\"two column\"].doubling.grid > .row > .column,\n  .ui[class*=\"two column\"].doubling.grid > .column:not(.row),\n  .ui.grid > [class*=\"two column\"].doubling.row.row > .column {\n    width: 100% !important;\n  }\n  .ui[class*=\"three column\"].doubling.grid > .row > .column,\n  .ui[class*=\"three column\"].doubling.grid > .column:not(.row),\n  .ui.grid > [class*=\"three column\"].doubling.row.row > .column {\n    width: 50% !important;\n  }\n  .ui[class*=\"four column\"].doubling.grid > .row > .column,\n  .ui[class*=\"four column\"].doubling.grid > .column:not(.row),\n  .ui.grid > [class*=\"four column\"].doubling.row.row > .column {\n    width: 50% !important;\n  }\n  .ui[class*=\"five column\"].doubling.grid > .row > .column,\n  .ui[class*=\"five column\"].doubling.grid > .column:not(.row),\n  .ui.grid > [class*=\"five column\"].doubling.row.row > .column {\n    width: 33.33333333% !important;\n  }\n  .ui[class*=\"six column\"].doubling.grid > .row > .column,\n  .ui[class*=\"six column\"].doubling.grid > .column:not(.row),\n  .ui.grid > [class*=\"six column\"].doubling.row.row > .column {\n    width: 33.33333333% !important;\n  }\n  .ui[class*=\"seven column\"].doubling.grid > .row > .column,\n  .ui[class*=\"seven column\"].doubling.grid > .column:not(.row),\n  .ui.grid > [class*=\"seven column\"].doubling.row.row > .column {\n    width: 33.33333333% !important;\n  }\n  .ui[class*=\"eight column\"].doubling.grid > .row > .column,\n  .ui[class*=\"eight column\"].doubling.grid > .column:not(.row),\n  .ui.grid > [class*=\"eight column\"].doubling.row.row > .column {\n    width: 25% !important;\n  }\n  .ui[class*=\"nine column\"].doubling.grid > .row > .column,\n  .ui[class*=\"nine column\"].doubling.grid > .column:not(.row),\n  .ui.grid > [class*=\"nine column\"].doubling.row.row > .column {\n    width: 25% !important;\n  }\n  .ui[class*=\"ten column\"].doubling.grid > .row > .column,\n  .ui[class*=\"ten column\"].doubling.grid > .column:not(.row),\n  .ui.grid > [class*=\"ten column\"].doubling.row.row > .column {\n    width: 20% !important;\n  }\n  .ui[class*=\"eleven column\"].doubling.grid > .row > .column,\n  .ui[class*=\"eleven column\"].doubling.grid > .column:not(.row),\n  .ui.grid > [class*=\"eleven column\"].doubling.row.row > .column {\n    width: 20% !important;\n  }\n  .ui[class*=\"twelve column\"].doubling.grid > .row > .column,\n  .ui[class*=\"twelve column\"].doubling.grid > .column:not(.row),\n  .ui.grid > [class*=\"twelve column\"].doubling.row.row > .column {\n    width: 16.66666667% !important;\n  }\n  .ui[class*=\"thirteen column\"].doubling.grid > .row > .column,\n  .ui[class*=\"thirteen column\"].doubling.grid > .column:not(.row),\n  .ui.grid > [class*=\"thirteen column\"].doubling.row.row > .column {\n    width: 16.66666667% !important;\n  }\n  .ui[class*=\"fourteen column\"].doubling.grid > .row > .column,\n  .ui[class*=\"fourteen column\"].doubling.grid > .column:not(.row),\n  .ui.grid > [class*=\"fourteen column\"].doubling.row.row > .column {\n    width: 14.28571429% !important;\n  }\n  .ui[class*=\"fifteen column\"].doubling.grid > .row > .column,\n  .ui[class*=\"fifteen column\"].doubling.grid > .column:not(.row),\n  .ui.grid > [class*=\"fifteen column\"].doubling.row.row > .column {\n    width: 14.28571429% !important;\n  }\n  .ui[class*=\"sixteen column\"].doubling.grid > .row > .column,\n  .ui[class*=\"sixteen column\"].doubling.grid > .column:not(.row),\n  .ui.grid > [class*=\"sixteen column\"].doubling.row.row > .column {\n    width: 12.5% !important;\n  }\n}\n\n/* Mobily Only */\n@media only screen and (max-width: 767px) {\n  .ui.grid > .doubling.row,\n  .ui.doubling.grid > .row {\n    margin: 0em !important;\n    padding: 0em !important;\n  }\n  .ui.grid > .doubling.row > .column,\n  .ui.doubling.grid > .row > .column {\n    padding-top: 1rem !important;\n    padding-bottom: 1rem !important;\n    margin: 0em !important;\n    box-shadow: none !important;\n  }\n  .ui[class*=\"two column\"].doubling:not(.stackable).grid > .row > .column,\n  .ui[class*=\"two column\"].doubling:not(.stackable).grid > .column:not(.row),\n  .ui.grid > [class*=\"two column\"].doubling:not(.stackable).row.row > .column {\n    width: 100% !important;\n  }\n  .ui[class*=\"three column\"].doubling:not(.stackable).grid > .row > .column,\n  .ui[class*=\"three column\"].doubling:not(.stackable).grid > .column:not(.row),\n  .ui.grid > [class*=\"three column\"].doubling:not(.stackable).row.row > .column {\n    width: 50% !important;\n  }\n  .ui[class*=\"four column\"].doubling:not(.stackable).grid > .row > .column,\n  .ui[class*=\"four column\"].doubling:not(.stackable).grid > .column:not(.row),\n  .ui.grid > [class*=\"four column\"].doubling:not(.stackable).row.row > .column {\n    width: 50% !important;\n  }\n  .ui[class*=\"five column\"].doubling:not(.stackable).grid > .row > .column,\n  .ui[class*=\"five column\"].doubling:not(.stackable).grid > .column:not(.row),\n  .ui.grid > [class*=\"five column\"].doubling:not(.stackable).row.row > .column {\n    width: 50% !important;\n  }\n  .ui[class*=\"six column\"].doubling:not(.stackable).grid > .row > .column,\n  .ui[class*=\"six column\"].doubling:not(.stackable).grid > .column:not(.row),\n  .ui.grid > [class*=\"six column\"].doubling:not(.stackable).row.row > .column {\n    width: 50% !important;\n  }\n  .ui[class*=\"seven column\"].doubling:not(.stackable).grid > .row > .column,\n  .ui[class*=\"seven column\"].doubling:not(.stackable).grid > .column:not(.row),\n  .ui.grid > [class*=\"seven column\"].doubling:not(.stackable).row.row > .column {\n    width: 50% !important;\n  }\n  .ui[class*=\"eight column\"].doubling:not(.stackable).grid > .row > .column,\n  .ui[class*=\"eight column\"].doubling:not(.stackable).grid > .column:not(.row),\n  .ui.grid > [class*=\"eight column\"].doubling:not(.stackable).row.row > .column {\n    width: 50% !important;\n  }\n  .ui[class*=\"nine column\"].doubling:not(.stackable).grid > .row > .column,\n  .ui[class*=\"nine column\"].doubling:not(.stackable).grid > .column:not(.row),\n  .ui.grid > [class*=\"nine column\"].doubling:not(.stackable).row.row > .column {\n    width: 33.33333333% !important;\n  }\n  .ui[class*=\"ten column\"].doubling:not(.stackable).grid > .row > .column,\n  .ui[class*=\"ten column\"].doubling:not(.stackable).grid > .column:not(.row),\n  .ui.grid > [class*=\"ten column\"].doubling:not(.stackable).row.row > .column {\n    width: 33.33333333% !important;\n  }\n  .ui[class*=\"eleven column\"].doubling:not(.stackable).grid > .row > .column,\n  .ui[class*=\"eleven column\"].doubling:not(.stackable).grid > .column:not(.row),\n  .ui.grid > [class*=\"eleven column\"].doubling:not(.stackable).row.row > .column {\n    width: 33.33333333% !important;\n  }\n  .ui[class*=\"twelve column\"].doubling:not(.stackable).grid > .row > .column,\n  .ui[class*=\"twelve column\"].doubling:not(.stackable).grid > .column:not(.row),\n  .ui.grid > [class*=\"twelve column\"].doubling:not(.stackable).row.row > .column {\n    width: 33.33333333% !important;\n  }\n  .ui[class*=\"thirteen column\"].doubling:not(.stackable).grid > .row > .column,\n  .ui[class*=\"thirteen column\"].doubling:not(.stackable).grid > .column:not(.row),\n  .ui.grid > [class*=\"thirteen column\"].doubling:not(.stackable).row.row > .column {\n    width: 33.33333333% !important;\n  }\n  .ui[class*=\"fourteen column\"].doubling:not(.stackable).grid > .row > .column,\n  .ui[class*=\"fourteen column\"].doubling:not(.stackable).grid > .column:not(.row),\n  .ui.grid > [class*=\"fourteen column\"].doubling:not(.stackable).row.row > .column {\n    width: 25% !important;\n  }\n  .ui[class*=\"fifteen column\"].doubling:not(.stackable).grid > .row > .column,\n  .ui[class*=\"fifteen column\"].doubling:not(.stackable).grid > .column:not(.row),\n  .ui.grid > [class*=\"fifteen column\"].doubling:not(.stackable).row.row > .column {\n    width: 25% !important;\n  }\n  .ui[class*=\"sixteen column\"].doubling:not(.stackable).grid > .row > .column,\n  .ui[class*=\"sixteen column\"].doubling:not(.stackable).grid > .column:not(.row),\n  .ui.grid > [class*=\"sixteen column\"].doubling:not(.stackable).row.row > .column {\n    width: 25% !important;\n  }\n}\n\n/*-------------------\n      Stackable\n--------------------*/\n\n@media only screen and (max-width: 767px) {\n  .ui.stackable.grid {\n    width: auto;\n    margin-left: 0em !important;\n    margin-right: 0em !important;\n  }\n  .ui.stackable.grid > .row > .wide.column,\n  .ui.stackable.grid > .wide.column,\n  .ui.stackable.grid > .column.grid > .column,\n  .ui.stackable.grid > .column.row > .column,\n  .ui.stackable.grid > .row > .column,\n  .ui.stackable.grid > .column:not(.row),\n  .ui.grid > .stackable.stackable.row > .column {\n    width: 100% !important;\n    margin: 0em 0em !important;\n    box-shadow: none !important;\n    padding: 1rem 1rem !important;\n  }\n  .ui.stackable.grid:not(.vertically) > .row {\n    margin: 0em;\n    padding: 0em;\n  }\n  \n/* Coupling */\n  .ui.container > .ui.stackable.grid > .column,\n  .ui.container > .ui.stackable.grid > .row > .column {\n    padding-left: 0em !important;\n    padding-right: 0em !important;\n  }\n  \n/* Don't pad inside segment or nested grid */\n  .ui.grid .ui.stackable.grid,\n  .ui.segment:not(.vertical) .ui.stackable.page.grid {\n    margin-left: -1rem !important;\n    margin-right: -1rem !important;\n  }\n  \n/* Divided Stackable */\n  .ui.stackable.divided.grid > .row:first-child > .column:first-child,\n  .ui.stackable.celled.grid > .row:first-child > .column:first-child,\n  .ui.stackable.divided.grid > .column:not(.row):first-child,\n  .ui.stackable.celled.grid > .column:not(.row):first-child {\n    border-top: none !important;\n  }\n  .ui.inverted.stackable.celled.grid > .column:not(.row),\n  .ui.inverted.stackable.divided.grid > .column:not(.row),\n  .ui.inverted.stackable.celled.grid > .row > .column,\n  .ui.inverted.stackable.divided.grid > .row > .column {\n    border-top: 1px solid rgba(255, 255, 255, 0.1);\n  }\n  .ui.stackable.celled.grid > .column:not(.row),\n  .ui.stackable.divided:not(.vertically).grid > .column:not(.row),\n  .ui.stackable.celled.grid > .row > .column,\n  .ui.stackable.divided:not(.vertically).grid > .row > .column {\n    border-top: 1px solid rgba(34, 36, 38, 0.15);\n    box-shadow: none !important;\n    padding-top: 2rem !important;\n    padding-bottom: 2rem !important;\n  }\n  .ui.stackable.celled.grid > .row {\n    box-shadow: none !important;\n  }\n  .ui.stackable.divided:not(.vertically).grid > .column:not(.row),\n  .ui.stackable.divided:not(.vertically).grid > .row > .column {\n    padding-left: 0em !important;\n    padding-right: 0em !important;\n  }\n}\n\n/*----------------------\n     Only (Device)\n-----------------------*/\n\n\n/* These include arbitrary class repetitions for forced specificity */\n\n/* Mobile Only Hide */\n@media only screen and (max-width: 767px) {\n  .ui[class*=\"tablet only\"].grid.grid.grid:not(.mobile),\n  .ui.grid.grid.grid > [class*=\"tablet only\"].row:not(.mobile),\n  .ui.grid.grid.grid > [class*=\"tablet only\"].column:not(.mobile),\n  .ui.grid.grid.grid > .row > [class*=\"tablet only\"].column:not(.mobile) {\n    display: none !important;\n  }\n  .ui[class*=\"computer only\"].grid.grid.grid:not(.mobile),\n  .ui.grid.grid.grid > [class*=\"computer only\"].row:not(.mobile),\n  .ui.grid.grid.grid > [class*=\"computer only\"].column:not(.mobile),\n  .ui.grid.grid.grid > .row > [class*=\"computer only\"].column:not(.mobile) {\n    display: none !important;\n  }\n  .ui[class*=\"large screen only\"].grid.grid.grid:not(.mobile),\n  .ui.grid.grid.grid > [class*=\"large screen only\"].row:not(.mobile),\n  .ui.grid.grid.grid > [class*=\"large screen only\"].column:not(.mobile),\n  .ui.grid.grid.grid > .row > [class*=\"large screen only\"].column:not(.mobile) {\n    display: none !important;\n  }\n  .ui[class*=\"widescreen only\"].grid.grid.grid:not(.mobile),\n  .ui.grid.grid.grid > [class*=\"widescreen only\"].row:not(.mobile),\n  .ui.grid.grid.grid > [class*=\"widescreen only\"].column:not(.mobile),\n  .ui.grid.grid.grid > .row > [class*=\"widescreen only\"].column:not(.mobile) {\n    display: none !important;\n  }\n}\n\n/* Tablet Only Hide */\n@media only screen and (min-width: 768px) and (max-width: 991px) {\n  .ui[class*=\"mobile only\"].grid.grid.grid:not(.tablet),\n  .ui.grid.grid.grid > [class*=\"mobile only\"].row:not(.tablet),\n  .ui.grid.grid.grid > [class*=\"mobile only\"].column:not(.tablet),\n  .ui.grid.grid.grid > .row > [class*=\"mobile only\"].column:not(.tablet) {\n    display: none !important;\n  }\n  .ui[class*=\"computer only\"].grid.grid.grid:not(.tablet),\n  .ui.grid.grid.grid > [class*=\"computer only\"].row:not(.tablet),\n  .ui.grid.grid.grid > [class*=\"computer only\"].column:not(.tablet),\n  .ui.grid.grid.grid > .row > [class*=\"computer only\"].column:not(.tablet) {\n    display: none !important;\n  }\n  .ui[class*=\"large screen only\"].grid.grid.grid:not(.mobile),\n  .ui.grid.grid.grid > [class*=\"large screen only\"].row:not(.mobile),\n  .ui.grid.grid.grid > [class*=\"large screen only\"].column:not(.mobile),\n  .ui.grid.grid.grid > .row > [class*=\"large screen only\"].column:not(.mobile) {\n    display: none !important;\n  }\n  .ui[class*=\"widescreen only\"].grid.grid.grid:not(.mobile),\n  .ui.grid.grid.grid > [class*=\"widescreen only\"].row:not(.mobile),\n  .ui.grid.grid.grid > [class*=\"widescreen only\"].column:not(.mobile),\n  .ui.grid.grid.grid > .row > [class*=\"widescreen only\"].column:not(.mobile) {\n    display: none !important;\n  }\n}\n\n/* Computer Only Hide */\n@media only screen and (min-width: 992px) and (max-width: 1199px) {\n  .ui[class*=\"mobile only\"].grid.grid.grid:not(.computer),\n  .ui.grid.grid.grid > [class*=\"mobile only\"].row:not(.computer),\n  .ui.grid.grid.grid > [class*=\"mobile only\"].column:not(.computer),\n  .ui.grid.grid.grid > .row > [class*=\"mobile only\"].column:not(.computer) {\n    display: none !important;\n  }\n  .ui[class*=\"tablet only\"].grid.grid.grid:not(.computer),\n  .ui.grid.grid.grid > [class*=\"tablet only\"].row:not(.computer),\n  .ui.grid.grid.grid > [class*=\"tablet only\"].column:not(.computer),\n  .ui.grid.grid.grid > .row > [class*=\"tablet only\"].column:not(.computer) {\n    display: none !important;\n  }\n  .ui[class*=\"large screen only\"].grid.grid.grid:not(.mobile),\n  .ui.grid.grid.grid > [class*=\"large screen only\"].row:not(.mobile),\n  .ui.grid.grid.grid > [class*=\"large screen only\"].column:not(.mobile),\n  .ui.grid.grid.grid > .row > [class*=\"large screen only\"].column:not(.mobile) {\n    display: none !important;\n  }\n  .ui[class*=\"widescreen only\"].grid.grid.grid:not(.mobile),\n  .ui.grid.grid.grid > [class*=\"widescreen only\"].row:not(.mobile),\n  .ui.grid.grid.grid > [class*=\"widescreen only\"].column:not(.mobile),\n  .ui.grid.grid.grid > .row > [class*=\"widescreen only\"].column:not(.mobile) {\n    display: none !important;\n  }\n}\n\n/* Large Screen Only Hide */\n@media only screen and (min-width: 1200px) and (max-width: 1919px) {\n  .ui[class*=\"mobile only\"].grid.grid.grid:not(.computer),\n  .ui.grid.grid.grid > [class*=\"mobile only\"].row:not(.computer),\n  .ui.grid.grid.grid > [class*=\"mobile only\"].column:not(.computer),\n  .ui.grid.grid.grid > .row > [class*=\"mobile only\"].column:not(.computer) {\n    display: none !important;\n  }\n  .ui[class*=\"tablet only\"].grid.grid.grid:not(.computer),\n  .ui.grid.grid.grid > [class*=\"tablet only\"].row:not(.computer),\n  .ui.grid.grid.grid > [class*=\"tablet only\"].column:not(.computer),\n  .ui.grid.grid.grid > .row > [class*=\"tablet only\"].column:not(.computer) {\n    display: none !important;\n  }\n  .ui[class*=\"widescreen only\"].grid.grid.grid:not(.mobile),\n  .ui.grid.grid.grid > [class*=\"widescreen only\"].row:not(.mobile),\n  .ui.grid.grid.grid > [class*=\"widescreen only\"].column:not(.mobile),\n  .ui.grid.grid.grid > .row > [class*=\"widescreen only\"].column:not(.mobile) {\n    display: none !important;\n  }\n}\n\n/* Widescreen Only Hide */\n@media only screen and (min-width: 1920px) {\n  .ui[class*=\"mobile only\"].grid.grid.grid:not(.computer),\n  .ui.grid.grid.grid > [class*=\"mobile only\"].row:not(.computer),\n  .ui.grid.grid.grid > [class*=\"mobile only\"].column:not(.computer),\n  .ui.grid.grid.grid > .row > [class*=\"mobile only\"].column:not(.computer) {\n    display: none !important;\n  }\n  .ui[class*=\"tablet only\"].grid.grid.grid:not(.computer),\n  .ui.grid.grid.grid > [class*=\"tablet only\"].row:not(.computer),\n  .ui.grid.grid.grid > [class*=\"tablet only\"].column:not(.computer),\n  .ui.grid.grid.grid > .row > [class*=\"tablet only\"].column:not(.computer) {\n    display: none !important;\n  }\n}\n\n\n/*******************************\n         Theme Overrides\n*******************************/\n\n\n\n/*******************************\n         Site Overrides\n*******************************/\n\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 220 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(221);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(217)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../css-loader/index.js!./container.css", function() {
+				var newContent = require("!!./../css-loader/index.js!./container.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 221 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(216)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "/*!\n * # Semantic UI 2.1.7 - Container\n * http://github.com/semantic-org/semantic-ui/\n *\n *\n * Copyright 2015 Contributors\n * Released under the MIT license\n * http://opensource.org/licenses/MIT\n *\n */\n\n\n/*******************************\n            Container\n*******************************/\n\n\n/* All Sizes */\n.ui.container {\n  display: block;\n  max-width: 100% !important;\n}\n\n/* Mobile */\n@media only screen and (max-width: 767px) {\n  .ui.container {\n    width: auto !important;\n    margin-left: 1em !important;\n    margin-right: 1em !important;\n  }\n  .ui.grid.container {\n    width: auto !important;\n  }\n  .ui.relaxed.grid.container {\n    width: auto !important;\n  }\n  .ui.very.relaxed.grid.container {\n    width: auto !important;\n  }\n}\n\n/* Tablet */\n@media only screen and (min-width: 768px) and (max-width: 991px) {\n  .ui.container {\n    width: 723px;\n    margin-left: auto !important;\n    margin-right: auto !important;\n  }\n  .ui.grid.container {\n    width: calc( 723px  +  2rem ) !important;\n  }\n  .ui.relaxed.grid.container {\n    width: calc( 723px  +  3rem ) !important;\n  }\n  .ui.very.relaxed.grid.container {\n    width: calc( 723px  +  5rem ) !important;\n  }\n}\n\n/* Small Monitor */\n@media only screen and (min-width: 992px) and (max-width: 1199px) {\n  .ui.container {\n    width: 933px;\n    margin-left: auto !important;\n    margin-right: auto !important;\n  }\n  .ui.grid.container {\n    width: calc( 933px  +  2rem ) !important;\n  }\n  .ui.relaxed.grid.container {\n    width: calc( 933px  +  3rem ) !important;\n  }\n  .ui.very.relaxed.grid.container {\n    width: calc( 933px  +  5rem ) !important;\n  }\n}\n\n/* Large Monitor */\n@media only screen and (min-width: 1200px) {\n  .ui.container {\n    width: 1127px;\n    margin-left: auto !important;\n    margin-right: auto !important;\n  }\n  .ui.grid.container {\n    width: calc( 1127px  +  2rem ) !important;\n  }\n  .ui.relaxed.grid.container {\n    width: calc( 1127px  +  3rem ) !important;\n  }\n  .ui.very.relaxed.grid.container {\n    width: calc( 1127px  +  5rem ) !important;\n  }\n}\n\n\n/*******************************\n             Types\n*******************************/\n\n\n/* Text Container */\n.ui.text.container {\n  font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;\n  max-width: 700px !important;\n  line-height: 1.5;\n}\n.ui.text.container {\n  font-size: 1.14285714rem;\n}\n\n/* Fluid */\n.ui.fluid.container {\n  width: 100%;\n}\n\n\n/*******************************\n           Variations\n*******************************/\n\n.ui[class*=\"left aligned\"].container {\n  text-align: left;\n}\n.ui[class*=\"center aligned\"].container {\n  text-align: center;\n}\n.ui[class*=\"right aligned\"].container {\n  text-align: right;\n}\n.ui.justified.container {\n  text-align: justify;\n  -webkit-hyphens: auto;\n     -moz-hyphens: auto;\n      -ms-hyphens: auto;\n          hyphens: auto;\n}\n\n\n/*******************************\n         Theme Overrides\n*******************************/\n\n\n\n/*******************************\n         Site Overrides\n*******************************/\n\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 222 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(223);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(217)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../css-loader/index.js!./menu.css", function() {
+				var newContent = require("!!./../css-loader/index.js!./menu.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 223 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(216)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "/*\n * # Semantic - Menu\n * http://github.com/semantic-org/semantic-ui/\n *\n *\n * Copyright 2015 Contributor\n * Released under the MIT license\n * http://opensource.org/licenses/MIT\n *\n */\n\n\n/*******************************\n            Standard\n*******************************/\n\n\n/*--------------\n      Menu\n---------------*/\n\n.ui.menu {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  margin: 1rem 0em;\n  font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;\n  background: #FFFFFF;\n  font-weight: normal;\n  border: 1px solid rgba(34, 36, 38, 0.15);\n  box-shadow: 0px 1px 2px 0 rgba(34, 36, 38, 0.15);\n  border-radius: 0.28571429rem;\n  min-height: 2.85714286em;\n}\n.ui.menu:after {\n  content: '';\n  display: block;\n  height: 0px;\n  clear: both;\n  visibility: hidden;\n}\n.ui.menu:first-child {\n  margin-top: 0rem;\n}\n.ui.menu:last-child {\n  margin-bottom: 0rem;\n}\n\n/*--------------\n    Sub-Menu\n---------------*/\n\n.ui.menu .menu {\n  margin: 0em;\n}\n.ui.menu:not(.vertical) > .menu {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n}\n\n/*--------------\n      Item\n---------------*/\n\n.ui.menu:not(.vertical) .item {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.ui.menu .item {\n  position: relative;\n  vertical-align: middle;\n  line-height: 1;\n  text-decoration: none;\n  -webkit-tap-highlight-color: transparent;\n  -webkit-box-flex: 0;\n  -webkit-flex: 0 0 auto;\n      -ms-flex: 0 0 auto;\n          flex: 0 0 auto;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  background: none;\n  padding: 0.92857143em 1.14285714em;\n  text-transform: none;\n  color: rgba(0, 0, 0, 0.87);\n  font-weight: normal;\n  -webkit-transition: background 0.1s ease, box-shadow 0.1s ease, color 0.1s ease;\n  transition: background 0.1s ease, box-shadow 0.1s ease, color 0.1s ease;\n}\n.ui.menu > .item:first-child {\n  border-radius: 0.28571429rem 0px 0px 0.28571429rem;\n}\n\n/* Border */\n.ui.menu .item:before {\n  position: absolute;\n  content: '';\n  top: 0%;\n  right: 0px;\n  height: 100%;\n  width: 1px;\n  background: rgba(34, 36, 38, 0.1);\n}\n\n/*--------------\n  Text Content\n---------------*/\n\n.ui.menu .text.item > *,\n.ui.menu .item > a:not(.ui),\n.ui.menu .item > p:only-child {\n  -webkit-user-select: text;\n     -moz-user-select: text;\n      -ms-user-select: text;\n          user-select: text;\n  line-height: 1.3;\n}\n.ui.menu .item > p:first-child {\n  margin-top: 0;\n}\n.ui.menu .item > p:last-child {\n  margin-bottom: 0;\n}\n\n/*--------------\n      Icons\n---------------*/\n\n.ui.menu .item > i.icon {\n  opacity: 0.9;\n  float: none;\n  margin: 0em 0.35714286em 0em 0em;\n}\n\n/*--------------\n     Button\n---------------*/\n\n.ui.menu:not(.vertical) .item > .button {\n  position: relative;\n  top: 0em;\n  margin: -0.5em 0em;\n  padding-bottom: 0.71428571em;\n  padding-top: 0.71428571em;\n  font-size: 1em;\n}\n\n/*----------------\n Grid / Container\n-----------------*/\n\n.ui.menu > .grid,\n.ui.menu > .container {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: inherit;\n  -webkit-align-items: inherit;\n      -ms-flex-align: inherit;\n          align-items: inherit;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: inherit;\n      -ms-flex-direction: inherit;\n          flex-direction: inherit;\n}\n\n/*--------------\n     Inputs\n---------------*/\n\n.ui.menu .item > .input {\n  width: 100%;\n}\n.ui.menu:not(.vertical) .item > .input {\n  position: relative;\n  top: 0em;\n  margin: -0.5em 0em;\n}\n.ui.menu .item > .input input {\n  font-size: 1em;\n  padding-top: 0.57142857em;\n  padding-bottom: 0.57142857em;\n}\n\n/*--------------\n     Header\n---------------*/\n\n.ui.menu .header.item,\n.ui.vertical.menu .header.item {\n  margin: 0em;\n  background: '';\n  text-transform: normal;\n  font-weight: bold;\n}\n.ui.vertical.menu .item > .header:not(.ui) {\n  margin: 0em 0em 0.5em;\n  font-size: 1em;\n  font-weight: bold;\n}\n\n/*--------------\n     Popup\n---------------*/\n\n.ui.menu .ui.popup {\n  display: none;\n}\n.ui.menu .ui.visible.popup {\n  display: block;\n}\n\n/*--------------\n    Dropdowns\n---------------*/\n\n\n/* Dropdown Icon */\n.ui.menu .item > i.dropdown.icon {\n  padding: 0em;\n  float: right;\n  margin: 0em 0em 0em 1em;\n}\n\n/* Menu */\n.ui.menu .dropdown.item .menu {\n  left: 0px;\n  min-width: calc(100% - 1px);\n  border-radius: 0em 0em 0.28571429rem 0.28571429rem;\n  background: #FFFFFF;\n  margin: 0em 0px 0px;\n  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.08);\n  -webkit-box-orient: vertical !important;\n  -webkit-box-direction: normal !important;\n  -webkit-flex-direction: column !important;\n      -ms-flex-direction: column !important;\n          flex-direction: column !important;\n}\n\n/* Menu Items */\n.ui.menu .ui.dropdown .menu > .item {\n  margin: 0;\n  text-align: left;\n  font-size: 1em !important;\n  padding: 0.71428571em 1.14285714em !important;\n  background: transparent !important;\n  color: rgba(0, 0, 0, 0.87) !important;\n  text-transform: none !important;\n  font-weight: normal !important;\n  box-shadow: none !important;\n  -webkit-transition: none !important;\n  transition: none !important;\n}\n.ui.menu .ui.dropdown .menu > .item:hover {\n  background: rgba(0, 0, 0, 0.05) !important;\n  color: rgba(0, 0, 0, 0.95) !important;\n}\n.ui.menu .ui.dropdown .menu > .selected.item {\n  background: rgba(0, 0, 0, 0.05) !important;\n  color: rgba(0, 0, 0, 0.95) !important;\n}\n.ui.menu .ui.dropdown .menu > .active.item {\n  background: rgba(0, 0, 0, 0.03) !important;\n  font-weight: bold !important;\n  color: rgba(0, 0, 0, 0.95) !important;\n}\n.ui.menu .ui.dropdown.item .menu .item:not(.filtered) {\n  display: block;\n}\n.ui.menu .ui.dropdown .menu > .item .icon:not(.dropdown) {\n  display: inline-block;\n  font-size: 1em !important;\n  float: none;\n  margin: 0em 0.75em 0em 0em;\n}\n\n/* Secondary */\n.ui.secondary.menu .dropdown.item > .menu,\n.ui.text.menu .dropdown.item > .menu {\n  border-radius: 0.28571429rem;\n  margin-top: 0.35714286em;\n}\n\n/* Pointing */\n.ui.menu .pointing.dropdown.item .menu {\n  margin-top: 0.75em;\n}\n\n/* Inverted */\n.ui.inverted.menu .search.dropdown.item > .search,\n.ui.inverted.menu .search.dropdown.item > .text {\n  color: rgba(255, 255, 255, 0.9);\n}\n\n/* Vertical */\n.ui.vertical.menu .dropdown.item > .icon {\n  float: right;\n  content: \"\\F0DA\";\n  margin-left: 1em;\n}\n.ui.vertical.menu .dropdown.item .menu {\n  top: 0% !important;\n  left: 100%;\n  min-width: 0;\n  margin: 0em 0em 0em 0em;\n  box-shadow: 0 1px 3px 0px rgba(0, 0, 0, 0.08);\n  border-radius: 0em 0.28571429rem 0.28571429rem 0.28571429rem;\n}\n.ui.vertical.menu .active.dropdown.item {\n  border-top-right-radius: 0em;\n  border-bottom-right-radius: 0em;\n}\n.ui.vertical.menu .dropdown.active.item {\n  box-shadow: none;\n}\n\n/* Evenly Divided */\n.ui.item.menu .dropdown .menu .item {\n  width: 100%;\n}\n\n/*--------------\n     Labels\n---------------*/\n\n.ui.menu .item > .label {\n  background: #999999;\n  color: #FFFFFF;\n  margin-left: 1em;\n  padding: 0.3em 0.71428571em;\n}\n.ui.vertical.menu .item > .label {\n  background: #999999;\n  color: #FFFFFF;\n  margin-top: -0.15em;\n  margin-bottom: -0.15em;\n  padding: 0.3em 0.71428571em;\n}\n.ui.menu .item > .floating.label {\n  padding: 0.3em 0.71428571em;\n}\n\n/*--------------\n     Images\n---------------*/\n\n.ui.menu .item > img:not(.ui) {\n  display: inline-block;\n  vertical-align: middle;\n  margin: -0.3em 0em;\n  width: 2.5em;\n}\n.ui.vertical.menu .item > img:not(.ui):only-child {\n  display: block;\n  max-width: 100%;\n  width: auto;\n}\n\n\n/*******************************\n          Coupling\n*******************************/\n\n\n/*--------------\n     Sidebar\n---------------*/\n\n\n/* Show vertical dividers below last */\n.ui.vertical.sidebar.menu > .item:first-child:before {\n  display: block !important;\n}\n.ui.vertical.sidebar.menu > .item::before {\n  top: auto;\n  bottom: 0px;\n}\n\n/*--------------\n    Container\n---------------*/\n\n@media only screen and (max-width: 767px) {\n  .ui.menu > .ui.container {\n    width: 100% !important;\n    margin-left: 0em !important;\n    margin-right: 0em !important;\n  }\n}\n@media only screen and (min-width: 768px) {\n  .ui.menu:not(.secondary):not(.text):not(.tabular):not(.borderless) > .container > .item:not(.right):not(.borderless):first-child {\n    border-left: 1px solid rgba(34, 36, 38, 0.1);\n  }\n}\n\n\n/*******************************\n             States\n*******************************/\n\n\n/*--------------\n      Hover\n---------------*/\n\n.ui.link.menu .item:hover,\n.ui.menu .dropdown.item:hover,\n.ui.menu .link.item:hover,\n.ui.menu a.item:hover {\n  cursor: pointer;\n  background: rgba(0, 0, 0, 0.03);\n  color: rgba(0, 0, 0, 0.95);\n}\n\n/*--------------\n     Pressed\n---------------*/\n\n.ui.link.menu .item:active,\n.ui.menu .link.item:active,\n.ui.menu a.item:active {\n  background: rgba(0, 0, 0, 0.03);\n  color: rgba(0, 0, 0, 0.95);\n}\n\n/*--------------\n     Active\n---------------*/\n\n.ui.menu .active.item {\n  background: rgba(0, 0, 0, 0.05);\n  color: rgba(0, 0, 0, 0.95);\n  font-weight: normal;\n  box-shadow: none;\n}\n.ui.menu .active.item > i.icon {\n  opacity: 1;\n}\n\n/*--------------\n  Active Hover\n---------------*/\n\n.ui.menu .active.item:hover,\n.ui.vertical.menu .active.item:hover {\n  background-color: rgba(0, 0, 0, 0.05);\n  color: rgba(0, 0, 0, 0.95);\n}\n\n/*--------------\n     Disabled\n---------------*/\n\n.ui.menu .item.disabled,\n.ui.menu .item.disabled:hover {\n  cursor: default;\n  background-color: transparent !important;\n  color: rgba(40, 40, 40, 0.3);\n}\n\n\n/*******************************\n             Types\n*******************************/\n\n\n/*------------------\nFloated Menu / Item\n-------------------*/\n\n\n/* Left Floated */\n.ui.menu:not(.vertical) .left.item,\n.ui.menu:not(.vertical) .left.menu {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  margin-right: auto !important;\n}\n\n/* Right Floated */\n.ui.menu:not(.vertical) .right.item,\n.ui.menu:not(.vertical) .right.menu {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  margin-left: auto !important;\n}\n\n/* Swapped Borders */\n.ui.menu .right.item::before,\n.ui.menu .right.menu > .item::before {\n  right: auto;\n  left: 0;\n}\n\n/*--------------\n    Vertical\n---------------*/\n\n.ui.vertical.menu {\n  display: block;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: column;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  background: #FFFFFF;\n  box-shadow: 0px 1px 2px 0 rgba(34, 36, 38, 0.15);\n}\n\n/*--- Item ---*/\n\n.ui.vertical.menu .item {\n  display: block;\n  background: none;\n  border-top: none;\n  border-right: none;\n}\n.ui.vertical.menu > .item:first-child {\n  border-radius: 0.28571429rem 0.28571429rem 0px 0px;\n}\n.ui.vertical.menu > .item:last-child {\n  border-radius: 0px 0px 0.28571429rem 0.28571429rem;\n}\n\n/*--- Label ---*/\n\n.ui.vertical.menu .item > .label {\n  float: right;\n  text-align: center;\n}\n\n/*--- Icon ---*/\n\n.ui.vertical.menu .item > i.icon {\n  width: 1.18em;\n  float: right;\n  margin: 0em 0em 0em 0.5em;\n}\n.ui.vertical.menu .item > .label + i.icon {\n  float: none;\n  margin: 0em 0.5em 0em 0em;\n}\n\n/*--- Border ---*/\n\n.ui.vertical.menu .item:before {\n  position: absolute;\n  content: '';\n  top: 0%;\n  left: 0px;\n  width: 100%;\n  background: rgba(34, 36, 38, 0.1);\n  height: 1px;\n}\n.ui.vertical.menu .item:first-child:before {\n  display: none !important;\n}\n\n/*--- Sub Menu ---*/\n\n.ui.vertical.menu .item > .menu {\n  margin: 0.5em -1.14285714em 0em;\n}\n.ui.vertical.menu .menu .item {\n  background: none;\n  padding: 0.5em 1.33333333em;\n  font-size: 0.85714286em;\n  color: rgba(0, 0, 0, 0.5);\n}\n.ui.vertical.menu .item .menu a.item:hover,\n.ui.vertical.menu .item .menu .link.item:hover {\n  color: rgba(0, 0, 0, 0.85);\n}\n.ui.vertical.menu .menu .item:before {\n  display: none;\n}\n\n/* Vertical Active */\n.ui.vertical.menu .active.item {\n  background: rgba(0, 0, 0, 0.05);\n  border-radius: 0em;\n  box-shadow: none;\n}\n.ui.vertical.menu > .active.item:first-child {\n  border-radius: 0.28571429rem 0.28571429rem 0em 0em;\n}\n.ui.vertical.menu > .active.item:last-child {\n  border-radius: 0em 0em 0.28571429rem 0.28571429rem;\n}\n.ui.vertical.menu > .active.item:only-child {\n  border-radius: 0.28571429rem;\n}\n.ui.vertical.menu .active.item .menu .active.item {\n  border-left: none;\n}\n.ui.vertical.menu .item .menu .active.item {\n  background-color: transparent;\n  font-weight: bold;\n  color: rgba(0, 0, 0, 0.95);\n}\n\n/*--------------\n     Tabular\n---------------*/\n\n.ui.tabular.menu {\n  border-radius: 0em;\n  box-shadow: none !important;\n  border: none;\n  background: none transparent;\n  border-bottom: 1px solid #D4D4D5;\n}\n.ui.tabular.fluid.menu {\n  width: calc(100% +  2px ) !important;\n}\n.ui.tabular.menu .item {\n  background: transparent;\n  border-bottom: none;\n  border-left: 1px solid transparent;\n  border-right: 1px solid transparent;\n  border-top: 2px solid transparent;\n  padding: 0.92857143em 1.42857143em;\n  color: rgba(0, 0, 0, 0.87);\n}\n.ui.tabular.menu .item:before {\n  display: none;\n}\n\n/* Hover */\n.ui.tabular.menu .item:hover {\n  background-color: transparent;\n  color: rgba(0, 0, 0, 0.8);\n}\n\n/* Active */\n.ui.tabular.menu .active.item {\n  background: none #FFFFFF;\n  color: rgba(0, 0, 0, 0.95);\n  border-top-width: 1px;\n  border-color: #D4D4D5;\n  font-weight: bold;\n  margin-bottom: -1px;\n  box-shadow: none;\n  border-radius: 0.28571429rem 0.28571429rem 0px 0px !important;\n}\n\n/* Coupling with segment for attachment */\n.ui.tabular.menu + .attached:not(.top).segment,\n.ui.tabular.menu + .attached:not(.top).segment + .attached:not(.top).segment {\n  border-top: none;\n  margin: 0px;\n  width: 100%;\n}\n.top.attached.segment + .ui.bottom.tabular.menu {\n  position: relative;\n  width: calc(100% +  2px );\n  left: -1px;\n}\n\n/* Bottom Vertical Tabular */\n.ui.bottom.tabular.menu {\n  background: none transparent;\n  border-radius: 0em;\n  box-shadow: none !important;\n  border-bottom: none;\n  border-top: 1px solid #D4D4D5;\n}\n.ui.bottom.tabular.menu .item {\n  background: none;\n  border-left: 1px solid transparent;\n  border-right: 1px solid transparent;\n  border-bottom: 1px solid transparent;\n  border-top: none;\n}\n.ui.bottom.tabular.menu .active.item {\n  background: none #FFFFFF;\n  color: rgba(0, 0, 0, 0.95);\n  border-color: #D4D4D5;\n  margin: -1px 0px 0px 0px;\n  border-radius: 0px 0px 0.28571429rem 0.28571429rem !important;\n}\n\n/* Vertical Tabular (Left) */\n.ui.vertical.tabular.menu {\n  background: none transparent;\n  border-radius: 0em;\n  box-shadow: none !important;\n  border-bottom: none;\n  border-right: 1px solid #D4D4D5;\n}\n.ui.vertical.tabular.menu .item {\n  background: none;\n  border-left: 1px solid transparent;\n  border-bottom: 1px solid transparent;\n  border-top: 1px solid transparent;\n  border-right: none;\n}\n.ui.vertical.tabular.menu .active.item {\n  background: none #FFFFFF;\n  color: rgba(0, 0, 0, 0.95);\n  border-color: #D4D4D5;\n  margin: 0px -1px 0px 0px;\n  border-radius: 0.28571429rem 0px 0px 0.28571429rem !important;\n}\n\n/* Vertical Right Tabular */\n.ui.vertical.right.tabular.menu {\n  background: none transparent;\n  border-radius: 0em;\n  box-shadow: none !important;\n  border-bottom: none;\n  border-right: none;\n  border-left: 1px solid #D4D4D5;\n}\n.ui.vertical.right.tabular.menu .item {\n  background: none;\n  border-right: 1px solid transparent;\n  border-bottom: 1px solid transparent;\n  border-top: 1px solid transparent;\n  border-left: none;\n}\n.ui.vertical.right.tabular.menu .active.item {\n  background: none #FFFFFF;\n  color: rgba(0, 0, 0, 0.95);\n  border-color: #D4D4D5;\n  margin: 0px 0px 0px -1px;\n  border-radius: 0px 0.28571429rem 0.28571429rem 0px !important;\n}\n\n/* Dropdown */\n.ui.tabular.menu .active.dropdown.item {\n  margin-bottom: 0px;\n  border-left: 1px solid transparent;\n  border-right: 1px solid transparent;\n  border-top: 2px solid transparent;\n  border-bottom: none;\n}\n\n/*--------------\n   Pagination\n---------------*/\n\n.ui.pagination.menu {\n  margin: 0em;\n  display: -webkit-inline-box;\n  display: -webkit-inline-flex;\n  display: -ms-inline-flexbox;\n  display: inline-flex;\n  vertical-align: middle;\n}\n.ui.pagination.menu .item:last-child {\n  border-radius: 0em 0.28571429rem 0.28571429rem 0em;\n}\n.ui.compact.menu .item:last-child {\n  border-radius: 0em 0.28571429rem 0.28571429rem 0em;\n}\n.ui.pagination.menu .item:last-child:before {\n  display: none;\n}\n.ui.pagination.menu .item {\n  min-width: 3em;\n  text-align: center;\n}\n.ui.pagination.menu .icon.item i.icon {\n  vertical-align: top;\n}\n\n/* Active */\n.ui.pagination.menu .active.item {\n  border-top: none;\n  padding-top: 0.92857143em;\n  background-color: rgba(0, 0, 0, 0.05);\n  color: rgba(0, 0, 0, 0.95);\n  box-shadow: none;\n}\n\n/*--------------\n   Secondary\n---------------*/\n\n.ui.secondary.menu {\n  background: none;\n  margin-left: -0.35714286em;\n  margin-right: -0.35714286em;\n  border-radius: 0em;\n  border: none;\n  box-shadow: none;\n}\n\n/* Item */\n.ui.secondary.menu .item {\n  -webkit-align-self: center;\n      -ms-flex-item-align: center;\n          align-self: center;\n  box-shadow: none;\n  border: none;\n  padding: 0.71428571em 0.92857143em;\n  margin: 0em 0.35714286em;\n  background: none;\n  -webkit-transition: color 0.1s ease;\n  transition: color 0.1s ease;\n  border-radius: 0.28571429rem;\n}\n\n/* No Divider */\n.ui.secondary.menu .item:before {\n  display: none !important;\n}\n\n/* Header */\n.ui.secondary.menu .header.item {\n  border-radius: 0em;\n  border-right: none;\n  background: none transparent;\n}\n\n/* Image */\n.ui.secondary.menu .item > img:not(.ui) {\n  margin: 0em;\n}\n\n/* Hover */\n.ui.secondary.menu .dropdown.item:hover,\n.ui.secondary.menu .link.item:hover,\n.ui.secondary.menu a.item:hover {\n  background: rgba(0, 0, 0, 0.05);\n  color: rgba(0, 0, 0, 0.95);\n}\n\n/* Active */\n.ui.secondary.menu .active.item {\n  box-shadow: none;\n  background: rgba(0, 0, 0, 0.05);\n  color: rgba(0, 0, 0, 0.95);\n  border-radius: 0.28571429rem;\n}\n\n/* Active Hover */\n.ui.secondary.menu .active.item:hover {\n  box-shadow: none;\n  background: rgba(0, 0, 0, 0.05);\n  color: rgba(0, 0, 0, 0.95);\n}\n\n/* Inverted */\n.ui.secondary.inverted.menu .link.item,\n.ui.secondary.inverted.menu a.item {\n  color: rgba(255, 255, 255, 0.7) !important;\n}\n.ui.secondary.inverted.menu .dropdown.item:hover,\n.ui.secondary.inverted.menu .link.item:hover,\n.ui.secondary.inverted.menu a.item:hover {\n  background: rgba(255, 255, 255, 0.08);\n  color: #ffffff !important;\n}\n.ui.secondary.inverted.menu .active.item {\n  background: rgba(255, 255, 255, 0.15);\n  color: #ffffff !important;\n}\n\n/* Fix item margins */\n.ui.secondary.item.menu {\n  margin-left: 0em;\n  margin-right: 0em;\n}\n.ui.secondary.item.menu .item:last-child {\n  margin-right: 0em;\n}\n.ui.secondary.attached.menu {\n  box-shadow: none;\n}\n\n/* Sub Menu */\n.ui.vertical.secondary.menu .item:not(.dropdown) > .menu {\n  margin: 0em -0.92857143em;\n}\n.ui.vertical.secondary.menu .item:not(.dropdown) > .menu > .item {\n  margin: 0em;\n  padding: 0.5em 1.33333333em;\n}\n\n/*---------------------\n   Secondary Vertical\n-----------------------*/\n\n.ui.secondary.vertical.menu > .item {\n  border: none;\n  margin: 0em 0em 0.35714286em;\n  border-radius: 0.28571429rem !important;\n}\n.ui.secondary.vertical.menu > .header.item {\n  border-radius: 0em;\n}\n\n/* Sub Menu */\n.ui.vertical.secondary.menu .item > .menu .item {\n  background-color: transparent;\n}\n\n/* Inverted */\n.ui.secondary.inverted.menu {\n  background-color: transparent;\n}\n\n/*---------------------\n   Secondary Pointing\n-----------------------*/\n\n.ui.secondary.pointing.menu {\n  margin-left: 0em;\n  margin-right: 0em;\n  border-bottom: 2px solid rgba(34, 36, 38, 0.15);\n}\n.ui.secondary.pointing.menu .item {\n  border-bottom-color: transparent;\n  border-bottom-style: solid;\n  border-radius: 0em;\n  -webkit-align-self: flex-end;\n      -ms-flex-item-align: end;\n          align-self: flex-end;\n  margin: 0em 0em -2px;\n  padding: 0.85714286em 1.14285714em;\n  border-bottom-width: 2px;\n  -webkit-transition: color 0.1s ease;\n  transition: color 0.1s ease;\n}\n\n/* Item Types */\n.ui.secondary.pointing.menu .header.item {\n  color: rgba(0, 0, 0, 0.85) !important;\n}\n.ui.secondary.pointing.menu .text.item {\n  box-shadow: none !important;\n}\n.ui.secondary.pointing.menu .item:after {\n  display: none;\n}\n\n/* Hover */\n.ui.secondary.pointing.menu .dropdown.item:hover,\n.ui.secondary.pointing.menu .link.item:hover,\n.ui.secondary.pointing.menu a.item:hover {\n  background-color: transparent;\n  color: rgba(0, 0, 0, 0.87);\n}\n\n/* Pressed */\n.ui.secondary.pointing.menu .dropdown.item:active,\n.ui.secondary.pointing.menu .link.item:active,\n.ui.secondary.pointing.menu a.item:active {\n  background-color: transparent;\n  border-color: rgba(34, 36, 38, 0.15);\n}\n\n/* Active */\n.ui.secondary.pointing.menu .active.item {\n  background-color: transparent;\n  box-shadow: none;\n  border-color: #1B1C1D;\n  font-weight: bold;\n  color: rgba(0, 0, 0, 0.95);\n}\n\n/* Active Hover */\n.ui.secondary.pointing.menu .active.item:hover {\n  border-color: #1B1C1D;\n  color: rgba(0, 0, 0, 0.95);\n}\n\n/* Active Dropdown */\n.ui.secondary.pointing.menu .active.dropdown.item {\n  border-color: transparent;\n}\n\n/* Vertical Pointing */\n.ui.secondary.vertical.pointing.menu {\n  border-bottom-width: 0px;\n  border-right-width: 2px;\n  border-right-style: solid;\n  border-right-color: rgba(34, 36, 38, 0.15);\n}\n.ui.secondary.vertical.pointing.menu .item {\n  border-bottom: none;\n  border-right-style: solid;\n  border-right-color: transparent;\n  border-radius: 0em !important;\n  margin: 0em -2px 0em 0em;\n  border-right-width: 2px;\n}\n\n/* Vertical Active */\n.ui.secondary.vertical.pointing.menu .active.item {\n  border-color: #1B1C1D;\n}\n\n/* Inverted */\n.ui.secondary.inverted.pointing.menu {\n  border-color: rgba(255, 255, 255, 0.1);\n}\n.ui.secondary.inverted.pointing.menu {\n  border-width: 2px;\n  border-color: rgba(34, 36, 38, 0.15);\n}\n.ui.secondary.inverted.pointing.menu .item {\n  color: rgba(255, 255, 255, 0.9);\n}\n.ui.secondary.inverted.pointing.menu .header.item {\n  color: #FFFFFF !important;\n}\n\n/* Hover */\n.ui.secondary.inverted.pointing.menu .item:hover {\n  color: rgba(0, 0, 0, 0.95);\n}\n\n/* Active */\n.ui.secondary.inverted.pointing.menu .active.item {\n  border-color: #FFFFFF;\n  color: #ffffff;\n}\n\n/*--------------\n    Text Menu\n---------------*/\n\n.ui.text.menu {\n  background: none transparent;\n  border-radius: 0px;\n  box-shadow: none;\n  border: none;\n  margin: 1em -0.5em;\n}\n.ui.text.menu .item {\n  border-radius: 0px;\n  box-shadow: none;\n  -webkit-align-self: center;\n      -ms-flex-item-align: center;\n          align-self: center;\n  margin: 0em 0em;\n  padding: 0.35714286em 0.5em;\n  font-weight: normal;\n  color: rgba(0, 0, 0, 0.6);\n  -webkit-transition: opacity 0.1s ease;\n  transition: opacity 0.1s ease;\n}\n\n/* Border */\n.ui.text.menu .item:before,\n.ui.text.menu .menu .item:before {\n  display: none !important;\n}\n\n/* Header */\n.ui.text.menu .header.item {\n  background-color: transparent;\n  opacity: 1;\n  color: rgba(0, 0, 0, 0.85);\n  font-size: 0.92857143em;\n  text-transform: uppercase;\n  font-weight: bold;\n}\n\n/* Image */\n.ui.text.menu .item > img:not(.ui) {\n  margin: 0em;\n}\n\n/*--- fluid text ---*/\n\n.ui.text.item.menu .item {\n  margin: 0em;\n}\n\n/*--- vertical text ---*/\n\n.ui.vertical.text.menu {\n  margin: 1em 0em;\n}\n.ui.vertical.text.menu:first-child {\n  margin-top: 0rem;\n}\n.ui.vertical.text.menu:last-child {\n  margin-bottom: 0rem;\n}\n.ui.vertical.text.menu .item {\n  margin: 0.57142857em 0em;\n}\n.ui.vertical.text.menu .item > i.icon {\n  float: none;\n  margin: 0em 0.35714286em 0em 0em;\n}\n.ui.vertical.text.menu .header.item {\n  margin: 0.57142857em 0em 0.71428571em;\n}\n\n/* Vertical Sub Menu */\n.ui.vertical.text.menu .item:not(.dropdown) > .menu {\n  margin: 0em;\n}\n.ui.vertical.text.menu .item:not(.dropdown) > .menu > .item {\n  margin: 0em;\n  padding: 0.5em 0em;\n}\n\n/*--- hover ---*/\n\n.ui.text.menu .item:hover {\n  opacity: 1;\n  background-color: transparent;\n}\n\n/*--- active ---*/\n\n.ui.text.menu .active.item {\n  background-color: transparent;\n  border: none;\n  box-shadow: none;\n  font-weight: normal;\n  color: rgba(0, 0, 0, 0.95);\n}\n\n/*--- active hover ---*/\n\n.ui.text.menu .active.item:hover {\n  background-color: transparent;\n}\n\n/* Disable Bariations */\n.ui.text.pointing.menu .active.item:after {\n  box-shadow: none;\n}\n.ui.text.attached.menu {\n  box-shadow: none;\n}\n\n/* Inverted */\n.ui.inverted.text.menu,\n.ui.inverted.text.menu .item,\n.ui.inverted.text.menu .item:hover,\n.ui.inverted.text.menu .active.item {\n  background-color: transparent !important;\n}\n\n/* Fluid */\n.ui.fluid.text.menu {\n  margin-left: 0em;\n  margin-right: 0em;\n}\n\n/*--------------\n    Icon Only\n---------------*/\n\n\n/* Vertical Menu */\n.ui.vertical.icon.menu {\n  display: inline-block;\n  width: auto;\n}\n\n/* Item */\n.ui.icon.menu .item {\n  height: auto;\n  text-align: center;\n  color: #1B1C1D;\n}\n\n/* Icon */\n.ui.icon.menu .item > .icon:not(.dropdown) {\n  margin: 0;\n  opacity: 1;\n}\n\n/* Icon Gylph */\n.ui.icon.menu .icon:before {\n  opacity: 1;\n}\n\n/* (x) Item Icon */\n.ui.menu .icon.item > .icon {\n  width: auto;\n  margin: 0em auto;\n}\n\n/* Vertical Icon */\n.ui.vertical.icon.menu .item > .icon:not(.dropdown) {\n  display: block;\n  opacity: 1;\n  margin: 0em auto;\n  float: none;\n}\n\n/* Inverted */\n.ui.inverted.icon.menu .item {\n  color: #FFFFFF;\n}\n\n/*--------------\n   Labeled Icon\n---------------*/\n\n\n/* Menu */\n.ui.labeled.icon.menu {\n  text-align: center;\n}\n\n/* Item */\n.ui.labeled.icon.menu .item {\n  min-width: 6em;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: column;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n\n/* Icon */\n.ui.labeled.icon.menu .item > .icon:not(.dropdown) {\n  height: 1em;\n  display: block;\n  font-size: 1.71428571em !important;\n  margin: 0em auto 0.5rem !important;\n}\n\n/* Fluid */\n.ui.fluid.labeled.icon.menu > .item {\n  min-width: 0em;\n}\n\n\n/*******************************\n           Variations\n*******************************/\n\n\n/*--------------\n    Stackable\n---------------*/\n\n@media only screen and (max-width: 767px) {\n  .ui.stackable.menu {\n    -webkit-box-orient: vertical;\n    -webkit-box-direction: normal;\n    -webkit-flex-direction: column;\n        -ms-flex-direction: column;\n            flex-direction: column;\n  }\n  .ui.stackable.menu .item {\n    width: 100% !important;\n  }\n  .ui.stackable.menu .item:before {\n    position: absolute;\n    content: '';\n    top: auto;\n    bottom: 0px;\n    left: 0px;\n    width: 100%;\n    background: rgba(34, 36, 38, 0.1);\n    height: 1px;\n  }\n}\n\n/*--------------\n     Colors\n---------------*/\n\n\n/*--- Standard Colors  ---*/\n\n.ui.menu .red.active.item,\n.ui.red.menu .active.item {\n  border-color: #DB2828 !important;\n  color: #DB2828 !important;\n}\n.ui.menu .orange.active.item,\n.ui.orange.menu .active.item {\n  border-color: #F2711C !important;\n  color: #F2711C !important;\n}\n.ui.menu .yellow.active.item,\n.ui.yellow.menu .active.item {\n  border-color: #FBBD08 !important;\n  color: #FBBD08 !important;\n}\n.ui.menu .olive.active.item,\n.ui.olive.menu .active.item {\n  border-color: #B5CC18 !important;\n  color: #B5CC18 !important;\n}\n.ui.menu .green.active.item,\n.ui.green.menu .active.item {\n  border-color: #21BA45 !important;\n  color: #21BA45 !important;\n}\n.ui.menu .teal.active.item,\n.ui.teal.menu .active.item {\n  border-color: #00B5AD !important;\n  color: #00B5AD !important;\n}\n.ui.menu .blue.active.item,\n.ui.blue.menu .active.item {\n  border-color: #2185D0 !important;\n  color: #2185D0 !important;\n}\n.ui.menu .violet.active.item,\n.ui.violet.menu .active.item {\n  border-color: #6435C9 !important;\n  color: #6435C9 !important;\n}\n.ui.menu .purple.active.item,\n.ui.purple.menu .active.item {\n  border-color: #A333C8 !important;\n  color: #A333C8 !important;\n}\n.ui.menu .pink.active.item,\n.ui.pink.menu .active.item {\n  border-color: #E03997 !important;\n  color: #E03997 !important;\n}\n.ui.menu .brown.active.item,\n.ui.brown.menu .active.item {\n  border-color: #A5673F !important;\n  color: #A5673F !important;\n}\n.ui.menu .grey.active.item,\n.ui.grey.menu .active.item {\n  border-color: #767676 !important;\n  color: #767676 !important;\n}\n\n/*--------------\n    Inverted\n---------------*/\n\n.ui.inverted.menu {\n  border: 0px solid transparent;\n  background: #1B1C1D;\n  box-shadow: none;\n}\n\n/* Menu Item */\n.ui.inverted.menu .item,\n.ui.inverted.menu .item > a:not(.ui) {\n  background: transparent;\n  color: rgba(255, 255, 255, 0.9);\n}\n.ui.inverted.menu .item.menu {\n  background: transparent;\n}\n\n/*--- Border ---*/\n\n.ui.inverted.menu .item:before {\n  background: rgba(255, 255, 255, 0.08);\n}\n.ui.vertical.inverted.menu .item:before {\n  background: rgba(255, 255, 255, 0.08);\n}\n\n/* Sub Menu */\n.ui.vertical.inverted.menu .menu .item,\n.ui.vertical.inverted.menu .menu .item a:not(.ui) {\n  color: rgba(255, 255, 255, 0.5);\n}\n\n/* Header */\n.ui.inverted.menu .header.item {\n  margin: 0em;\n  background: transparent;\n  box-shadow: none;\n}\n\n/* Disabled */\n.ui.inverted.menu .item.disabled,\n.ui.inverted.menu .item.disabled:hover {\n  color: rgba(225, 225, 225, 0.3);\n}\n\n/*--- Hover ---*/\n\n.ui.link.inverted.menu .item:hover,\n.ui.inverted.menu .dropdown.item:hover,\n.ui.inverted.menu .link.item:hover,\n.ui.inverted.menu a.item:hover {\n  background: rgba(255, 255, 255, 0.08);\n  color: #ffffff;\n}\n.ui.vertical.inverted.menu .item .menu a.item:hover,\n.ui.vertical.inverted.menu .item .menu .link.item:hover {\n  background: transparent;\n  color: #ffffff;\n}\n\n/*--- Pressed ---*/\n\n.ui.inverted.menu a.item:active,\n.ui.inverted.menu .link.item:active,\n.ui.inverted.menu a.item:active {\n  background: rgba(255, 255, 255, 0.08);\n  color: #ffffff;\n}\n\n/*--- Active ---*/\n\n.ui.inverted.menu .active.item {\n  background: rgba(255, 255, 255, 0.15);\n  color: #ffffff !important;\n}\n.ui.inverted.vertical.menu .item .menu .active.item {\n  background: transparent;\n  color: #FFFFFF;\n}\n.ui.inverted.pointing.menu .active.item:after {\n  background: #3D3E3F !important;\n  margin: 0em !important;\n  box-shadow: none !important;\n  border: none !important;\n}\n\n/*--- Active Hover ---*/\n\n.ui.inverted.menu .active.item:hover {\n  background: rgba(255, 255, 255, 0.15);\n  color: #FFFFFF !important;\n}\n.ui.inverted.pointing.menu .active.item:hover:after {\n  background: #3D3E3F !important;\n}\n\n/*--------------\n     Floated\n---------------*/\n\n.ui.floated.menu {\n  float: left;\n  margin: 0rem 0.5rem 0rem 0rem;\n}\n.ui.floated.menu .item:last-child:before {\n  display: none;\n}\n.ui.right.floated.menu {\n  float: right;\n  margin: 0rem 0rem 0rem 0.5rem;\n}\n\n/*--------------\n    Inverted\n---------------*/\n\n\n/* Red */\n.ui.inverted.menu .red.active.item,\n.ui.inverted.red.menu {\n  background-color: #DB2828;\n}\n.ui.inverted.red.menu .item:before {\n  background-color: rgba(34, 36, 38, 0.1);\n}\n.ui.inverted.red.menu .active.item {\n  background-color: rgba(0, 0, 0, 0.1) !important;\n}\n\n/* Orange */\n.ui.inverted.menu .orange.active.item,\n.ui.inverted.orange.menu {\n  background-color: #F2711C;\n}\n.ui.inverted.orange.menu .item:before {\n  background-color: rgba(34, 36, 38, 0.1);\n}\n.ui.inverted.orange.menu .active.item {\n  background-color: rgba(0, 0, 0, 0.1) !important;\n}\n\n/* Yellow */\n.ui.inverted.menu .yellow.active.item,\n.ui.inverted.yellow.menu {\n  background-color: #FBBD08;\n}\n.ui.inverted.yellow.menu .item:before {\n  background-color: rgba(34, 36, 38, 0.1);\n}\n.ui.inverted.yellow.menu .active.item {\n  background-color: rgba(0, 0, 0, 0.1) !important;\n}\n\n/* Olive */\n.ui.inverted.menu .olive.active.item,\n.ui.inverted.olive.menu {\n  background-color: #B5CC18;\n}\n.ui.inverted.olive.menu .item:before {\n  background-color: rgba(34, 36, 38, 0.1);\n}\n.ui.inverted.olive.menu .active.item {\n  background-color: rgba(0, 0, 0, 0.1) !important;\n}\n\n/* Green */\n.ui.inverted.menu .green.active.item,\n.ui.inverted.green.menu {\n  background-color: #21BA45;\n}\n.ui.inverted.green.menu .item:before {\n  background-color: rgba(34, 36, 38, 0.1);\n}\n.ui.inverted.green.menu .active.item {\n  background-color: rgba(0, 0, 0, 0.1) !important;\n}\n\n/* Teal */\n.ui.inverted.menu .teal.active.item,\n.ui.inverted.teal.menu {\n  background-color: #00B5AD;\n}\n.ui.inverted.teal.menu .item:before {\n  background-color: rgba(34, 36, 38, 0.1);\n}\n.ui.inverted.teal.menu .active.item {\n  background-color: rgba(0, 0, 0, 0.1) !important;\n}\n\n/* Blue */\n.ui.inverted.menu .blue.active.item,\n.ui.inverted.blue.menu {\n  background-color: #2185D0;\n}\n.ui.inverted.blue.menu .item:before {\n  background-color: rgba(34, 36, 38, 0.1);\n}\n.ui.inverted.blue.menu .active.item {\n  background-color: rgba(0, 0, 0, 0.1) !important;\n}\n\n/* Violet */\n.ui.inverted.menu .violet.active.item,\n.ui.inverted.violet.menu {\n  background-color: #6435C9;\n}\n.ui.inverted.violet.menu .item:before {\n  background-color: rgba(34, 36, 38, 0.1);\n}\n.ui.inverted.violet.menu .active.item {\n  background-color: rgba(0, 0, 0, 0.1) !important;\n}\n\n/* Purple */\n.ui.inverted.menu .purple.active.item,\n.ui.inverted.purple.menu {\n  background-color: #A333C8;\n}\n.ui.inverted.purple.menu .item:before {\n  background-color: rgba(34, 36, 38, 0.1);\n}\n.ui.inverted.purple.menu .active.item {\n  background-color: rgba(0, 0, 0, 0.1) !important;\n}\n\n/* Pink */\n.ui.inverted.menu .pink.active.item,\n.ui.inverted.pink.menu {\n  background-color: #E03997;\n}\n.ui.inverted.pink.menu .item:before {\n  background-color: rgba(34, 36, 38, 0.1);\n}\n.ui.inverted.pink.menu .active.item {\n  background-color: rgba(0, 0, 0, 0.1) !important;\n}\n\n/* Brown */\n.ui.inverted.menu .brown.active.item,\n.ui.inverted.brown.menu {\n  background-color: #A5673F;\n}\n.ui.inverted.brown.menu .item:before {\n  background-color: rgba(34, 36, 38, 0.1);\n}\n.ui.inverted.brown.menu .active.item {\n  background-color: rgba(0, 0, 0, 0.1) !important;\n}\n\n/* Grey */\n.ui.inverted.menu .grey.active.item,\n.ui.inverted.grey.menu {\n  background-color: #767676;\n}\n.ui.inverted.grey.menu .item:before {\n  background-color: rgba(34, 36, 38, 0.1);\n}\n.ui.inverted.grey.menu .active.item {\n  background-color: rgba(0, 0, 0, 0.1) !important;\n}\n\n/*--------------\n     Fitted\n---------------*/\n\n.ui.fitted.menu .item,\n.ui.fitted.menu .item .menu .item,\n.ui.menu .fitted.item {\n  padding: 0em;\n}\n.ui.horizontally.fitted.menu .item,\n.ui.horizontally.fitted.menu .item .menu .item,\n.ui.menu .horizontally.fitted.item {\n  padding-top: 0.92857143em;\n  padding-bottom: 0.92857143em;\n}\n.ui.vertically.fitted.menu .item,\n.ui.vertically.fitted.menu .item .menu .item,\n.ui.menu .vertically.fitted.item {\n  padding-left: 1.14285714em;\n  padding-right: 1.14285714em;\n}\n\n/*--------------\n   Borderless\n---------------*/\n\n.ui.borderless.menu .item:before,\n.ui.borderless.menu .item .menu .item:before,\n.ui.menu .borderless.item:before {\n  background: none !important;\n}\n\n/*-------------------\n       Compact\n--------------------*/\n\n.ui.compact.menu {\n  display: -webkit-inline-box;\n  display: -webkit-inline-flex;\n  display: -ms-inline-flexbox;\n  display: inline-flex;\n  margin: 0em;\n  vertical-align: middle;\n}\n.ui.compact.vertical.menu {\n  display: inline-block;\n}\n.ui.compact.menu .item:last-child {\n  border-radius: 0em 0.28571429rem 0.28571429rem 0em;\n}\n.ui.compact.menu .item:last-child:before {\n  display: none;\n}\n.ui.compact.vertical.menu {\n  width: auto !important;\n}\n.ui.compact.vertical.menu .item:last-child::before {\n  display: block;\n}\n\n/*-------------------\n        Fluid\n--------------------*/\n\n.ui.menu.fluid,\n.ui.vertical.menu.fluid {\n  width: 100% !important;\n}\n\n/*-------------------\n      Evenly Sized\n--------------------*/\n\n.ui.item.menu,\n.ui.item.menu .item {\n  width: 100%;\n  padding-left: 0em !important;\n  padding-right: 0em !important;\n  margin-left: 0em !important;\n  margin-right: 0em !important;\n  text-align: center;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n}\n.ui.item.menu .item:last-child:before {\n  display: none;\n}\n.ui.menu.two.item .item {\n  width: 50%;\n}\n.ui.menu.three.item .item {\n  width: 33.333%;\n}\n.ui.menu.four.item .item {\n  width: 25%;\n}\n.ui.menu.five.item .item {\n  width: 20%;\n}\n.ui.menu.six.item .item {\n  width: 16.666%;\n}\n.ui.menu.seven.item .item {\n  width: 14.285%;\n}\n.ui.menu.eight.item .item {\n  width: 12.500%;\n}\n.ui.menu.nine.item .item {\n  width: 11.11%;\n}\n.ui.menu.ten.item .item {\n  width: 10.0%;\n}\n.ui.menu.eleven.item .item {\n  width: 9.09%;\n}\n.ui.menu.twelve.item .item {\n  width: 8.333%;\n}\n\n/*--------------\n     Fixed\n---------------*/\n\n.ui.menu.fixed {\n  position: fixed;\n  z-index: 101;\n  margin: 0em;\n  width: 100%;\n}\n.ui.menu.fixed,\n.ui.menu.fixed .item:first-child,\n.ui.menu.fixed .item:last-child {\n  border-radius: 0px !important;\n}\n.ui.fixed.menu,\n.ui[class*=\"top fixed\"].menu {\n  top: 0px;\n  left: 0px;\n  right: auto;\n  bottom: auto;\n}\n.ui[class*=\"top fixed\"].menu {\n  border-top: none;\n  border-left: none;\n  border-right: none;\n}\n.ui[class*=\"right fixed\"].menu {\n  border-top: none;\n  border-bottom: none;\n  border-right: none;\n  top: 0px;\n  right: 0px;\n  left: auto;\n  bottom: auto;\n  width: auto;\n  height: 100%;\n}\n.ui[class*=\"bottom fixed\"].menu {\n  border-bottom: none;\n  border-left: none;\n  border-right: none;\n  bottom: 0px;\n  left: 0px;\n  top: auto;\n  right: auto;\n}\n.ui[class*=\"left fixed\"].menu {\n  border-top: none;\n  border-bottom: none;\n  border-left: none;\n  top: 0px;\n  left: 0px;\n  right: auto;\n  bottom: auto;\n  width: auto;\n  height: 100%;\n}\n\n/* Coupling with Grid */\n.ui.fixed.menu + .ui.grid {\n  padding-top: 2.75rem;\n}\n\n/*-------------------\n       Pointing\n--------------------*/\n\n.ui.pointing.menu .item:after {\n  visibility: hidden;\n  position: absolute;\n  content: '';\n  top: 100%;\n  left: 50%;\n  -webkit-transform: translateX(-50%) translateY(-50%) rotate(45deg);\n      -ms-transform: translateX(-50%) translateY(-50%) rotate(45deg);\n          transform: translateX(-50%) translateY(-50%) rotate(45deg);\n  background: none;\n  margin: 0.5px 0em 0em;\n  width: 0.57142857em;\n  height: 0.57142857em;\n  border: none;\n  border-bottom: 1px solid #D4D4D5;\n  border-right: 1px solid #D4D4D5;\n  z-index: 2;\n  -webkit-transition: background 0.1s ease;\n  transition: background 0.1s ease;\n}\n.ui.vertical.pointing.menu .item:after {\n  position: absolute;\n  top: 50%;\n  right: 0%;\n  bottom: auto;\n  left: auto;\n  -webkit-transform: translateX(50%) translateY(-50%) rotate(45deg);\n      -ms-transform: translateX(50%) translateY(-50%) rotate(45deg);\n          transform: translateX(50%) translateY(-50%) rotate(45deg);\n  margin: 0em -0.5px 0em 0em;\n  border: none;\n  border-top: 1px solid #D4D4D5;\n  border-right: 1px solid #D4D4D5;\n}\n\n/* Active */\n.ui.pointing.menu .active.item:after {\n  visibility: visible;\n}\n.ui.pointing.menu .active.dropdown.item:after {\n  visibility: hidden;\n}\n\n/* Don't double up pointers */\n.ui.pointing.menu .dropdown.active.item:after,\n.ui.pointing.menu .active.item .menu .active.item:after {\n  display: none;\n}\n\n/* Colors */\n.ui.pointing.menu .active.item:hover:after {\n  background-color: #F2F2F2;\n}\n.ui.pointing.menu .active.item:after {\n  background-color: #F2F2F2;\n}\n.ui.pointing.menu .active.item:hover:after {\n  background-color: #F2F2F2;\n}\n.ui.vertical.pointing.menu .active.item:hover:after {\n  background-color: #F2F2F2;\n}\n.ui.vertical.pointing.menu .active.item:after {\n  background-color: #F2F2F2;\n}\n.ui.vertical.pointing.menu .menu .active.item:after {\n  background-color: #FFFFFF;\n}\n\n/*--------------\n    Attached\n---------------*/\n\n\n/* Middle */\n.ui.attached.menu {\n  top: 0px;\n  bottom: 0px;\n  border-radius: 0px;\n  margin: 0em -1px;\n  width: calc(100% +  2px );\n  max-width: calc(100% +  2px );\n  box-shadow: none;\n}\n.ui.attached + .ui.attached.menu:not(.top) {\n  border-top: none;\n}\n\n/* Top */\n.ui[class*=\"top attached\"].menu {\n  bottom: 0px;\n  margin-bottom: 0em;\n  top: 0px;\n  margin-top: 1rem;\n  border-radius: 0.28571429rem 0.28571429rem 0em 0em;\n}\n.ui.menu[class*=\"top attached\"]:first-child {\n  margin-top: 0em;\n}\n\n/* Bottom */\n.ui[class*=\"bottom attached\"].menu {\n  bottom: 0px;\n  margin-top: 0em;\n  top: 0px;\n  margin-bottom: 1rem;\n  box-shadow: 0px 1px 2px 0 rgba(34, 36, 38, 0.15), none;\n  border-radius: 0em 0em 0.28571429rem 0.28571429rem;\n}\n.ui[class*=\"bottom attached\"].menu:last-child {\n  margin-bottom: 0em;\n}\n\n/* Attached Menu Item */\n.ui.top.attached.menu > .item:first-child {\n  border-radius: 0.28571429rem 0em 0em 0em;\n}\n.ui.bottom.attached.menu > .item:first-child {\n  border-radius: 0em 0em 0em 0.28571429rem;\n}\n\n/* Tabular Attached */\n.ui.attached.menu:not(.tabular) {\n  border: 1px solid #D4D4D5;\n}\n.ui.attached.inverted.menu {\n  border: none;\n}\n.ui.attached.tabular.menu {\n  margin-left: 0;\n  margin-right: 0;\n  width: 100%;\n}\n\n/*--------------\n     Sizes\n---------------*/\n\n\n/* Small */\n.ui.small.menu {\n  font-size: 0.92857143rem;\n}\n.ui.small.vertical.menu {\n  width: 13rem;\n}\n\n/* Medium */\n.ui.menu {\n  font-size: 1rem;\n}\n.ui.vertical.menu {\n  width: 15rem;\n}\n\n/* Large */\n.ui.large.menu {\n  font-size: 1.14285714rem;\n}\n.ui.large.vertical.menu {\n  width: 18rem;\n}\n\n/* Huge */\n.ui.huge.menu {\n  font-size: 1.42857143rem;\n}\n.ui.huge.vertical.menu {\n  width: 20rem;\n}\n\n\n/*******************************\n         Theme Overrides\n*******************************/\n\n\n\n/*******************************\n         Site Overrides\n*******************************/\n\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 224 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(225);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(217)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../css-loader/index.js!./table.css", function() {
+				var newContent = require("!!./../css-loader/index.js!./table.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 225 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(216)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "/*!\n * # Semantic UI 2.1.7 - Table\n * http://github.com/semantic-org/semantic-ui/\n *\n *\n * Copyright 2015 Contributors\n * Released under the MIT license\n * http://opensource.org/licenses/MIT\n *\n */\n\n\n/*******************************\n             Table\n*******************************/\n\n\n/* Prototype */\n.ui.table {\n  width: 100%;\n  background: #FFFFFF;\n  margin: 1em 0em;\n  border: 1px solid rgba(34, 36, 38, 0.15);\n  box-shadow: none;\n  border-radius: 0.28571429rem;\n  text-align: left;\n  color: rgba(0, 0, 0, 0.87);\n  border-collapse: separate;\n  border-spacing: 0px;\n}\n.ui.table:first-child {\n  margin-top: 0em;\n}\n.ui.table:last-child {\n  margin-bottom: 0em;\n}\n\n\n/*******************************\n             Parts\n*******************************/\n\n\n/* Table Content */\n.ui.table th,\n.ui.table td {\n  -webkit-transition: background 0.1s ease, color 0.1s ease;\n  transition: background 0.1s ease, color 0.1s ease;\n}\n\n/* Headers */\n.ui.table thead {\n  box-shadow: none;\n}\n.ui.table thead th {\n  cursor: auto;\n  background: #F9FAFB;\n  text-align: inherit;\n  color: rgba(0, 0, 0, 0.87);\n  padding: 0.92857143em 0.71428571em;\n  vertical-align: inherit;\n  font-style: none;\n  font-weight: bold;\n  text-transform: none;\n  border-bottom: 1px solid rgba(34, 36, 38, 0.1);\n  border-left: none;\n}\n.ui.table thead tr > th:first-child {\n  border-left: none;\n}\n.ui.table thead tr:first-child > th:first-child {\n  border-radius: 0.28571429rem 0em 0em 0em;\n}\n.ui.table thead tr:first-child > th:last-child {\n  border-radius: 0em 0.28571429rem 0em 0em;\n}\n.ui.table thead tr:first-child > th:only-child {\n  border-radius: 0.28571429rem 0.28571429rem 0em 0em;\n}\n\n/* Footer */\n.ui.table tfoot {\n  box-shadow: none;\n}\n.ui.table tfoot th {\n  cursor: auto;\n  border-top: 1px solid rgba(34, 36, 38, 0.15);\n  background: #F9FAFB;\n  text-align: inherit;\n  color: rgba(0, 0, 0, 0.87);\n  padding: 0.71428571em 0.71428571em;\n  vertical-align: middle;\n  font-style: normal;\n  font-weight: normal;\n  text-transform: none;\n}\n.ui.table tfoot tr > th:first-child {\n  border-left: none;\n}\n.ui.table tfoot tr:first-child > th:first-child {\n  border-radius: 0em 0em 0em 0.28571429rem;\n}\n.ui.table tfoot tr:first-child > th:last-child {\n  border-radius: 0em 0em 0.28571429rem 0em;\n}\n.ui.table tfoot tr:first-child > th:only-child {\n  border-radius: 0em 0em 0.28571429rem 0.28571429rem;\n}\n\n/* Table Row */\n.ui.table tr td {\n  border-top: 1px solid rgba(34, 36, 38, 0.1);\n}\n.ui.table tr:first-child td {\n  border-top: none;\n}\n\n/* Table Cells */\n.ui.table td {\n  padding: 0.71428571em 0.71428571em;\n  text-align: inherit;\n}\n\n/* Icons */\n.ui.table > .icon {\n  vertical-align: baseline;\n}\n.ui.table > .icon:only-child {\n  margin: 0em;\n}\n\n/* Table Segment */\n.ui.table.segment {\n  padding: 0em;\n}\n.ui.table.segment:after {\n  display: none;\n}\n.ui.table.segment.stacked:after {\n  display: block;\n}\n\n/* Responsive */\n@media only screen and (max-width: 767px) {\n  .ui.table:not(.unstackable) {\n    width: 100%;\n  }\n  .ui.table:not(.unstackable) tbody,\n  .ui.table:not(.unstackable) tr,\n  .ui.table:not(.unstackable) tr > th,\n  .ui.table:not(.unstackable) tr > td {\n    width: auto !important;\n    display: block !important;\n  }\n  .ui.table:not(.unstackable) {\n    padding: 0em;\n  }\n  .ui.table:not(.unstackable) thead {\n    display: block;\n  }\n  .ui.table:not(.unstackable) tfoot {\n    display: block;\n  }\n  .ui.table:not(.unstackable) tr {\n    padding-top: 1em;\n    padding-bottom: 1em;\n    box-shadow: 0px -1px 0px 0px rgba(0, 0, 0, 0.1) inset !important;\n  }\n  .ui.table:not(.unstackable) tr > th,\n  .ui.table:not(.unstackable) tr > td {\n    background: none;\n    border: none !important;\n    padding: 0.25em 0.75em !important;\n    box-shadow: none !important;\n  }\n  .ui.table:not(.unstackable) th:first-child,\n  .ui.table:not(.unstackable) td:first-child {\n    font-weight: bold;\n  }\n  \n/* Definition Table */\n  .ui.definition.table:not(.unstackable) thead th:first-child {\n    box-shadow: none !important;\n  }\n}\n\n\n/*******************************\n            Coupling\n*******************************/\n\n\n/* UI Image */\n.ui.table th .image,\n.ui.table th .image img,\n.ui.table td .image,\n.ui.table td .image img {\n  max-width: none;\n}\n\n\n/*******************************\n             Types\n*******************************/\n\n\n/*--------------\n    Complex\n---------------*/\n\n.ui.structured.table {\n  border-collapse: collapse;\n}\n.ui.structured.table thead th {\n  border-left: none;\n  border-right: none;\n}\n.ui.structured.sortable.table thead th {\n  border-left: 1px solid rgba(34, 36, 38, 0.15);\n  border-right: 1px solid rgba(34, 36, 38, 0.15);\n}\n.ui.structured.basic.table th {\n  border-left: none;\n  border-right: none;\n}\n.ui.structured.celled.table tr th,\n.ui.structured.celled.table tr td {\n  border-left: 1px solid rgba(34, 36, 38, 0.1);\n  border-right: 1px solid rgba(34, 36, 38, 0.1);\n}\n\n/*--------------\n   Definition\n---------------*/\n\n.ui.definition.table thead:not(.full-width) th:first-child {\n  pointer-events: none;\n  background: transparent;\n  font-weight: normal;\n  color: rgba(0, 0, 0, 0.4);\n  box-shadow: -1px -1px 0px 1px #FFFFFF;\n}\n.ui.definition.table tfoot:not(.full-width) th:first-child {\n  pointer-events: none;\n  background: transparent;\n  font-weight: rgba(0, 0, 0, 0.4);\n  color: normal;\n  box-shadow: 1px 1px 0px 1px #FFFFFF;\n}\n\n/* Remove Border */\n.ui.celled.definition.table thead:not(.full-width) th:first-child {\n  box-shadow: 0px -1px 0px 1px #FFFFFF;\n}\n.ui.celled.definition.table tfoot:not(.full-width) th:first-child {\n  box-shadow: 0px 1px 0px 1px #FFFFFF;\n}\n\n/* Highlight Defining Column */\n.ui.definition.table tr td:first-child {\n  background: rgba(0, 0, 0, 0.03);\n  font-weight: bold;\n  color: rgba(0, 0, 0, 0.95);\n}\n\n/* Fix 2nd Column */\n.ui.definition.table thead:not(.full-width) th:nth-child(2) {\n  border-left: 1px solid rgba(34, 36, 38, 0.15);\n}\n.ui.definition.table tfoot:not(.full-width) th:nth-child(2) {\n  border-left: 1px solid rgba(34, 36, 38, 0.15);\n}\n.ui.definition.table td:nth-child(2) {\n  border-left: 1px solid rgba(34, 36, 38, 0.15);\n}\n\n\n/*******************************\n             States\n*******************************/\n\n\n/*--------------\n    Positive\n---------------*/\n\n.ui.table tr.positive,\n.ui.table td.positive {\n  box-shadow: 0px 0px 0px #A3C293 inset;\n}\n.ui.table tr.positive,\n.ui.table td.positive {\n  background: #FCFFF5 !important;\n  color: #2C662D !important;\n}\n\n/*--------------\n     Negative\n---------------*/\n\n.ui.table tr.negative,\n.ui.table td.negative {\n  box-shadow: 0px 0px 0px #E0B4B4 inset;\n}\n.ui.table tr.negative,\n.ui.table td.negative {\n  background: #FFF6F6 !important;\n  color: #9F3A38 !important;\n}\n\n/*--------------\n      Error\n---------------*/\n\n.ui.table tr.error,\n.ui.table td.error {\n  box-shadow: 0px 0px 0px #E0B4B4 inset;\n}\n.ui.table tr.error,\n.ui.table td.error {\n  background: #FFF6F6 !important;\n  color: #9F3A38 !important;\n}\n\n/*--------------\n     Warning\n---------------*/\n\n.ui.table tr.warning,\n.ui.table td.warning {\n  box-shadow: 0px 0px 0px #C9BA9B inset;\n}\n.ui.table tr.warning,\n.ui.table td.warning {\n  background: #FFFAF3 !important;\n  color: #573A08 !important;\n}\n\n/*--------------\n     Active\n---------------*/\n\n.ui.table tr.active,\n.ui.table td.active {\n  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.87) inset;\n}\n.ui.table tr.active,\n.ui.table td.active {\n  background: #E0E0E0 !important;\n  color: rgba(0, 0, 0, 0.87) !important;\n}\n\n/*--------------\n     Disabled\n---------------*/\n\n.ui.table tr.disabled td,\n.ui.table tr td.disabled,\n.ui.table tr.disabled:hover,\n.ui.table tr:hover td.disabled {\n  pointer-events: none;\n  color: rgba(40, 40, 40, 0.3);\n}\n\n\n/*******************************\n          Variations\n*******************************/\n\n\n/*--------------\n    Stackable\n---------------*/\n\n@media only screen and (max-width: 991px) {\n  .ui[class*=\"tablet stackable\"].table,\n  .ui[class*=\"tablet stackable\"].table tbody,\n  .ui[class*=\"tablet stackable\"].table tr,\n  .ui[class*=\"tablet stackable\"].table tr > th,\n  .ui[class*=\"tablet stackable\"].table tr > td {\n    width: 100% !important;\n    display: block !important;\n  }\n  .ui[class*=\"tablet stackable\"].table {\n    padding: 0em;\n  }\n  .ui[class*=\"tablet stackable\"].table thead {\n    display: block;\n  }\n  .ui[class*=\"tablet stackable\"].table tfoot {\n    display: block;\n  }\n  .ui[class*=\"tablet stackable\"].table tr {\n    padding-top: 1em;\n    padding-bottom: 1em;\n    box-shadow: 0px -1px 0px 0px rgba(0, 0, 0, 0.1) inset !important;\n  }\n  .ui[class*=\"tablet stackable\"].table tr > th,\n  .ui[class*=\"tablet stackable\"].table tr > td {\n    background: none;\n    border: none !important;\n    padding: 0.25em 0.75em;\n    box-shadow: none !important;\n  }\n  \n/* Definition Table */\n  .ui.definition[class*=\"tablet stackable\"].table thead th:first-child {\n    box-shadow: none !important;\n  }\n}\n\n/*--------------\n Text Alignment\n---------------*/\n\n.ui.table[class*=\"left aligned\"],\n.ui.table [class*=\"left aligned\"] {\n  text-align: left;\n}\n.ui.table[class*=\"center aligned\"],\n.ui.table [class*=\"center aligned\"] {\n  text-align: center;\n}\n.ui.table[class*=\"right aligned\"],\n.ui.table [class*=\"right aligned\"] {\n  text-align: right;\n}\n\n/*------------------\n Vertical Alignment\n------------------*/\n\n.ui.table[class*=\"top aligned\"],\n.ui.table [class*=\"top aligned\"] {\n  vertical-align: top;\n}\n.ui.table[class*=\"middle aligned\"],\n.ui.table [class*=\"middle aligned\"] {\n  vertical-align: middle;\n}\n.ui.table[class*=\"bottom aligned\"],\n.ui.table [class*=\"bottom aligned\"] {\n  vertical-align: bottom;\n}\n\n/*--------------\n    Collapsing\n---------------*/\n\n.ui.table th.collapsing,\n.ui.table td.collapsing {\n  width: 1px;\n  white-space: nowrap;\n}\n\n/*--------------\n     Fixed\n---------------*/\n\n.ui.fixed.table {\n  table-layout: fixed;\n}\n.ui.fixed.table th,\n.ui.fixed.table td {\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n\n/*--------------\n   Selectable\n---------------*/\n\n.ui.selectable.table tbody tr:hover,\n.ui.table tbody tr td.selectable:hover {\n  background: rgba(0, 0, 0, 0.05) !important;\n  color: rgba(0, 0, 0, 0.95) !important;\n}\n.ui.selectable.inverted.table tbody tr:hover,\n.ui.inverted.table tbody tr td.selectable:hover {\n  background: rgba(255, 255, 255, 0.08) !important;\n  color: #ffffff !important;\n}\n\n/* Selectable Cell Link */\n.ui.table tbody tr td.selectable {\n  padding: 0em;\n}\n.ui.table tbody tr td.selectable > a:not(.ui) {\n  display: block;\n  color: inherit;\n  padding: 0.71428571em 0.71428571em;\n}\n\n/* Other States */\n.ui.selectable.table tr.error:hover,\n.ui.table tr td.selectable.error:hover,\n.ui.selectable.table tr:hover td.error {\n  background: #ffe7e7 !important;\n  color: #943634 !important;\n}\n.ui.selectable.table tr.warning:hover,\n.ui.table tr td.selectable.warning:hover,\n.ui.selectable.table tr:hover td.warning {\n  background: #fff4e4 !important;\n  color: #493107 !important;\n}\n.ui.selectable.table tr.active:hover,\n.ui.table tr td.selectable.active:hover,\n.ui.selectable.table tr:hover td.active {\n  background: #E0E0E0 !important;\n  color: rgba(0, 0, 0, 0.87) !important;\n}\n.ui.selectable.table tr.positive:hover,\n.ui.table tr td.selectable.positive:hover,\n.ui.selectable.table tr:hover td.positive {\n  background: #f7ffe6 !important;\n  color: #275b28 !important;\n}\n.ui.selectable.table tr.negative:hover,\n.ui.table tr td.selectable.negative:hover,\n.ui.selectable.table tr:hover td.negative {\n  background: #ffe7e7 !important;\n  color: #943634 !important;\n}\n\n/*-------------------\n      Attached\n--------------------*/\n\n\n/* Middle */\n.ui.attached.table {\n  top: 0px;\n  bottom: 0px;\n  border-radius: 0px;\n  margin: 0em -1px;\n  width: calc(100% +  2px );\n  max-width: calc(100% +  2px );\n  box-shadow: none;\n  border: 1px solid #D4D4D5;\n}\n.ui.attached + .ui.attached.table:not(.top) {\n  border-top: none;\n}\n\n/* Top */\n.ui[class*=\"top attached\"].table {\n  bottom: 0px;\n  margin-bottom: 0em;\n  top: 0px;\n  margin-top: 1em;\n  border-radius: 0.28571429rem 0.28571429rem 0em 0em;\n}\n.ui.table[class*=\"top attached\"]:first-child {\n  margin-top: 0em;\n}\n\n/* Bottom */\n.ui[class*=\"bottom attached\"].table {\n  bottom: 0px;\n  margin-top: 0em;\n  top: 0px;\n  margin-bottom: 1em;\n  box-shadow: none, none;\n  border-radius: 0em 0em 0.28571429rem 0.28571429rem;\n}\n.ui[class*=\"bottom attached\"].table:last-child {\n  margin-bottom: 0em;\n}\n\n/*--------------\n     Striped\n---------------*/\n\n\n/* Table Striping */\n.ui.striped.table > tr:nth-child(2n),\n.ui.striped.table tbody tr:nth-child(2n) {\n  background-color: rgba(0, 0, 50, 0.02);\n}\n\n/* Stripes */\n.ui.inverted.striped.table > tr:nth-child(2n),\n.ui.inverted.striped.table tbody tr:nth-child(2n) {\n  background-color: rgba(255, 255, 255, 0.05);\n}\n\n/*--------------\n   Single Line\n---------------*/\n\n.ui.table[class*=\"single line\"],\n.ui.table [class*=\"single line\"] {\n  white-space: nowrap;\n}\n.ui.table[class*=\"single line\"],\n.ui.table [class*=\"single line\"] {\n  white-space: nowrap;\n}\n\n/*-------------------\n       Colors\n--------------------*/\n\n\n/* Red */\n.ui.red.table {\n  border-top: 0.2em solid #DB2828;\n}\n.ui.inverted.red.table {\n  background-color: #DB2828 !important;\n  color: #FFFFFF !important;\n}\n\n/* Orange */\n.ui.orange.table {\n  border-top: 0.2em solid #F2711C;\n}\n.ui.inverted.orange.table {\n  background-color: #F2711C !important;\n  color: #FFFFFF !important;\n}\n\n/* Yellow */\n.ui.yellow.table {\n  border-top: 0.2em solid #FBBD08;\n}\n.ui.inverted.yellow.table {\n  background-color: #FBBD08 !important;\n  color: #FFFFFF !important;\n}\n\n/* Olive */\n.ui.olive.table {\n  border-top: 0.2em solid #B5CC18;\n}\n.ui.inverted.olive.table {\n  background-color: #B5CC18 !important;\n  color: #FFFFFF !important;\n}\n\n/* Green */\n.ui.green.table {\n  border-top: 0.2em solid #21BA45;\n}\n.ui.inverted.green.table {\n  background-color: #21BA45 !important;\n  color: #FFFFFF !important;\n}\n\n/* Teal */\n.ui.teal.table {\n  border-top: 0.2em solid #00B5AD;\n}\n.ui.inverted.teal.table {\n  background-color: #00B5AD !important;\n  color: #FFFFFF !important;\n}\n\n/* Blue */\n.ui.blue.table {\n  border-top: 0.2em solid #2185D0;\n}\n.ui.inverted.blue.table {\n  background-color: #2185D0 !important;\n  color: #FFFFFF !important;\n}\n\n/* Violet */\n.ui.violet.table {\n  border-top: 0.2em solid #6435C9;\n}\n.ui.inverted.violet.table {\n  background-color: #6435C9 !important;\n  color: #FFFFFF !important;\n}\n\n/* Purple */\n.ui.purple.table {\n  border-top: 0.2em solid #A333C8;\n}\n.ui.inverted.purple.table {\n  background-color: #A333C8 !important;\n  color: #FFFFFF !important;\n}\n\n/* Pink */\n.ui.pink.table {\n  border-top: 0.2em solid #E03997;\n}\n.ui.inverted.pink.table {\n  background-color: #E03997 !important;\n  color: #FFFFFF !important;\n}\n\n/* Brown */\n.ui.brown.table {\n  border-top: 0.2em solid #A5673F;\n}\n.ui.inverted.brown.table {\n  background-color: #A5673F !important;\n  color: #FFFFFF !important;\n}\n\n/* Grey */\n.ui.grey.table {\n  border-top: 0.2em solid #767676;\n}\n.ui.inverted.grey.table {\n  background-color: #767676 !important;\n  color: #FFFFFF !important;\n}\n\n/* Black */\n.ui.black.table {\n  border-top: 0.2em solid #1B1C1D;\n}\n.ui.inverted.black.table {\n  background-color: #1B1C1D !important;\n  color: #FFFFFF !important;\n}\n\n/*--------------\n  Column Count\n---------------*/\n\n\n/* Grid Based */\n.ui.one.column.table td {\n  width: 100%;\n}\n.ui.two.column.table td {\n  width: 50%;\n}\n.ui.three.column.table td {\n  width: 33.33333333%;\n}\n.ui.four.column.table td {\n  width: 25%;\n}\n.ui.five.column.table td {\n  width: 20%;\n}\n.ui.six.column.table td {\n  width: 16.66666667%;\n}\n.ui.seven.column.table td {\n  width: 14.28571429%;\n}\n.ui.eight.column.table td {\n  width: 12.5%;\n}\n.ui.nine.column.table td {\n  width: 11.11111111%;\n}\n.ui.ten.column.table td {\n  width: 10%;\n}\n.ui.eleven.column.table td {\n  width: 9.09090909%;\n}\n.ui.twelve.column.table td {\n  width: 8.33333333%;\n}\n.ui.thirteen.column.table td {\n  width: 7.69230769%;\n}\n.ui.fourteen.column.table td {\n  width: 7.14285714%;\n}\n.ui.fifteen.column.table td {\n  width: 6.66666667%;\n}\n.ui.sixteen.column.table td {\n  width: 6.25%;\n}\n\n/* Column Width */\n.ui.table th.one.wide,\n.ui.table td.one.wide {\n  width: 6.25%;\n}\n.ui.table th.two.wide,\n.ui.table td.two.wide {\n  width: 12.5%;\n}\n.ui.table th.three.wide,\n.ui.table td.three.wide {\n  width: 18.75%;\n}\n.ui.table th.four.wide,\n.ui.table td.four.wide {\n  width: 25%;\n}\n.ui.table th.five.wide,\n.ui.table td.five.wide {\n  width: 31.25%;\n}\n.ui.table th.six.wide,\n.ui.table td.six.wide {\n  width: 37.5%;\n}\n.ui.table th.seven.wide,\n.ui.table td.seven.wide {\n  width: 43.75%;\n}\n.ui.table th.eight.wide,\n.ui.table td.eight.wide {\n  width: 50%;\n}\n.ui.table th.nine.wide,\n.ui.table td.nine.wide {\n  width: 56.25%;\n}\n.ui.table th.ten.wide,\n.ui.table td.ten.wide {\n  width: 62.5%;\n}\n.ui.table th.eleven.wide,\n.ui.table td.eleven.wide {\n  width: 68.75%;\n}\n.ui.table th.twelve.wide,\n.ui.table td.twelve.wide {\n  width: 75%;\n}\n.ui.table th.thirteen.wide,\n.ui.table td.thirteen.wide {\n  width: 81.25%;\n}\n.ui.table th.fourteen.wide,\n.ui.table td.fourteen.wide {\n  width: 87.5%;\n}\n.ui.table th.fifteen.wide,\n.ui.table td.fifteen.wide {\n  width: 93.75%;\n}\n.ui.table th.sixteen.wide,\n.ui.table td.sixteen.wide {\n  width: 100%;\n}\n\n/*--------------\n    Sortable\n---------------*/\n\n.ui.sortable.table thead th {\n  cursor: pointer;\n  white-space: nowrap;\n  border-left: 1px solid rgba(34, 36, 38, 0.15);\n  color: rgba(0, 0, 0, 0.87);\n}\n.ui.sortable.table thead th:first-child {\n  border-left: none;\n}\n.ui.sortable.table thead th.sorted,\n.ui.sortable.table thead th.sorted:hover {\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n.ui.sortable.table thead th:after {\n  display: none;\n  font-style: normal;\n  font-weight: normal;\n  text-decoration: inherit;\n  content: '';\n  height: 1em;\n  width: auto;\n  opacity: 0.8;\n  margin: 0em 0em 0em 0.5em;\n  font-family: 'Icons';\n}\n.ui.sortable.table thead th.ascending:after {\n  content: '\\F0D8';\n}\n.ui.sortable.table thead th.descending:after {\n  content: '\\F0D7';\n}\n\n/* Hover */\n.ui.sortable.table th.disabled:hover {\n  cursor: auto;\n  color: rgba(40, 40, 40, 0.3);\n}\n.ui.sortable.table thead th:hover {\n  background: rgba(0, 0, 0, 0.05);\n  color: rgba(0, 0, 0, 0.8);\n}\n\n/* Sorted */\n.ui.sortable.table thead th.sorted {\n  background: rgba(0, 0, 0, 0.05);\n  color: rgba(0, 0, 0, 0.95);\n}\n.ui.sortable.table thead th.sorted:after {\n  display: inline-block;\n}\n\n/* Sorted Hover */\n.ui.sortable.table thead th.sorted:hover {\n  background: rgba(0, 0, 0, 0.05);\n  color: rgba(0, 0, 0, 0.95);\n}\n\n/* Inverted */\n.ui.inverted.sortable.table thead th.sorted {\n  background: rgba(255, 255, 255, 0.15) -webkit-linear-gradient(transparent, rgba(0, 0, 0, 0.05));\n  background: rgba(255, 255, 255, 0.15) linear-gradient(transparent, rgba(0, 0, 0, 0.05));\n  color: #ffffff;\n}\n.ui.inverted.sortable.table thead th:hover {\n  background: rgba(255, 255, 255, 0.08) -webkit-linear-gradient(transparent, rgba(0, 0, 0, 0.05));\n  background: rgba(255, 255, 255, 0.08) linear-gradient(transparent, rgba(0, 0, 0, 0.05));\n  color: #ffffff;\n}\n.ui.inverted.sortable.table thead th {\n  border-left-color: transparent;\n  border-right-color: transparent;\n}\n\n/*--------------\n    Inverted\n---------------*/\n\n\n/* Text Color */\n.ui.inverted.table {\n  background: #333333;\n  color: rgba(255, 255, 255, 0.9);\n  border: none;\n}\n.ui.inverted.table th {\n  background-color: rgba(0, 0, 0, 0.15);\n  border-color: rgba(255, 255, 255, 0.1) !important;\n  color: rgba(255, 255, 255, 0.9);\n}\n.ui.inverted.table tr td {\n  border-color: rgba(255, 255, 255, 0.1) !important;\n}\n.ui.inverted.table tr.disabled td,\n.ui.inverted.table tr td.disabled,\n.ui.inverted.table tr.disabled:hover td,\n.ui.inverted.table tr:hover td.disabled {\n  pointer-events: none;\n  color: rgba(225, 225, 225, 0.3);\n}\n\n/* Definition */\n.ui.inverted.definition.table tfoot:not(.full-width) th:first-child,\n.ui.inverted.definition.table thead:not(.full-width) th:first-child {\n  background: #FFFFFF;\n}\n.ui.inverted.definition.table tr td:first-child {\n  background: rgba(255, 255, 255, 0.02);\n  color: #ffffff;\n}\n\n/*--------------\n   Collapsing\n---------------*/\n\n.ui.collapsing.table {\n  width: auto;\n}\n\n/*--------------\n      Basic\n---------------*/\n\n.ui.basic.table {\n  background: transparent;\n  border: 1px solid rgba(34, 36, 38, 0.15);\n  box-shadow: none;\n}\n.ui.basic.table thead,\n.ui.basic.table tfoot {\n  box-shadow: none;\n}\n.ui.basic.table th {\n  background: transparent;\n  border-left: none;\n}\n.ui.basic.table tbody tr {\n  border-bottom: 1px solid rgba(0, 0, 0, 0.1);\n}\n.ui.basic.table td {\n  background: transparent;\n}\n.ui.basic.striped.table tbody tr:nth-child(2n) {\n  background-color: rgba(0, 0, 0, 0.05) !important;\n}\n\n/* Very Basic */\n.ui[class*=\"very basic\"].table {\n  border: none;\n}\n.ui[class*=\"very basic\"].table:not(.sortable):not(.striped) th,\n.ui[class*=\"very basic\"].table:not(.sortable):not(.striped) td {\n  padding: '';\n}\n.ui[class*=\"very basic\"].table:not(.sortable):not(.striped) th:first-child,\n.ui[class*=\"very basic\"].table:not(.sortable):not(.striped) td:first-child {\n  padding-left: 0em;\n}\n.ui[class*=\"very basic\"].table:not(.sortable):not(.striped) th:last-child,\n.ui[class*=\"very basic\"].table:not(.sortable):not(.striped) td:last-child {\n  padding-right: 0em;\n}\n.ui[class*=\"very basic\"].table:not(.sortable):not(.striped) thead tr:first-child th {\n  padding-top: 0em;\n}\n\n/*--------------\n     Celled\n---------------*/\n\n.ui.celled.table tr th,\n.ui.celled.table tr td {\n  border-left: 1px solid rgba(34, 36, 38, 0.1);\n}\n.ui.celled.table tr th:first-child,\n.ui.celled.table tr td:first-child {\n  border-left: none;\n}\n\n/*--------------\n     Padded\n---------------*/\n\n.ui.padded.table th {\n  padding-left: 1em;\n  padding-right: 1em;\n}\n.ui.padded.table th,\n.ui.padded.table td {\n  padding: 1em 1em;\n}\n\n/* Very */\n.ui[class*=\"very padded\"].table th {\n  padding-left: 1.5em;\n  padding-right: 1.5em;\n}\n.ui[class*=\"very padded\"].table td {\n  padding: 1.5em 1.5em;\n}\n\n/*--------------\n     Compact\n---------------*/\n\n.ui.compact.table th {\n  padding-left: 0.7em;\n  padding-right: 0.7em;\n}\n.ui.compact.table td {\n  padding: 0.5em 0.7em;\n}\n\n/* Very */\n.ui[class*=\"very compact\"].table th {\n  padding-left: 0.6em;\n  padding-right: 0.6em;\n}\n.ui[class*=\"very compact\"].table td {\n  padding: 0.4em 0.6em;\n}\n\n/*--------------\n      Sizes\n---------------*/\n\n\n/* Small */\n.ui.small.table {\n  font-size: 0.9em;\n}\n\n/* Standard */\n.ui.table {\n  font-size: 1em;\n}\n\n/* Large */\n.ui.large.table {\n  font-size: 1.1em;\n}\n\n\n/*******************************\n         Site Overrides\n*******************************/\n\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 226 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(227);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(217)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../css-loader/index.js!./loader.css", function() {
+				var newContent = require("!!./../css-loader/index.js!./loader.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 227 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(216)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "/*!\n * # Semantic UI 2.1.7 - Loader\n * http://github.com/semantic-org/semantic-ui/\n *\n *\n * Copyright 2015 Contributors\n * Released under the MIT license\n * http://opensource.org/licenses/MIT\n *\n */\n\n\n/*******************************\n            Loader\n*******************************/\n\n\n/* Standard Size */\n.ui.loader {\n  display: none;\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  margin: 0px;\n  text-align: center;\n  z-index: 1000;\n  -webkit-transform: translateX(-50%) translateY(-50%);\n      -ms-transform: translateX(-50%) translateY(-50%);\n          transform: translateX(-50%) translateY(-50%);\n}\n\n/* Static Shape */\n.ui.loader:before {\n  position: absolute;\n  content: '';\n  top: 0%;\n  left: 50%;\n  width: 100%;\n  height: 100%;\n  border-radius: 500rem;\n  border: 0.2em solid rgba(0, 0, 0, 0.1);\n}\n\n/* Active Shape */\n.ui.loader:after {\n  position: absolute;\n  content: '';\n  top: 0%;\n  left: 50%;\n  width: 100%;\n  height: 100%;\n  -webkit-animation: loader 0.6s linear;\n          animation: loader 0.6s linear;\n  -webkit-animation-iteration-count: infinite;\n          animation-iteration-count: infinite;\n  border-radius: 500rem;\n  border-color: #767676 transparent transparent;\n  border-style: solid;\n  border-width: 0.2em;\n  box-shadow: 0px 0px 0px 1px transparent;\n}\n\n/* Active Animation */\n@-webkit-keyframes loader {\n  from {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg);\n  }\n  to {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n  }\n}\n@keyframes loader {\n  from {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg);\n  }\n  to {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n  }\n}\n\n/* Sizes */\n.ui.loader:before,\n.ui.loader:after {\n  width: 2.2585em;\n  height: 2.2585em;\n  margin: 0em 0em 0em -1.12925em;\n}\n.ui.mini.loader:before,\n.ui.mini.loader:after {\n  width: 1.2857em;\n  height: 1.2857em;\n  margin: 0em 0em 0em -0.64285em;\n}\n.ui.small.loader:before,\n.ui.small.loader:after {\n  width: 1.7142em;\n  height: 1.7142em;\n  margin: 0em 0em 0em -0.8571em;\n}\n.ui.large.loader:before,\n.ui.large.loader:after {\n  width: 4.5714em;\n  height: 4.5714em;\n  margin: 0em 0em 0em -2.2857em;\n}\n\n/*-------------------\n      Coupling\n--------------------*/\n\n\n/* Show inside active dimmer */\n.ui.dimmer .loader {\n  display: block;\n}\n\n/* Black Dimmer */\n.ui.dimmer .ui.loader {\n  color: rgba(255, 255, 255, 0.9);\n}\n.ui.dimmer .ui.loader:before {\n  border-color: rgba(255, 255, 255, 0.15);\n}\n.ui.dimmer .ui.loader:after {\n  border-color: #FFFFFF transparent transparent;\n}\n\n/* White Dimmer (Inverted) */\n.ui.inverted.dimmer .ui.loader {\n  color: rgba(0, 0, 0, 0.87);\n}\n.ui.inverted.dimmer .ui.loader:before {\n  border-color: rgba(0, 0, 0, 0.1);\n}\n.ui.inverted.dimmer .ui.loader:after {\n  border-color: #767676 transparent transparent;\n}\n\n\n/*******************************\n             Types\n*******************************/\n\n\n/*-------------------\n        Text\n--------------------*/\n\n.ui.text.loader {\n  width: auto !important;\n  height: auto !important;\n  text-align: center;\n  font-style: normal;\n}\n\n\n/*******************************\n            States\n*******************************/\n\n.ui.indeterminate.loader:after {\n  -webkit-animation-direction: reverse;\n          animation-direction: reverse;\n  -webkit-animation-duration: 1.2s;\n          animation-duration: 1.2s;\n}\n.ui.loader.active,\n.ui.loader.visible {\n  display: block;\n}\n.ui.loader.disabled,\n.ui.loader.hidden {\n  display: none;\n}\n\n\n/*******************************\n            Variations\n*******************************/\n\n\n/*-------------------\n        Sizes\n--------------------*/\n\n\n/* Loader */\n.ui.inverted.dimmer .ui.mini.loader,\n.ui.mini.loader {\n  width: 1.2857em;\n  height: 1.2857em;\n  font-size: 0.71428571em;\n}\n.ui.inverted.dimmer .ui.small.loader,\n.ui.small.loader {\n  width: 1.7142em;\n  height: 1.7142em;\n  font-size: 0.92857143em;\n}\n.ui.inverted.dimmer .ui.loader,\n.ui.loader {\n  width: 2.2585em;\n  height: 2.2585em;\n  font-size: 1em;\n}\n.ui.inverted.dimmer .ui.loader.large,\n.ui.loader.large {\n  width: 4.5714em;\n  height: 4.5714em;\n  font-size: 1.14285714em;\n}\n\n/* Text Loader */\n.ui.mini.text.loader {\n  min-width: 1.2857em;\n  padding-top: 1.99998571em;\n}\n.ui.small.text.loader {\n  min-width: 1.7142em;\n  padding-top: 2.42848571em;\n}\n.ui.text.loader {\n  min-width: 2.2585em;\n  padding-top: 2.97278571em;\n}\n.ui.large.text.loader {\n  min-width: 4.5714em;\n  padding-top: 5.28568571em;\n}\n\n/*-------------------\n       Inverted\n--------------------*/\n\n.ui.inverted.loader {\n  color: rgba(255, 255, 255, 0.9);\n}\n.ui.inverted.loader:before {\n  border-color: rgba(255, 255, 255, 0.15);\n}\n.ui.inverted.loader:after {\n  border-top-color: #FFFFFF;\n}\n\n/*-------------------\n       Inline\n--------------------*/\n\n.ui.inline.loader {\n  position: relative;\n  vertical-align: middle;\n  margin: 0em;\n  left: 0em;\n  top: 0em;\n  -webkit-transform: none;\n      -ms-transform: none;\n          transform: none;\n}\n.ui.inline.loader.active,\n.ui.inline.loader.visible {\n  display: inline-block;\n}\n\n/* Centered Inline */\n.ui.centered.inline.loader.active,\n.ui.centered.inline.loader.visible {\n  display: block;\n  margin-left: auto;\n  margin-right: auto;\n}\n\n\n/*******************************\n         Theme Overrides\n*******************************/\n\n\n\n/*******************************\n         Site Overrides\n*******************************/\n\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 228 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(229);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(217)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../css-loader/index.js!./icon.css", function() {
+				var newContent = require("!!./../css-loader/index.js!./icon.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 229 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(216)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "/*!\n * # Semantic UI 2.1.7 - Icon\n * http://github.com/semantic-org/semantic-ui/\n *\n *\n * Copyright 2015 Contributors\n * Released under the MIT license\n * http://opensource.org/licenses/MIT\n *\n */\n\n\n/*******************************\n             Icon\n*******************************/\n\n@font-face {\n  font-family: 'Icons';\n  src: url(" + __webpack_require__(230) + ");\n  src: url(" + __webpack_require__(230) + "?#iefix) format('embedded-opentype'), url(" + __webpack_require__(231) + ") format('woff2'), url(" + __webpack_require__(232) + ") format('woff'), url(" + __webpack_require__(233) + ") format('truetype'), url(" + __webpack_require__(234) + "#icons) format('svg');\n  font-style: normal;\n  font-weight: normal;\n  font-variant: normal;\n  text-decoration: inherit;\n  text-transform: none;\n}\ni.icon {\n  display: inline-block;\n  opacity: 1;\n  margin: 0em 0.25rem 0em 0em;\n  width: 1.18em;\n  height: 1em;\n  font-family: 'Icons';\n  font-style: normal;\n  font-weight: normal;\n  text-decoration: inherit;\n  text-align: center;\n  speak: none;\n  font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n  -webkit-font-smoothing: antialiased;\n  -webkit-backface-visibility: hidden;\n          backface-visibility: hidden;\n}\ni.icon:before {\n  background: none !important;\n}\n\n\n/*******************************\n             Types\n*******************************/\n\n\n/*--------------\n    Loading\n---------------*/\n\ni.icon.loading {\n  height: 1em;\n  line-height: 1;\n  -webkit-animation: icon-loading 2s linear infinite;\n          animation: icon-loading 2s linear infinite;\n}\n@-webkit-keyframes icon-loading {\n  from {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg);\n  }\n  to {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n  }\n}\n@keyframes icon-loading {\n  from {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg);\n  }\n  to {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n  }\n}\n\n\n/*******************************\n             States\n*******************************/\n\ni.icon.hover {\n  opacity: 1 !important;\n}\ni.icon.active {\n  opacity: 1 !important;\n}\ni.emphasized.icon {\n  opacity: 1 !important;\n}\ni.disabled.icon {\n  opacity: 0.45 !important;\n}\n\n\n/*******************************\n           Variations\n*******************************/\n\n\n/*-------------------\n        Fitted\n--------------------*/\n\ni.fitted.icon {\n  width: auto;\n  margin: 0em;\n}\n\n/*-------------------\n         Link\n--------------------*/\n\ni.link.icon {\n  cursor: pointer;\n  opacity: 0.8;\n  -webkit-transition: opacity 0.1s ease;\n  transition: opacity 0.1s ease;\n}\ni.link.icon:hover {\n  opacity: 1 !important;\n}\n\n/*-------------------\n      Circular\n--------------------*/\n\ni.circular.icon {\n  border-radius: 500em !important;\n  line-height: 1 !important;\n  padding: 0.5em 0.5em !important;\n  box-shadow: 0em 0em 0em 0.1em rgba(0, 0, 0, 0.1) inset;\n  width: 2em !important;\n  height: 2em !important;\n}\ni.circular.inverted.icon {\n  border: none;\n  box-shadow: none;\n}\n\n/*-------------------\n      Flipped\n--------------------*/\n\ni.flipped.icon,\ni.horizontally.flipped.icon {\n  -webkit-transform: scale(-1, 1);\n      -ms-transform: scale(-1, 1);\n          transform: scale(-1, 1);\n}\ni.vertically.flipped.icon {\n  -webkit-transform: scale(1, -1);\n      -ms-transform: scale(1, -1);\n          transform: scale(1, -1);\n}\n\n/*-------------------\n      Rotated\n--------------------*/\n\ni.rotated.icon,\ni.right.rotated.icon,\ni.clockwise.rotated.icon {\n  -webkit-transform: rotate(90deg);\n      -ms-transform: rotate(90deg);\n          transform: rotate(90deg);\n}\ni.left.rotated.icon,\ni.counterclockwise.rotated.icon {\n  -webkit-transform: rotate(-90deg);\n      -ms-transform: rotate(-90deg);\n          transform: rotate(-90deg);\n}\n\n/*-------------------\n      Bordered\n--------------------*/\n\ni.bordered.icon {\n  line-height: 1;\n  vertical-align: baseline;\n  width: 2em;\n  height: 2em;\n  padding: 0.5em 0.41em !important;\n  box-shadow: 0em 0em 0em 0.1em rgba(0, 0, 0, 0.1) inset;\n}\ni.bordered.inverted.icon {\n  border: none;\n  box-shadow: none;\n}\n\n/*-------------------\n      Inverted\n--------------------*/\n\n\n/* Inverted Shapes */\ni.inverted.bordered.icon,\ni.inverted.circular.icon {\n  background-color: #1B1C1D !important;\n  color: #FFFFFF !important;\n}\ni.inverted.icon {\n  color: #FFFFFF;\n}\n\n/*-------------------\n       Colors\n--------------------*/\n\n\n/* Red */\ni.red.icon {\n  color: #DB2828 !important;\n}\ni.inverted.red.icon {\n  color: #FF695E !important;\n}\ni.inverted.bordered.red.icon,\ni.inverted.circular.red.icon {\n  background-color: #DB2828 !important;\n  color: #FFFFFF !important;\n}\n\n/* Orange */\ni.orange.icon {\n  color: #F2711C !important;\n}\ni.inverted.orange.icon {\n  color: #FF851B !important;\n}\ni.inverted.bordered.orange.icon,\ni.inverted.circular.orange.icon {\n  background-color: #F2711C !important;\n  color: #FFFFFF !important;\n}\n\n/* Yellow */\ni.yellow.icon {\n  color: #FBBD08 !important;\n}\ni.inverted.yellow.icon {\n  color: #FFE21F !important;\n}\ni.inverted.bordered.yellow.icon,\ni.inverted.circular.yellow.icon {\n  background-color: #FBBD08 !important;\n  color: #FFFFFF !important;\n}\n\n/* Olive */\ni.olive.icon {\n  color: #B5CC18 !important;\n}\ni.inverted.olive.icon {\n  color: #D9E778 !important;\n}\ni.inverted.bordered.olive.icon,\ni.inverted.circular.olive.icon {\n  background-color: #B5CC18 !important;\n  color: #FFFFFF !important;\n}\n\n/* Green */\ni.green.icon {\n  color: #21BA45 !important;\n}\ni.inverted.green.icon {\n  color: #2ECC40 !important;\n}\ni.inverted.bordered.green.icon,\ni.inverted.circular.green.icon {\n  background-color: #21BA45 !important;\n  color: #FFFFFF !important;\n}\n\n/* Teal */\ni.teal.icon {\n  color: #00B5AD !important;\n}\ni.inverted.teal.icon {\n  color: #6DFFFF !important;\n}\ni.inverted.bordered.teal.icon,\ni.inverted.circular.teal.icon {\n  background-color: #00B5AD !important;\n  color: #FFFFFF !important;\n}\n\n/* Blue */\ni.blue.icon {\n  color: #2185D0 !important;\n}\ni.inverted.blue.icon {\n  color: #54C8FF !important;\n}\ni.inverted.bordered.blue.icon,\ni.inverted.circular.blue.icon {\n  background-color: #2185D0 !important;\n  color: #FFFFFF !important;\n}\n\n/* Violet */\ni.violet.icon {\n  color: #6435C9 !important;\n}\ni.inverted.violet.icon {\n  color: #A291FB !important;\n}\ni.inverted.bordered.violet.icon,\ni.inverted.circular.violet.icon {\n  background-color: #6435C9 !important;\n  color: #FFFFFF !important;\n}\n\n/* Purple */\ni.purple.icon {\n  color: #A333C8 !important;\n}\ni.inverted.purple.icon {\n  color: #DC73FF !important;\n}\ni.inverted.bordered.purple.icon,\ni.inverted.circular.purple.icon {\n  background-color: #A333C8 !important;\n  color: #FFFFFF !important;\n}\n\n/* Pink */\ni.pink.icon {\n  color: #E03997 !important;\n}\ni.inverted.pink.icon {\n  color: #FF8EDF !important;\n}\ni.inverted.bordered.pink.icon,\ni.inverted.circular.pink.icon {\n  background-color: #E03997 !important;\n  color: #FFFFFF !important;\n}\n\n/* Brown */\ni.brown.icon {\n  color: #A5673F !important;\n}\ni.inverted.brown.icon {\n  color: #D67C1C !important;\n}\ni.inverted.bordered.brown.icon,\ni.inverted.circular.brown.icon {\n  background-color: #A5673F !important;\n  color: #FFFFFF !important;\n}\n\n/* Grey */\ni.grey.icon {\n  color: #767676 !important;\n}\ni.inverted.grey.icon {\n  color: #DCDDDE !important;\n}\ni.inverted.bordered.grey.icon,\ni.inverted.circular.grey.icon {\n  background-color: #767676 !important;\n  color: #FFFFFF !important;\n}\n\n/* Black */\ni.black.icon {\n  color: #1B1C1D !important;\n}\ni.inverted.black.icon {\n  color: #545454 !important;\n}\ni.inverted.bordeblack.black.icon,\ni.inverted.circular.black.icon {\n  background-color: #1B1C1D !important;\n  color: #FFFFFF !important;\n}\n\n/*-------------------\n        Sizes\n--------------------*/\n\ni.mini.icon,\ni.mini.icons {\n  line-height: 1;\n  font-size: 0.71428571rem;\n}\ni.tiny.icon,\ni.tiny.icons {\n  line-height: 1;\n  font-size: 0.85714286rem;\n}\ni.small.icon,\ni.small.icons {\n  line-height: 1;\n  font-size: 0.92857143em;\n}\ni.icon,\ni.icons {\n  font-size: 1em;\n}\ni.large.icon,\ni.large.icons {\n  line-height: 1;\n  vertical-align: middle;\n  font-size: 1.5em;\n}\ni.big.icon,\ni.big.icons {\n  line-height: 1;\n  vertical-align: middle;\n  font-size: 2em;\n}\ni.huge.icon,\ni.huge.icons {\n  line-height: 1;\n  vertical-align: middle;\n  font-size: 4em;\n}\ni.massive.icon,\ni.massive.icons {\n  line-height: 1;\n  vertical-align: middle;\n  font-size: 8em;\n}\n\n\n/*******************************\n            Groups\n*******************************/\n\ni.icons {\n  display: inline-block;\n  position: relative;\n  line-height: 1;\n}\ni.icons .icon {\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  -webkit-transform: translateX(-50%) translateY(-50%);\n      -ms-transform: translateX(-50%) translateY(-50%);\n          transform: translateX(-50%) translateY(-50%);\n  margin: 0em;\n  margin: 0;\n}\ni.icons .icon:first-child {\n  position: static;\n  width: auto;\n  height: auto;\n  vertical-align: top;\n  -webkit-transform: none;\n      -ms-transform: none;\n          transform: none;\n  margin-right: 0.25rem;\n}\n\n/* Corner Icon */\ni.icons .corner.icon {\n  top: auto;\n  left: auto;\n  right: 0;\n  bottom: 0;\n  -webkit-transform: none;\n      -ms-transform: none;\n          transform: none;\n  font-size: 0.45em;\n  text-shadow: -1px -1px 0 #FFFFFF, 1px -1px 0 #FFFFFF, -1px 1px 0 #FFFFFF, 1px 1px 0 #FFFFFF;\n}\ni.icons .inverted.corner.icon {\n  text-shadow: -1px -1px 0 #1B1C1D, 1px -1px 0 #1B1C1D, -1px 1px 0 #1B1C1D, 1px 1px 0 #1B1C1D;\n}\n/*\n * Font Awesome 4.3.0 by @davegandy - http://fontawesome.io - @fontawesome\n * License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)\n */\n\n\n/*******************************\n\nSemantic-UI integration of font-awesome :\n\n///class names are separated\ni.icon.circle => i.icon.circle\ni.icon.circle-o => i.icon.circle.outline\n\n//abbreviation are replaced by full letters:\ni.icon.ellipsis-h => i.icon.ellipsis.horizontal\ni.icon.ellipsis-v => i.icon.ellipsis.vertical\n.alpha => .i.icon.alphabet\n.asc => .i.icon.ascending\n.desc => .i.icon.descending\n.alt =>.alternate\n\nASCII order is conserved for easier maintenance.\n\nIcons that only have one style 'outline', 'square' etc do not require this class\nfor instance `lemon icon` not `lemon outline icon` since there is only one lemon\n\n*******************************/\n\n\n\n/*******************************\n            Icons\n*******************************/\n\n\n/* Web Content */\ni.icon.search:before {\n  content: \"\\F002\";\n}\ni.icon.mail.outline:before {\n  content: \"\\F003\";\n}\ni.icon.external:before {\n  content: \"\\F08E\";\n}\ni.icon.signal:before {\n  content: \"\\F012\";\n}\ni.icon.setting:before {\n  content: \"\\F013\";\n}\ni.icon.home:before {\n  content: \"\\F015\";\n}\ni.icon.inbox:before {\n  content: \"\\F01C\";\n}\ni.icon.browser:before {\n  content: \"\\F022\";\n}\ni.icon.tag:before {\n  content: \"\\F02B\";\n}\ni.icon.tags:before {\n  content: \"\\F02C\";\n}\ni.icon.calendar:before {\n  content: \"\\F073\";\n}\ni.icon.comment:before {\n  content: \"\\F075\";\n}\ni.icon.comments:before {\n  content: \"\\F086\";\n}\ni.icon.shop:before {\n  content: \"\\F07A\";\n}\ni.icon.privacy:before {\n  content: \"\\F084\";\n}\ni.icon.settings:before {\n  content: \"\\F085\";\n}\ni.icon.trophy:before {\n  content: \"\\F091\";\n}\ni.icon.payment:before {\n  content: \"\\F09D\";\n}\ni.icon.feed:before {\n  content: \"\\F09E\";\n}\ni.icon.alarm.outline:before {\n  content: \"\\F0A2\";\n}\ni.icon.tasks:before {\n  content: \"\\F0AE\";\n}\ni.icon.cloud:before {\n  content: \"\\F0C2\";\n}\ni.icon.lab:before {\n  content: \"\\F0C3\";\n}\ni.icon.mail:before {\n  content: \"\\F0E0\";\n}\ni.icon.idea:before {\n  content: \"\\F0EB\";\n}\ni.icon.dashboard:before {\n  content: \"\\F0E4\";\n}\ni.icon.sitemap:before {\n  content: \"\\F0E8\";\n}\ni.icon.alarm:before {\n  content: \"\\F0F3\";\n}\ni.icon.terminal:before {\n  content: \"\\F120\";\n}\ni.icon.code:before {\n  content: \"\\F121\";\n}\ni.icon.protect:before {\n  content: \"\\F132\";\n}\ni.icon.calendar.outline:before {\n  content: \"\\F133\";\n}\ni.icon.ticket:before {\n  content: \"\\F145\";\n}\ni.icon.external.square:before {\n  content: \"\\F14C\";\n}\ni.icon.map:before {\n  content: \"\\F14E\";\n}\ni.icon.bug:before {\n  content: \"\\F188\";\n}\ni.icon.mail.square:before {\n  content: \"\\F199\";\n}\ni.icon.history:before {\n  content: \"\\F1DA\";\n}\ni.icon.options:before {\n  content: \"\\F1DE\";\n}\ni.icon.comment.outline:before {\n  content: \"\\F0E5\";\n}\ni.icon.comments.outline:before {\n  content: \"\\F0E6\";\n}\ni.icon.text.telephone:before {\n  content: \"\\F1E4\";\n}\ni.icon.find:before {\n  content: \"\\F1E5\";\n}\ni.icon.wifi:before {\n  content: \"\\F1EB\";\n}\ni.icon.alarm.slash:before {\n  content: \"\\F1F6\";\n}\ni.icon.alarm.slash.outline:before {\n  content: \"\\F1F7\";\n}\ni.icon.copyright:before {\n  content: \"\\F1F9\";\n}\ni.icon.at:before {\n  content: \"\\F1FA\";\n}\ni.icon.eyedropper:before {\n  content: \"\\F1FB\";\n}\ni.icon.paint.brush:before {\n  content: \"\\F1FC\";\n}\ni.icon.heartbeat:before {\n  content: \"\\F21E\";\n}\n\n/* User Actions */\ni.icon.download:before {\n  content: \"\\F019\";\n}\ni.icon.repeat:before {\n  content: \"\\F01E\";\n}\ni.icon.refresh:before {\n  content: \"\\F021\";\n}\ni.icon.lock:before {\n  content: \"\\F023\";\n}\ni.icon.bookmark:before {\n  content: \"\\F02E\";\n}\ni.icon.print:before {\n  content: \"\\F02F\";\n}\ni.icon.write:before {\n  content: \"\\F040\";\n}\ni.icon.theme:before {\n  content: \"\\F043\";\n}\ni.icon.adjust:before {\n  content: \"\\F042\";\n}\ni.icon.edit:before {\n  content: \"\\F044\";\n}\ni.icon.external.share:before {\n  content: \"\\F045\";\n}\ni.icon.ban:before {\n  content: \"\\F05E\";\n}\ni.icon.mail.forward:before {\n  content: \"\\F064\";\n}\ni.icon.share:before {\n  content: \"\\F064\";\n}\ni.icon.expand:before {\n  content: \"\\F065\";\n}\ni.icon.compress:before {\n  content: \"\\F066\";\n}\ni.icon.unhide:before {\n  content: \"\\F06E\";\n}\ni.icon.hide:before {\n  content: \"\\F070\";\n}\ni.icon.random:before {\n  content: \"\\F074\";\n}\ni.icon.retweet:before {\n  content: \"\\F079\";\n}\ni.icon.sign.out:before {\n  content: \"\\F08B\";\n}\ni.icon.pin:before {\n  content: \"\\F08D\";\n}\ni.icon.sign.in:before {\n  content: \"\\F090\";\n}\ni.icon.upload:before {\n  content: \"\\F093\";\n}\ni.icon.call:before {\n  content: \"\\F095\";\n}\ni.icon.call.square:before {\n  content: \"\\F098\";\n}\ni.icon.remove.bookmark:before {\n  content: \"\\F097\";\n}\ni.icon.unlock:before {\n  content: \"\\F09C\";\n}\ni.icon.configure:before {\n  content: \"\\F0AD\";\n}\ni.icon.filter:before {\n  content: \"\\F0B0\";\n}\ni.icon.wizard:before {\n  content: \"\\F0D0\";\n}\ni.icon.undo:before {\n  content: \"\\F0E2\";\n}\ni.icon.exchange:before {\n  content: \"\\F0EC\";\n}\ni.icon.cloud.download:before {\n  content: \"\\F0ED\";\n}\ni.icon.cloud.upload:before {\n  content: \"\\F0EE\";\n}\ni.icon.reply:before {\n  content: \"\\F112\";\n}\ni.icon.reply.all:before {\n  content: \"\\F122\";\n}\ni.icon.erase:before {\n  content: \"\\F12D\";\n}\ni.icon.unlock.alternate:before {\n  content: \"\\F13E\";\n}\ni.icon.archive:before {\n  content: \"\\F187\";\n}\ni.icon.translate:before {\n  content: \"\\F1AB\";\n}\ni.icon.recycle:before {\n  content: \"\\F1B8\";\n}\ni.icon.send:before {\n  content: \"\\F1D8\";\n}\ni.icon.send.outline:before {\n  content: \"\\F1D9\";\n}\ni.icon.share.alternate:before {\n  content: \"\\F1E0\";\n}\ni.icon.share.alternate.square:before {\n  content: \"\\F1E1\";\n}\ni.icon.wait:before {\n  content: \"\\F017\";\n}\ni.icon.write.square:before {\n  content: \"\\F14B\";\n}\ni.icon.share.square:before {\n  content: \"\\F14D\";\n}\ni.icon.add.to.cart:before {\n  content: \"\\F217\";\n}\ni.icon.in.cart:before {\n  content: \"\\F218\";\n}\ni.icon.add.user:before {\n  content: \"\\F234\";\n}\ni.icon.remove.user:before {\n  content: \"\\F235\";\n}\n\n/* Messages */\ni.icon.help.circle:before {\n  content: \"\\F059\";\n}\ni.icon.info.circle:before {\n  content: \"\\F05A\";\n}\ni.icon.warning:before {\n  content: \"\\F12A\";\n}\ni.icon.warning.circle:before {\n  content: \"\\F06A\";\n}\ni.icon.warning.sign:before {\n  content: \"\\F071\";\n}\ni.icon.help:before {\n  content: \"\\F128\";\n}\ni.icon.info:before {\n  content: \"\\F129\";\n}\ni.icon.announcement:before {\n  content: \"\\F0A1\";\n}\ni.icon.birthday:before {\n  content: \"\\F1FD\";\n}\n\n/* Users */\ni.icon.users:before {\n  content: \"\\F0C0\";\n}\ni.icon.doctor:before {\n  content: \"\\F0F0\";\n}\ni.icon.child:before {\n  content: \"\\F1AE\";\n}\ni.icon.user:before {\n  content: \"\\F007\";\n}\ni.icon.handicap:before {\n  content: \"\\F193\";\n}\ni.icon.student:before {\n  content: \"\\F19D\";\n}\ni.icon.spy:before {\n  content: \"\\F21B\";\n}\n\n/* Gender & Sexuality */\ni.icon.female:before {\n  content: \"\\F182\";\n}\ni.icon.male:before {\n  content: \"\\F183\";\n}\ni.icon.woman:before {\n  content: \"\\F221\";\n}\ni.icon.man:before {\n  content: \"\\F222\";\n}\ni.icon.non.binary.transgender:before {\n  content: \"\\F223\";\n}\ni.icon.intergender:before {\n  content: \"\\F224\";\n}\ni.icon.transgender:before {\n  content: \"\\F225\";\n}\ni.icon.lesbian:before {\n  content: \"\\F226\";\n}\ni.icon.gay:before {\n  content: \"\\F227\";\n}\ni.icon.heterosexual:before {\n  content: \"\\F228\";\n}\ni.icon.other.gender:before {\n  content: \"\\F229\";\n}\ni.icon.other.gender.vertical:before {\n  content: \"\\F22A\";\n}\ni.icon.other.gender.horizontal:before {\n  content: \"\\F22B\";\n}\ni.icon.neuter:before {\n  content: \"\\F22C\";\n}\n\n/* View Adjustment */\ni.icon.grid.layout:before {\n  content: \"\\F00A\";\n}\ni.icon.list.layout:before {\n  content: \"\\F00B\";\n}\ni.icon.block.layout:before {\n  content: \"\\F009\";\n}\ni.icon.zoom:before {\n  content: \"\\F00E\";\n}\ni.icon.zoom.out:before {\n  content: \"\\F010\";\n}\ni.icon.resize.vertical:before {\n  content: \"\\F07D\";\n}\ni.icon.resize.horizontal:before {\n  content: \"\\F07E\";\n}\ni.icon.maximize:before {\n  content: \"\\F0B2\";\n}\ni.icon.crop:before {\n  content: \"\\F125\";\n}\n\n/* Literal Objects */\ni.icon.cocktail:before {\n  content: \"\\F000\";\n}\ni.icon.road:before {\n  content: \"\\F018\";\n}\ni.icon.flag:before {\n  content: \"\\F024\";\n}\ni.icon.book:before {\n  content: \"\\F02D\";\n}\ni.icon.gift:before {\n  content: \"\\F06B\";\n}\ni.icon.leaf:before {\n  content: \"\\F06C\";\n}\ni.icon.fire:before {\n  content: \"\\F06D\";\n}\ni.icon.plane:before {\n  content: \"\\F072\";\n}\ni.icon.magnet:before {\n  content: \"\\F076\";\n}\ni.icon.legal:before {\n  content: \"\\F0E3\";\n}\ni.icon.lemon:before {\n  content: \"\\F094\";\n}\ni.icon.world:before {\n  content: \"\\F0AC\";\n}\ni.icon.travel:before {\n  content: \"\\F0B1\";\n}\ni.icon.shipping:before {\n  content: \"\\F0D1\";\n}\ni.icon.money:before {\n  content: \"\\F0D6\";\n}\ni.icon.lightning:before {\n  content: \"\\F0E7\";\n}\ni.icon.rain:before {\n  content: \"\\F0E9\";\n}\ni.icon.treatment:before {\n  content: \"\\F0F1\";\n}\ni.icon.suitcase:before {\n  content: \"\\F0F2\";\n}\ni.icon.bar:before {\n  content: \"\\F0FC\";\n}\ni.icon.flag.outline:before {\n  content: \"\\F11D\";\n}\ni.icon.flag.checkered:before {\n  content: \"\\F11E\";\n}\ni.icon.puzzle:before {\n  content: \"\\F12E\";\n}\ni.icon.fire.extinguisher:before {\n  content: \"\\F134\";\n}\ni.icon.rocket:before {\n  content: \"\\F135\";\n}\ni.icon.anchor:before {\n  content: \"\\F13D\";\n}\ni.icon.bullseye:before {\n  content: \"\\F140\";\n}\ni.icon.sun:before {\n  content: \"\\F185\";\n}\ni.icon.moon:before {\n  content: \"\\F186\";\n}\ni.icon.fax:before {\n  content: \"\\F1AC\";\n}\ni.icon.life.ring:before {\n  content: \"\\F1CD\";\n}\ni.icon.bomb:before {\n  content: \"\\F1E2\";\n}\ni.icon.soccer:before {\n  content: \"\\F1E3\";\n}\ni.icon.calculator:before {\n  content: \"\\F1EC\";\n}\ni.icon.diamond:before {\n  content: \"\\F219\";\n}\n\n/* Shapes */\ni.icon.crosshairs:before {\n  content: \"\\F05B\";\n}\ni.icon.asterisk:before {\n  content: \"\\F069\";\n}\ni.icon.certificate:before {\n  content: \"\\F0A3\";\n}\ni.icon.circle:before {\n  content: \"\\F111\";\n}\ni.icon.quote.left:before {\n  content: \"\\F10D\";\n}\ni.icon.quote.right:before {\n  content: \"\\F10E\";\n}\ni.icon.ellipsis.horizontal:before {\n  content: \"\\F141\";\n}\ni.icon.ellipsis.vertical:before {\n  content: \"\\F142\";\n}\ni.icon.cube:before {\n  content: \"\\F1B2\";\n}\ni.icon.cubes:before {\n  content: \"\\F1B3\";\n}\ni.icon.circle.notched:before {\n  content: \"\\F1CE\";\n}\ni.icon.circle.thin:before {\n  content: \"\\F1DB\";\n}\ni.icon.square.outline:before {\n  content: \"\\F096\";\n}\ni.icon.square:before {\n  content: \"\\F0C8\";\n}\n\n/* Item Selection */\ni.icon.checkmark:before {\n  content: \"\\F00C\";\n}\ni.icon.remove:before {\n  content: \"\\F00D\";\n}\ni.icon.checkmark.box:before {\n  content: \"\\F046\";\n}\ni.icon.move:before {\n  content: \"\\F047\";\n}\ni.icon.add.circle:before {\n  content: \"\\F055\";\n}\ni.icon.minus.circle:before {\n  content: \"\\F056\";\n}\ni.icon.remove.circle:before {\n  content: \"\\F057\";\n}\ni.icon.check.circle:before {\n  content: \"\\F058\";\n}\ni.icon.remove.circle.outline:before {\n  content: \"\\F05C\";\n}\ni.icon.check.circle.outline:before {\n  content: \"\\F05D\";\n}\ni.icon.plus:before {\n  content: \"\\F067\";\n}\ni.icon.minus:before {\n  content: \"\\F068\";\n}\ni.icon.add.square:before {\n  content: \"\\F0FE\";\n}\ni.icon.radio:before {\n  content: \"\\F10C\";\n}\ni.icon.selected.radio:before {\n  content: \"\\F192\";\n}\ni.icon.minus.square:before {\n  content: \"\\F146\";\n}\ni.icon.minus.square.outline:before {\n  content: \"\\F147\";\n}\ni.icon.check.square:before {\n  content: \"\\F14A\";\n}\ni.icon.plus.square.outline:before {\n  content: \"\\F196\";\n}\ni.icon.toggle.off:before {\n  content: \"\\F204\";\n}\ni.icon.toggle.on:before {\n  content: \"\\F205\";\n}\n\n/* Media */\ni.icon.film:before {\n  content: \"\\F008\";\n}\ni.icon.sound:before {\n  content: \"\\F025\";\n}\ni.icon.photo:before {\n  content: \"\\F030\";\n}\ni.icon.bar.chart:before {\n  content: \"\\F080\";\n}\ni.icon.camera.retro:before {\n  content: \"\\F083\";\n}\ni.icon.newspaper:before {\n  content: \"\\F1EA\";\n}\ni.icon.area.chart:before {\n  content: \"\\F1FE\";\n}\ni.icon.pie.chart:before {\n  content: \"\\F200\";\n}\ni.icon.line.chart:before {\n  content: \"\\F201\";\n}\n\n/* Pointers */\ni.icon.arrow.circle.outline.down:before {\n  content: \"\\F01A\";\n}\ni.icon.arrow.circle.outline.up:before {\n  content: \"\\F01B\";\n}\ni.icon.chevron.left:before {\n  content: \"\\F053\";\n}\ni.icon.chevron.right:before {\n  content: \"\\F054\";\n}\ni.icon.arrow.left:before {\n  content: \"\\F060\";\n}\ni.icon.arrow.right:before {\n  content: \"\\F061\";\n}\ni.icon.arrow.up:before {\n  content: \"\\F062\";\n}\ni.icon.arrow.down:before {\n  content: \"\\F063\";\n}\ni.icon.chevron.up:before {\n  content: \"\\F077\";\n}\ni.icon.chevron.down:before {\n  content: \"\\F078\";\n}\ni.icon.pointing.right:before {\n  content: \"\\F0A4\";\n}\ni.icon.pointing.left:before {\n  content: \"\\F0A5\";\n}\ni.icon.pointing.up:before {\n  content: \"\\F0A6\";\n}\ni.icon.pointing.down:before {\n  content: \"\\F0A7\";\n}\ni.icon.arrow.circle.left:before {\n  content: \"\\F0A8\";\n}\ni.icon.arrow.circle.right:before {\n  content: \"\\F0A9\";\n}\ni.icon.arrow.circle.up:before {\n  content: \"\\F0AA\";\n}\ni.icon.arrow.circle.down:before {\n  content: \"\\F0AB\";\n}\ni.icon.caret.down:before {\n  content: \"\\F0D7\";\n}\ni.icon.caret.up:before {\n  content: \"\\F0D8\";\n}\ni.icon.caret.left:before {\n  content: \"\\F0D9\";\n}\ni.icon.caret.right:before {\n  content: \"\\F0DA\";\n}\ni.icon.angle.double.left:before {\n  content: \"\\F100\";\n}\ni.icon.angle.double.right:before {\n  content: \"\\F101\";\n}\ni.icon.angle.double.up:before {\n  content: \"\\F102\";\n}\ni.icon.angle.double.down:before {\n  content: \"\\F103\";\n}\ni.icon.angle.left:before {\n  content: \"\\F104\";\n}\ni.icon.angle.right:before {\n  content: \"\\F105\";\n}\ni.icon.angle.up:before {\n  content: \"\\F106\";\n}\ni.icon.angle.down:before {\n  content: \"\\F107\";\n}\ni.icon.chevron.circle.left:before {\n  content: \"\\F137\";\n}\ni.icon.chevron.circle.right:before {\n  content: \"\\F138\";\n}\ni.icon.chevron.circle.up:before {\n  content: \"\\F139\";\n}\ni.icon.chevron.circle.down:before {\n  content: \"\\F13A\";\n}\ni.icon.toggle.down:before {\n  content: \"\\F150\";\n}\ni.icon.toggle.up:before {\n  content: \"\\F151\";\n}\ni.icon.toggle.right:before {\n  content: \"\\F152\";\n}\ni.icon.long.arrow.down:before {\n  content: \"\\F175\";\n}\ni.icon.long.arrow.up:before {\n  content: \"\\F176\";\n}\ni.icon.long.arrow.left:before {\n  content: \"\\F177\";\n}\ni.icon.long.arrow.right:before {\n  content: \"\\F178\";\n}\ni.icon.arrow.circle.outline.right:before {\n  content: \"\\F18E\";\n}\ni.icon.arrow.circle.outline.left:before {\n  content: \"\\F190\";\n}\ni.icon.toggle.left:before {\n  content: \"\\F191\";\n}\n\n/* Computer */\ni.icon.power:before {\n  content: \"\\F011\";\n}\ni.icon.trash:before {\n  content: \"\\F1F8\";\n}\ni.icon.trash.outline:before {\n  content: \"\\F014\";\n}\ni.icon.disk.outline:before {\n  content: \"\\F0A0\";\n}\ni.icon.desktop:before {\n  content: \"\\F108\";\n}\ni.icon.laptop:before {\n  content: \"\\F109\";\n}\ni.icon.tablet:before {\n  content: \"\\F10A\";\n}\ni.icon.mobile:before {\n  content: \"\\F10B\";\n}\ni.icon.game:before {\n  content: \"\\F11B\";\n}\ni.icon.keyboard:before {\n  content: \"\\F11C\";\n}\ni.icon.plug:before {\n  content: \"\\F1E6\";\n}\n\n/* File System */\ni.icon.folder:before {\n  content: \"\\F07B\";\n}\ni.icon.folder.open:before {\n  content: \"\\F07C\";\n}\ni.icon.level.up:before {\n  content: \"\\F148\";\n}\ni.icon.level.down:before {\n  content: \"\\F149\";\n}\ni.icon.file:before {\n  content: \"\\F15B\";\n}\ni.icon.file.outline:before {\n  content: \"\\F016\";\n}\ni.icon.file.text:before {\n  content: \"\\F15C\";\n}\ni.icon.file.text.outline:before {\n  content: \"\\F0F6\";\n}\ni.icon.folder.outline:before {\n  content: \"\\F114\";\n}\ni.icon.folder.open.outline:before {\n  content: \"\\F115\";\n}\ni.icon.file.pdf.outline:before {\n  content: \"\\F1C1\";\n}\ni.icon.file.word.outline:before {\n  content: \"\\F1C2\";\n}\ni.icon.file.excel.outline:before {\n  content: \"\\F1C3\";\n}\ni.icon.file.powerpoint.outline:before {\n  content: \"\\F1C4\";\n}\ni.icon.file.image.outline:before {\n  content: \"\\F1C5\";\n}\ni.icon.file.archive.outline:before {\n  content: \"\\F1C6\";\n}\ni.icon.file.audio.outline:before {\n  content: \"\\F1C7\";\n}\ni.icon.file.video.outline:before {\n  content: \"\\F1C8\";\n}\ni.icon.file.code.outline:before {\n  content: \"\\F1C9\";\n}\n\n/* Technologies */\ni.icon.barcode:before {\n  content: \"\\F02A\";\n}\ni.icon.qrcode:before {\n  content: \"\\F029\";\n}\ni.icon.fork:before {\n  content: \"\\F126\";\n}\ni.icon.html5:before {\n  content: \"\\F13B\";\n}\ni.icon.css3:before {\n  content: \"\\F13C\";\n}\ni.icon.rss:before {\n  content: \"\\F09E\";\n}\ni.icon.rss.square:before {\n  content: \"\\F143\";\n}\ni.icon.openid:before {\n  content: \"\\F19B\";\n}\ni.icon.database:before {\n  content: \"\\F1C0\";\n}\ni.icon.server:before {\n  content: \"\\F233\";\n}\n\n/* Rating */\ni.icon.heart:before {\n  content: \"\\F004\";\n}\ni.icon.star:before {\n  content: \"\\F005\";\n}\ni.icon.empty.star:before {\n  content: \"\\F006\";\n}\ni.icon.thumbs.outline.up:before {\n  content: \"\\F087\";\n}\ni.icon.thumbs.outline.down:before {\n  content: \"\\F088\";\n}\ni.icon.star.half:before {\n  content: \"\\F089\";\n}\ni.icon.empty.heart:before {\n  content: \"\\F08A\";\n}\ni.icon.smile:before {\n  content: \"\\F118\";\n}\ni.icon.frown:before {\n  content: \"\\F119\";\n}\ni.icon.meh:before {\n  content: \"\\F11A\";\n}\ni.icon.star.half.empty:before {\n  content: \"\\F123\";\n}\ni.icon.thumbs.up:before {\n  content: \"\\F164\";\n}\ni.icon.thumbs.down:before {\n  content: \"\\F165\";\n}\n\n/* Audio */\ni.icon.music:before {\n  content: \"\\F001\";\n}\ni.icon.video.play.outline:before {\n  content: \"\\F01D\";\n}\ni.icon.volume.off:before {\n  content: \"\\F026\";\n}\ni.icon.volume.down:before {\n  content: \"\\F027\";\n}\ni.icon.volume.up:before {\n  content: \"\\F028\";\n}\ni.icon.record:before {\n  content: \"\\F03D\";\n}\ni.icon.step.backward:before {\n  content: \"\\F048\";\n}\ni.icon.fast.backward:before {\n  content: \"\\F049\";\n}\ni.icon.backward:before {\n  content: \"\\F04A\";\n}\ni.icon.play:before {\n  content: \"\\F04B\";\n}\ni.icon.pause:before {\n  content: \"\\F04C\";\n}\ni.icon.stop:before {\n  content: \"\\F04D\";\n}\ni.icon.forward:before {\n  content: \"\\F04E\";\n}\ni.icon.fast.forward:before {\n  content: \"\\F050\";\n}\ni.icon.step.forward:before {\n  content: \"\\F051\";\n}\ni.icon.eject:before {\n  content: \"\\F052\";\n}\ni.icon.unmute:before {\n  content: \"\\F130\";\n}\ni.icon.mute:before {\n  content: \"\\F131\";\n}\ni.icon.video.play:before {\n  content: \"\\F144\";\n}\ni.icon.closed.captioning:before {\n  content: \"\\F20A\";\n}\n\n/* Map, Locations, & Transportation */\ni.icon.marker:before {\n  content: \"\\F041\";\n}\ni.icon.coffee:before {\n  content: \"\\F0F4\";\n}\ni.icon.food:before {\n  content: \"\\F0F5\";\n}\ni.icon.building.outline:before {\n  content: \"\\F0F7\";\n}\ni.icon.hospital:before {\n  content: \"\\F0F8\";\n}\ni.icon.emergency:before {\n  content: \"\\F0F9\";\n}\ni.icon.first.aid:before {\n  content: \"\\F0FA\";\n}\ni.icon.military:before {\n  content: \"\\F0FB\";\n}\ni.icon.h:before {\n  content: \"\\F0FD\";\n}\ni.icon.location.arrow:before {\n  content: \"\\F124\";\n}\ni.icon.space.shuttle:before {\n  content: \"\\F197\";\n}\ni.icon.university:before {\n  content: \"\\F19C\";\n}\ni.icon.building:before {\n  content: \"\\F1AD\";\n}\ni.icon.paw:before {\n  content: \"\\F1B0\";\n}\ni.icon.spoon:before {\n  content: \"\\F1B1\";\n}\ni.icon.car:before {\n  content: \"\\F1B9\";\n}\ni.icon.taxi:before {\n  content: \"\\F1BA\";\n}\ni.icon.tree:before {\n  content: \"\\F1BB\";\n}\ni.icon.bicycle:before {\n  content: \"\\F206\";\n}\ni.icon.bus:before {\n  content: \"\\F207\";\n}\ni.icon.ship:before {\n  content: \"\\F21A\";\n}\ni.icon.motorcycle:before {\n  content: \"\\F21C\";\n}\ni.icon.street.view:before {\n  content: \"\\F21D\";\n}\ni.icon.hotel:before {\n  content: \"\\F236\";\n}\ni.icon.train:before {\n  content: \"\\F238\";\n}\ni.icon.subway:before {\n  content: \"\\F239\";\n}\n\n/* Tables */\ni.icon.table:before {\n  content: \"\\F0CE\";\n}\ni.icon.columns:before {\n  content: \"\\F0DB\";\n}\ni.icon.sort:before {\n  content: \"\\F0DC\";\n}\ni.icon.sort.ascending:before {\n  content: \"\\F0DE\";\n}\ni.icon.sort.descending:before {\n  content: \"\\F0DD\";\n}\ni.icon.sort.alphabet.ascending:before {\n  content: \"\\F15D\";\n}\ni.icon.sort.alphabet.descending:before {\n  content: \"\\F15E\";\n}\ni.icon.sort.content.ascending:before {\n  content: \"\\F160\";\n}\ni.icon.sort.content.descending:before {\n  content: \"\\F161\";\n}\ni.icon.sort.numeric.ascending:before {\n  content: \"\\F162\";\n}\ni.icon.sort.numeric.descending:before {\n  content: \"\\F163\";\n}\n\n/* Text Editor */\ni.icon.font:before {\n  content: \"\\F031\";\n}\ni.icon.bold:before {\n  content: \"\\F032\";\n}\ni.icon.italic:before {\n  content: \"\\F033\";\n}\ni.icon.text.height:before {\n  content: \"\\F034\";\n}\ni.icon.text.width:before {\n  content: \"\\F035\";\n}\ni.icon.align.left:before {\n  content: \"\\F036\";\n}\ni.icon.align.center:before {\n  content: \"\\F037\";\n}\ni.icon.align.right:before {\n  content: \"\\F038\";\n}\ni.icon.align.justify:before {\n  content: \"\\F039\";\n}\ni.icon.list:before {\n  content: \"\\F03A\";\n}\ni.icon.outdent:before {\n  content: \"\\F03B\";\n}\ni.icon.indent:before {\n  content: \"\\F03C\";\n}\ni.icon.linkify:before {\n  content: \"\\F0C1\";\n}\ni.icon.cut:before {\n  content: \"\\F0C4\";\n}\ni.icon.copy:before {\n  content: \"\\F0C5\";\n}\ni.icon.attach:before {\n  content: \"\\F0C6\";\n}\ni.icon.save:before {\n  content: \"\\F0C7\";\n}\ni.icon.content:before {\n  content: \"\\F0C9\";\n}\ni.icon.unordered.list:before {\n  content: \"\\F0CA\";\n}\ni.icon.ordered.list:before {\n  content: \"\\F0CB\";\n}\ni.icon.strikethrough:before {\n  content: \"\\F0CC\";\n}\ni.icon.underline:before {\n  content: \"\\F0CD\";\n}\ni.icon.paste:before {\n  content: \"\\F0EA\";\n}\ni.icon.unlink:before {\n  content: \"\\F127\";\n}\ni.icon.superscript:before {\n  content: \"\\F12B\";\n}\ni.icon.subscript:before {\n  content: \"\\F12C\";\n}\ni.icon.header:before {\n  content: \"\\F1DC\";\n}\ni.icon.paragraph:before {\n  content: \"\\F1DD\";\n}\n\n/* Currency */\ni.icon.euro:before {\n  content: \"\\F153\";\n}\ni.icon.pound:before {\n  content: \"\\F154\";\n}\ni.icon.dollar:before {\n  content: \"\\F155\";\n}\ni.icon.rupee:before {\n  content: \"\\F156\";\n}\ni.icon.yen:before {\n  content: \"\\F157\";\n}\ni.icon.ruble:before {\n  content: \"\\F158\";\n}\ni.icon.won:before {\n  content: \"\\F159\";\n}\ni.icon.lira:before {\n  content: \"\\F195\";\n}\ni.icon.shekel:before {\n  content: \"\\F20B\";\n}\n\n/* Payment Options */\ni.icon.paypal:before {\n  content: \"\\F1ED\";\n}\ni.icon.paypal.card:before {\n  content: \"\\F1F4\";\n}\ni.icon.google.wallet:before {\n  content: \"\\F1EE\";\n}\ni.icon.visa:before {\n  content: \"\\F1F0\";\n}\ni.icon.mastercard:before {\n  content: \"\\F1F1\";\n}\ni.icon.discover:before {\n  content: \"\\F1F2\";\n}\ni.icon.american.express:before {\n  content: \"\\F1F3\";\n}\ni.icon.stripe:before {\n  content: \"\\F1F5\";\n}\n/* Networks and Websites*/\ni.icon.twitter.square:before {\n  content: \"\\F081\";\n}\ni.icon.facebook.square:before {\n  content: \"\\F082\";\n}\ni.icon.linkedin.square:before {\n  content: \"\\F08C\";\n}\ni.icon.github.square:before {\n  content: \"\\F092\";\n}\ni.icon.twitter:before {\n  content: \"\\F099\";\n}\ni.icon.facebook:before {\n  content: \"\\F09A\";\n}\ni.icon.github:before {\n  content: \"\\F09B\";\n}\ni.icon.pinterest:before {\n  content: \"\\F0D2\";\n}\ni.icon.pinterest.square:before {\n  content: \"\\F0D3\";\n}\ni.icon.google.plus.square:before {\n  content: \"\\F0D4\";\n}\ni.icon.google.plus:before {\n  content: \"\\F0D5\";\n}\ni.icon.linkedin:before {\n  content: \"\\F0E1\";\n}\ni.icon.github.alternate:before {\n  content: \"\\F113\";\n}\ni.icon.maxcdn:before {\n  content: \"\\F136\";\n}\ni.icon.bitcoin:before {\n  content: \"\\F15A\";\n}\ni.icon.youtube.square:before {\n  content: \"\\F166\";\n}\ni.icon.youtube:before {\n  content: \"\\F167\";\n}\ni.icon.xing:before {\n  content: \"\\F168\";\n}\ni.icon.xing.square:before {\n  content: \"\\F169\";\n}\ni.icon.youtube.play:before {\n  content: \"\\F16A\";\n}\ni.icon.dropbox:before {\n  content: \"\\F16B\";\n}\ni.icon.stack.overflow:before {\n  content: \"\\F16C\";\n}\ni.icon.instagram:before {\n  content: \"\\F16D\";\n}\ni.icon.flickr:before {\n  content: \"\\F16E\";\n}\ni.icon.adn:before {\n  content: \"\\F170\";\n}\ni.icon.bitbucket:before {\n  content: \"\\F171\";\n}\ni.icon.bitbucket.square:before {\n  content: \"\\F172\";\n}\ni.icon.tumblr:before {\n  content: \"\\F173\";\n}\ni.icon.tumblr.square:before {\n  content: \"\\F174\";\n}\ni.icon.apple:before {\n  content: \"\\F179\";\n}\ni.icon.windows:before {\n  content: \"\\F17A\";\n}\ni.icon.android:before {\n  content: \"\\F17B\";\n}\ni.icon.linux:before {\n  content: \"\\F17C\";\n}\ni.icon.dribbble:before {\n  content: \"\\F17D\";\n}\ni.icon.skype:before {\n  content: \"\\F17E\";\n}\ni.icon.foursquare:before {\n  content: \"\\F180\";\n}\ni.icon.trello:before {\n  content: \"\\F181\";\n}\ni.icon.gittip:before {\n  content: \"\\F184\";\n}\ni.icon.vk:before {\n  content: \"\\F189\";\n}\ni.icon.weibo:before {\n  content: \"\\F18A\";\n}\ni.icon.renren:before {\n  content: \"\\F18B\";\n}\ni.icon.pagelines:before {\n  content: \"\\F18C\";\n}\ni.icon.stack.exchange:before {\n  content: \"\\F18D\";\n}\ni.icon.vimeo:before {\n  content: \"\\F194\";\n}\ni.icon.slack:before {\n  content: \"\\F198\";\n}\ni.icon.wordpress:before {\n  content: \"\\F19A\";\n}\ni.icon.yahoo:before {\n  content: \"\\F19E\";\n}\ni.icon.google:before {\n  content: \"\\F1A0\";\n}\ni.icon.reddit:before {\n  content: \"\\F1A1\";\n}\ni.icon.reddit.square:before {\n  content: \"\\F1A2\";\n}\ni.icon.stumbleupon.circle:before {\n  content: \"\\F1A3\";\n}\ni.icon.stumbleupon:before {\n  content: \"\\F1A4\";\n}\ni.icon.delicious:before {\n  content: \"\\F1A5\";\n}\ni.icon.digg:before {\n  content: \"\\F1A6\";\n}\ni.icon.pied.piper:before {\n  content: \"\\F1A7\";\n}\ni.icon.pied.piper.alternate:before {\n  content: \"\\F1A8\";\n}\ni.icon.drupal:before {\n  content: \"\\F1A9\";\n}\ni.icon.joomla:before {\n  content: \"\\F1AA\";\n}\ni.icon.behance:before {\n  content: \"\\F1B4\";\n}\ni.icon.behance.square:before {\n  content: \"\\F1B5\";\n}\ni.icon.steam:before {\n  content: \"\\F1B6\";\n}\ni.icon.steam.square:before {\n  content: \"\\F1B7\";\n}\ni.icon.spotify:before {\n  content: \"\\F1BC\";\n}\ni.icon.deviantart:before {\n  content: \"\\F1BD\";\n}\ni.icon.soundcloud:before {\n  content: \"\\F1BE\";\n}\ni.icon.vine:before {\n  content: \"\\F1CA\";\n}\ni.icon.codepen:before {\n  content: \"\\F1CB\";\n}\ni.icon.jsfiddle:before {\n  content: \"\\F1CC\";\n}\ni.icon.rebel:before {\n  content: \"\\F1D0\";\n}\ni.icon.empire:before {\n  content: \"\\F1D1\";\n}\ni.icon.git.square:before {\n  content: \"\\F1D2\";\n}\ni.icon.git:before {\n  content: \"\\F1D3\";\n}\ni.icon.hacker.news:before {\n  content: \"\\F1D4\";\n}\ni.icon.tencent.weibo:before {\n  content: \"\\F1D5\";\n}\ni.icon.qq:before {\n  content: \"\\F1D6\";\n}\ni.icon.wechat:before {\n  content: \"\\F1D7\";\n}\ni.icon.slideshare:before {\n  content: \"\\F1E7\";\n}\ni.icon.twitch:before {\n  content: \"\\F1E8\";\n}\ni.icon.yelp:before {\n  content: \"\\F1E9\";\n}\ni.icon.lastfm:before {\n  content: \"\\F202\";\n}\ni.icon.lastfm.square:before {\n  content: \"\\F203\";\n}\ni.icon.ioxhost:before {\n  content: \"\\F208\";\n}\ni.icon.angellist:before {\n  content: \"\\F209\";\n}\ni.icon.meanpath:before {\n  content: \"\\F20C\";\n}\ni.icon.buysellads:before {\n  content: \"\\F20D\";\n}\ni.icon.connectdevelop:before {\n  content: \"\\F20E\";\n}\ni.icon.dashcube:before {\n  content: \"\\F210\";\n}\ni.icon.forumbee:before {\n  content: \"\\F211\";\n}\ni.icon.leanpub:before {\n  content: \"\\F212\";\n}\ni.icon.sellsy:before {\n  content: \"\\F213\";\n}\ni.icon.shirtsinbulk:before {\n  content: \"\\F214\";\n}\ni.icon.simplybuilt:before {\n  content: \"\\F215\";\n}\ni.icon.skyatlas:before {\n  content: \"\\F216\";\n}\ni.icon.whatsapp:before {\n  content: \"\\F232\";\n}\ni.icon.viacoin:before {\n  content: \"\\F237\";\n}\ni.icon.medium:before {\n  content: \"\\F23A\";\n}\n\n\n/*******************************\n            Aliases\n*******************************/\n\ni.icon.like:before {\n  content: \"\\F004\";\n}\ni.icon.favorite:before {\n  content: \"\\F005\";\n}\ni.icon.video:before {\n  content: \"\\F008\";\n}\ni.icon.check:before {\n  content: \"\\F00C\";\n}\ni.icon.close:before {\n  content: \"\\F00D\";\n}\ni.icon.cancel:before {\n  content: \"\\F00D\";\n}\ni.icon.delete:before {\n  content: \"\\F00D\";\n}\ni.icon.x:before {\n  content: \"\\F00D\";\n}\ni.icon.user.times:before {\n  content: \"\\F235\";\n}\ni.icon.user.close:before {\n  content: \"\\F235\";\n}\ni.icon.user.cancel:before {\n  content: \"\\F235\";\n}\ni.icon.user.delete:before {\n  content: \"\\F235\";\n}\ni.icon.user.x:before {\n  content: \"\\F235\";\n}\ni.icon.zoom.in:before {\n  content: \"\\F00E\";\n}\ni.icon.magnify:before {\n  content: \"\\F00E\";\n}\ni.icon.shutdown:before {\n  content: \"\\F011\";\n}\ni.icon.clock:before {\n  content: \"\\F017\";\n}\ni.icon.time:before {\n  content: \"\\F017\";\n}\ni.icon.play.circle.outline:before {\n  content: \"\\F01D\";\n}\ni.icon.headphone:before {\n  content: \"\\F025\";\n}\ni.icon.camera:before {\n  content: \"\\F030\";\n}\ni.icon.video.camera:before {\n  content: \"\\F03D\";\n}\ni.icon.picture:before {\n  content: \"\\F03E\";\n}\ni.icon.pencil:before {\n  content: \"\\F040\";\n}\ni.icon.compose:before {\n  content: \"\\F040\";\n}\ni.icon.point:before {\n  content: \"\\F041\";\n}\ni.icon.tint:before {\n  content: \"\\F043\";\n}\ni.icon.signup:before {\n  content: \"\\F044\";\n}\ni.icon.plus.circle:before {\n  content: \"\\F055\";\n}\ni.icon.dont:before {\n  content: \"\\F05E\";\n}\ni.icon.minimize:before {\n  content: \"\\F066\";\n}\ni.icon.add:before {\n  content: \"\\F067\";\n}\ni.icon.eye:before {\n  content: \"\\F06E\";\n}\ni.icon.attention:before {\n  content: \"\\F06A\";\n}\ni.icon.cart:before {\n  content: \"\\F07A\";\n}\ni.icon.shuffle:before {\n  content: \"\\F074\";\n}\ni.icon.talk:before {\n  content: \"\\F075\";\n}\ni.icon.chat:before {\n  content: \"\\F075\";\n}\ni.icon.shopping.cart:before {\n  content: \"\\F07A\";\n}\ni.icon.bar.graph:before {\n  content: \"\\F080\";\n}\ni.icon.area.graph:before {\n  content: \"\\F1FE\";\n}\ni.icon.pie.graph:before {\n  content: \"\\F200\";\n}\ni.icon.line.graph:before {\n  content: \"\\F201\";\n}\ni.icon.key:before {\n  content: \"\\F084\";\n}\ni.icon.cogs:before {\n  content: \"\\F085\";\n}\ni.icon.discussions:before {\n  content: \"\\F086\";\n}\ni.icon.like.outline:before {\n  content: \"\\F087\";\n}\ni.icon.dislike.outline:before {\n  content: \"\\F088\";\n}\ni.icon.heart.outline:before {\n  content: \"\\F08A\";\n}\ni.icon.log.out:before {\n  content: \"\\F08B\";\n}\ni.icon.thumb.tack:before {\n  content: \"\\F08D\";\n}\ni.icon.winner:before {\n  content: \"\\F091\";\n}\ni.icon.bookmark.outline:before {\n  content: \"\\F097\";\n}\ni.icon.phone:before {\n  content: \"\\F095\";\n}\ni.icon.phone.square:before {\n  content: \"\\F098\";\n}\ni.icon.credit.card:before {\n  content: \"\\F09D\";\n}\ni.icon.hdd.outline:before {\n  content: \"\\F0A0\";\n}\ni.icon.bullhorn:before {\n  content: \"\\F0A1\";\n}\ni.icon.bell:before {\n  content: \"\\F0F3\";\n}\ni.icon.bell.outline:before {\n  content: \"\\F0A2\";\n}\ni.icon.bell.slash:before {\n  content: \"\\F1F6\";\n}\ni.icon.bell.slash.outline:before {\n  content: \"\\F1F7\";\n}\ni.icon.hand.outline.right:before {\n  content: \"\\F0A4\";\n}\ni.icon.hand.outline.left:before {\n  content: \"\\F0A5\";\n}\ni.icon.hand.outline.up:before {\n  content: \"\\F0A6\";\n}\ni.icon.hand.outline.down:before {\n  content: \"\\F0A7\";\n}\ni.icon.globe:before {\n  content: \"\\F0AC\";\n}\ni.icon.wrench:before {\n  content: \"\\F0AD\";\n}\ni.icon.briefcase:before {\n  content: \"\\F0B1\";\n}\ni.icon.group:before {\n  content: \"\\F0C0\";\n}\ni.icon.flask:before {\n  content: \"\\F0C3\";\n}\ni.icon.sidebar:before {\n  content: \"\\F0C9\";\n}\ni.icon.bars:before {\n  content: \"\\F0C9\";\n}\ni.icon.list.ul:before {\n  content: \"\\F0CA\";\n}\ni.icon.list.ol:before {\n  content: \"\\F0CB\";\n}\ni.icon.numbered.list:before {\n  content: \"\\F0CB\";\n}\ni.icon.magic:before {\n  content: \"\\F0D0\";\n}\ni.icon.truck:before {\n  content: \"\\F0D1\";\n}\ni.icon.currency:before {\n  content: \"\\F0D6\";\n}\ni.icon.triangle.down:before {\n  content: \"\\F0D7\";\n}\ni.icon.dropdown:before {\n  content: \"\\F0D7\";\n}\ni.icon.triangle.up:before {\n  content: \"\\F0D8\";\n}\ni.icon.triangle.left:before {\n  content: \"\\F0D9\";\n}\ni.icon.triangle.right:before {\n  content: \"\\F0DA\";\n}\ni.icon.envelope:before {\n  content: \"\\F0E0\";\n}\ni.icon.conversation:before {\n  content: \"\\F0E6\";\n}\ni.icon.umbrella:before {\n  content: \"\\F0E9\";\n}\ni.icon.clipboard:before {\n  content: \"\\F0EA\";\n}\ni.icon.lightbulb:before {\n  content: \"\\F0EB\";\n}\ni.icon.ambulance:before {\n  content: \"\\F0F9\";\n}\ni.icon.medkit:before {\n  content: \"\\F0FA\";\n}\ni.icon.fighter.jet:before {\n  content: \"\\F0FB\";\n}\ni.icon.beer:before {\n  content: \"\\F0FC\";\n}\ni.icon.plus.square:before {\n  content: \"\\F0FE\";\n}\ni.icon.computer:before {\n  content: \"\\F108\";\n}\ni.icon.circle.outline:before {\n  content: \"\\F10C\";\n}\ni.icon.intersex:before {\n  content: \"\\F10C\";\n}\ni.icon.asexual:before {\n  content: \"\\F10C\";\n}\ni.icon.spinner:before {\n  content: \"\\F110\";\n}\ni.icon.gamepad:before {\n  content: \"\\F11B\";\n}\ni.icon.star.half.full:before {\n  content: \"\\F123\";\n}\ni.icon.question:before {\n  content: \"\\F128\";\n}\ni.icon.eraser:before {\n  content: \"\\F12D\";\n}\ni.icon.microphone:before {\n  content: \"\\F130\";\n}\ni.icon.microphone.slash:before {\n  content: \"\\F131\";\n}\ni.icon.shield:before {\n  content: \"\\F132\";\n}\ni.icon.target:before {\n  content: \"\\F140\";\n}\ni.icon.play.circle:before {\n  content: \"\\F144\";\n}\ni.icon.pencil.square:before {\n  content: \"\\F14B\";\n}\ni.icon.compass:before {\n  content: \"\\F14E\";\n}\ni.icon.amex:before {\n  content: \"\\F1F3\";\n}\ni.icon.eur:before {\n  content: \"\\F153\";\n}\ni.icon.gbp:before {\n  content: \"\\F154\";\n}\ni.icon.usd:before {\n  content: \"\\F155\";\n}\ni.icon.inr:before {\n  content: \"\\F156\";\n}\ni.icon.cny:before,\ni.icon.rmb:before,\ni.icon.jpy:before {\n  content: \"\\F157\";\n}\ni.icon.rouble:before,\ni.icon.rub:before {\n  content: \"\\F158\";\n}\ni.icon.krw:before {\n  content: \"\\F159\";\n}\ni.icon.btc:before {\n  content: \"\\F15A\";\n}\ni.icon.sheqel:before,\ni.icon.ils:before {\n  content: \"\\F20B\";\n}\ni.icon.try:before {\n  content: \"\\F195\";\n}\ni.icon.zip:before {\n  content: \"\\F187\";\n}\ni.icon.dot.circle.outline:before {\n  content: \"\\F192\";\n}\ni.icon.sliders:before {\n  content: \"\\F1DE\";\n}\ni.icon.wi-fi:before {\n  content: \"\\F1EB\";\n}\ni.icon.graduation:before {\n  content: \"\\F19D\";\n}\ni.icon.weixin:before {\n  content: \"\\F1D7\";\n}\ni.icon.binoculars:before {\n  content: \"\\F1E5\";\n}\ni.icon.gratipay:before {\n  content: \"\\F184\";\n}\ni.icon.genderless:before {\n  content: \"\\F1DB\";\n}\ni.icon.teletype:before {\n  content: \"\\F1E4\";\n}\ni.icon.power.cord:before {\n  content: \"\\F1E6\";\n}\ni.icon.tty:before {\n  content: \"\\F1E4\";\n}\ni.icon.cc:before {\n  content: \"\\F20A\";\n}\ni.icon.plus.cart:before {\n  content: \"\\F217\";\n}\ni.icon.arrow.down.cart:before {\n  content: \"\\F218\";\n}\ni.icon.detective:before {\n  content: \"\\F21B\";\n}\ni.icon.venus:before {\n  content: \"\\F221\";\n}\ni.icon.mars:before {\n  content: \"\\F222\";\n}\ni.icon.mercury:before {\n  content: \"\\F223\";\n}\ni.icon.venus.double:before {\n  content: \"\\F226\";\n}\ni.icon.female.homosexual:before {\n  content: \"\\F226\";\n}\ni.icon.mars.double:before {\n  content: \"\\F227\";\n}\ni.icon.male.homosexual:before {\n  content: \"\\F227\";\n}\ni.icon.venus.mars:before {\n  content: \"\\F228\";\n}\ni.icon.mars.stroke:before {\n  content: \"\\F229\";\n}\ni.icon.mars.alternate:before {\n  content: \"\\F229\";\n}\ni.icon.mars.vertical:before {\n  content: \"\\F22A\";\n}\ni.icon.mars.horizontal:before {\n  content: \"\\F22B\";\n}\ni.icon.mars.stroke.vertical:before {\n  content: \"\\F22A\";\n}\ni.icon.mars.stroke.horizontal:before {\n  content: \"\\F22B\";\n}\ni.icon.facebook.official {\n  content: \"\\F230\";\n}\ni.icon.pinterest.official {\n  content: \"\\F231\";\n}\ni.icon.bed:before {\n  content: \"\\F236\";\n}\n\n\n/*******************************\n         Site Overrides\n*******************************/\n\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 230 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "f7c2b4b747b1a225eb8dee034134a1b0.eot";
+
+/***/ },
+/* 231 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "97493d3f11c0a3bd5cbd959f5d19b699.woff2";
+
+/***/ },
+/* 232 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "d9ee23d59d0e0e727b51368b458a0bff.woff";
+
+/***/ },
+/* 233 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "706450d7bba6374ca02fe167d86685cb.ttf";
+
+/***/ },
+/* 234 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "2980083682e94d33a66eef2e7d612519.svg";
+
+/***/ },
+/* 235 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(236);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(217)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../css-loader/index.js!./input.css", function() {
+				var newContent = require("!!./../css-loader/index.js!./input.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 236 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(216)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "/*!\n * # Semantic UI 2.1.7 - Input\n * http://github.com/semantic-org/semantic-ui/\n *\n *\n * Copyright 2015 Contributors\n * Released under the MIT license\n * http://opensource.org/licenses/MIT\n *\n */\n\n\n/*******************************\n           Standard\n*******************************/\n\n\n/*--------------------\n        Inputs\n---------------------*/\n\n.ui.input {\n  position: relative;\n  font-weight: normal;\n  font-style: normal;\n  display: -webkit-inline-box;\n  display: -webkit-inline-flex;\n  display: -ms-inline-flexbox;\n  display: inline-flex;\n  color: rgba(0, 0, 0, 0.87);\n}\n.ui.input input {\n  margin: 0em;\n  max-width: 100%;\n  -webkit-box-flex: 1;\n  -webkit-flex: 1 0 auto;\n      -ms-flex: 1 0 auto;\n          flex: 1 0 auto;\n  outline: none;\n  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);\n  text-align: left;\n  line-height: 1.2142em;\n  font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;\n  padding: 0.67861429em 1em;\n  background: #FFFFFF;\n  border: 1px solid rgba(34, 36, 38, 0.15);\n  color: rgba(0, 0, 0, 0.87);\n  border-radius: 0.28571429rem;\n  -webkit-transition: box-shadow 0.1s ease, border-color 0.1s ease;\n  transition: box-shadow 0.1s ease, border-color 0.1s ease;\n  box-shadow: none;\n}\n\n/*--------------------\n      Placeholder\n---------------------*/\n\n\n/* browsers require these rules separate */\n.ui.input input::-webkit-input-placeholder {\n  color: rgba(0, 0, 0, 0.4);\n}\n.ui.input input::-moz-placeholder {\n  color: rgba(0, 0, 0, 0.4);\n}\n.ui.input input::-ms-input-placeholder {\n  color: rgba(0, 0, 0, 0.4);\n}\n\n\n/*******************************\n            States\n*******************************/\n\n\n/*--------------------\n        Disabled\n---------------------*/\n\n.ui.disabled.input,\n.ui.input input[disabled] {\n  opacity: 0.45;\n}\n.ui.disabled.input input {\n  pointer-events: none;\n}\n\n/*--------------------\n        Active\n---------------------*/\n\n.ui.input input:active,\n.ui.input.down input {\n  border-color: rgba(0, 0, 0, 0.3);\n  background: #FAFAFA;\n  color: rgba(0, 0, 0, 0.87);\n  box-shadow: none;\n}\n\n/*--------------------\n       Loading\n---------------------*/\n\n.ui.loading.loading.input > i.icon:before {\n  position: absolute;\n  content: '';\n  top: 50%;\n  left: 50%;\n  margin: -0.64285714em 0em 0em -0.64285714em;\n  width: 1.28571429em;\n  height: 1.28571429em;\n  border-radius: 500rem;\n  border: 0.2em solid rgba(0, 0, 0, 0.1);\n}\n.ui.loading.loading.input > i.icon:after {\n  position: absolute;\n  content: '';\n  top: 50%;\n  left: 50%;\n  margin: -0.64285714em 0em 0em -0.64285714em;\n  width: 1.28571429em;\n  height: 1.28571429em;\n  -webkit-animation: button-spin 0.6s linear;\n          animation: button-spin 0.6s linear;\n  -webkit-animation-iteration-count: infinite;\n          animation-iteration-count: infinite;\n  border-radius: 500rem;\n  border-color: #767676 transparent transparent;\n  border-style: solid;\n  border-width: 0.2em;\n  box-shadow: 0px 0px 0px 1px transparent;\n}\n\n/*--------------------\n        Focus\n---------------------*/\n\n.ui.input.focus input,\n.ui.input input:focus {\n  border-color: #85B7D9;\n  background: #FFFFFF;\n  color: rgba(0, 0, 0, 0.8);\n  box-shadow: none;\n}\n.ui.input.focus input::-webkit-input-placeholder,\n.ui.input input:focus::-webkit-input-placeholder {\n  color: rgba(0, 0, 0, 0.87);\n}\n.ui.input.focus input::-moz-placeholder,\n.ui.input input:focus::-moz-placeholder {\n  color: rgba(0, 0, 0, 0.87);\n}\n.ui.input.focus input::-ms-input-placeholder,\n.ui.input input:focus::-ms-input-placeholder {\n  color: rgba(0, 0, 0, 0.87);\n}\n\n/*--------------------\n        Error\n---------------------*/\n\n.ui.input.error input {\n  background-color: #FFF6F6;\n  border-color: #E0B4B4;\n  color: #9F3A38;\n  box-shadow: none;\n}\n\n/* Error Placeholder */\n.ui.input.error input::-webkit-input-placeholder {\n  color: #e7bdbc;\n}\n.ui.input.error input::-moz-placeholder {\n  color: #e7bdbc;\n}\n.ui.input.error input::-ms-input-placeholder {\n  color: #e7bdbc;\n}\n\n/* Focused Error Placeholder */\n.ui.input.error input:focus::-webkit-input-placeholder {\n  color: #da9796;\n}\n.ui.input.error input:focus::-moz-placeholder {\n  color: #da9796;\n}\n.ui.input.error input:focus::-ms-input-placeholder {\n  color: #da9796;\n}\n\n\n/*******************************\n           Variations\n*******************************/\n\n\n/*--------------------\n      Transparent\n---------------------*/\n\n.ui.transparent.input input {\n  border-color: transparent !important;\n  background-color: transparent !important;\n  padding: 0em !important;\n  box-shadow: none !important;\n}\n\n/* Transparent Icon */\n.ui.transparent.icon.input > i.icon {\n  width: 1.1em;\n}\n.ui.transparent.icon.input > input {\n  padding-left: 0em !important;\n  padding-right: 2em !important;\n}\n.ui.transparent[class*=\"left icon\"].input > input {\n  padding-left: 2em !important;\n  padding-right: 0em !important;\n}\n\n/* Transparent Inverted */\n.ui.transparent.inverted.input {\n  color: #FFFFFF;\n}\n.ui.transparent.inverted.input input {\n  color: inherit;\n}\n.ui.transparent.inverted.input input::-webkit-input-placeholder {\n  color: rgba(255, 255, 255, 0.5);\n}\n.ui.transparent.inverted.input input::-moz-placeholder {\n  color: rgba(255, 255, 255, 0.5);\n}\n.ui.transparent.inverted.input input::-ms-input-placeholder {\n  color: rgba(255, 255, 255, 0.5);\n}\n\n/*--------------------\n         Icon\n---------------------*/\n\n.ui.icon.input > i.icon {\n  cursor: default;\n  position: absolute;\n  line-height: 1;\n  text-align: center;\n  top: 0px;\n  right: 0px;\n  margin: 0em;\n  height: 100%;\n  width: 2.67142857em;\n  opacity: 0.5;\n  border-radius: 0em 0.28571429rem 0.28571429rem 0em;\n  -webkit-transition: opacity 0.3s ease;\n  transition: opacity 0.3s ease;\n}\n.ui.icon.input > i.icon:not(.link) {\n  pointer-events: none;\n}\n.ui.icon.input input {\n  padding-right: 2.67142857em !important;\n}\n.ui.icon.input > i.icon:before,\n.ui.icon.input > i.icon:after {\n  left: 0;\n  position: absolute;\n  text-align: center;\n  top: 50%;\n  width: 100%;\n  margin-top: -0.5em;\n}\n.ui.icon.input > i.link.icon {\n  cursor: pointer;\n}\n.ui.icon.input > i.circular.icon {\n  top: 0.35em;\n  right: 0.5em;\n}\n\n/* Left Icon Input */\n.ui[class*=\"left icon\"].input > i.icon {\n  right: auto;\n  left: 1px;\n  border-radius: 0.28571429rem 0em 0em 0.28571429rem;\n}\n.ui[class*=\"left icon\"].input > i.circular.icon {\n  right: auto;\n  left: 0.5em;\n}\n.ui[class*=\"left icon\"].input > input {\n  padding-left: 2.67142857em !important;\n  padding-right: 1em !important;\n}\n\n/* Focus */\n.ui.icon.input > input:focus ~ i.icon {\n  opacity: 1;\n}\n\n/*--------------------\n        Labeled\n---------------------*/\n\n\n/* Adjacent Label */\n.ui.labeled.input > .label {\n  -webkit-box-flex: 0;\n  -webkit-flex: 0 0 auto;\n      -ms-flex: 0 0 auto;\n          flex: 0 0 auto;\n  margin: 0;\n  font-size: 1em;\n}\n.ui.labeled.input > .label:not(.corner) {\n  padding-top: 0.78571429em;\n  padding-bottom: 0.78571429em;\n}\n\n/* Regular Label on Left */\n.ui.labeled.input:not([class*=\"corner labeled\"]) .label:first-child {\n  border-top-right-radius: 0px;\n  border-bottom-right-radius: 0px;\n}\n.ui.labeled.input:not([class*=\"corner labeled\"]) .label:first-child + input {\n  border-top-left-radius: 0px;\n  border-bottom-left-radius: 0px;\n  border-left-color: transparent;\n}\n.ui.labeled.input:not([class*=\"corner labeled\"]) .label:first-child + input:focus {\n  border-left-color: #85B7D9;\n}\n\n/* Regular Label on Right */\n.ui[class*=\"right labeled\"].input input {\n  border-top-right-radius: 0px !important;\n  border-bottom-right-radius: 0px !important;\n  border-right-color: transparent !important;\n}\n.ui[class*=\"right labeled\"].input input + .label {\n  border-top-left-radius: 0px;\n  border-bottom-left-radius: 0px;\n}\n.ui[class*=\"right labeled\"].input input:focus {\n  border-right-color: #85B7D9 !important;\n}\n\n/* Corner Label */\n.ui.labeled.input .corner.label {\n  top: 1px;\n  right: 1px;\n  font-size: 0.64285714em;\n  border-radius: 0em 0.28571429rem 0em 0em;\n}\n\n/* Spacing with corner label */\n.ui[class*=\"corner labeled\"]:not([class*=\"left corner labeled\"]).labeled.input input {\n  padding-right: 2.5em !important;\n}\n.ui[class*=\"corner labeled\"].icon.input:not([class*=\"left corner labeled\"]) > input {\n  padding-right: 3.25em !important;\n}\n.ui[class*=\"corner labeled\"].icon.input:not([class*=\"left corner labeled\"]) > .icon {\n  margin-right: 1.25em;\n}\n\n/* Left Labeled */\n.ui[class*=\"left corner labeled\"].labeled.input input {\n  padding-left: 2.5em !important;\n}\n.ui[class*=\"left corner labeled\"].icon.input > input {\n  padding-left: 3.25em !important;\n}\n.ui[class*=\"left corner labeled\"].icon.input > .icon {\n  margin-left: 1.25em;\n}\n\n/* Corner Label Position  */\n.ui.input > .ui.corner.label {\n  top: 1px;\n  right: 1px;\n}\n.ui.input > .ui.left.corner.label {\n  right: auto;\n  left: 1px;\n}\n\n/*--------------------\n        Action\n---------------------*/\n\n.ui.action.input > .button,\n.ui.action.input > .buttons {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-flex: 0;\n  -webkit-flex: 0 0 auto;\n      -ms-flex: 0 0 auto;\n          flex: 0 0 auto;\n}\n.ui.action.input > .button,\n.ui.action.input > .buttons > .button {\n  padding-top: 0.78571429em;\n  padding-bottom: 0.78571429em;\n  margin: 0;\n}\n\n/* Button on Right */\n.ui.action.input:not([class*=\"left action\"]) > input {\n  border-top-right-radius: 0px !important;\n  border-bottom-right-radius: 0px !important;\n  border-right-color: transparent !important;\n}\n.ui.action.input:not([class*=\"left action\"]) > .dropdown,\n.ui.action.input:not([class*=\"left action\"]) > .button,\n.ui.action.input:not([class*=\"left action\"]) > .buttons > .button {\n  border-radius: 0px;\n}\n.ui.action.input:not([class*=\"left action\"]) > .dropdown:last-child,\n.ui.action.input:not([class*=\"left action\"]) > .button:last-child,\n.ui.action.input:not([class*=\"left action\"]) > .buttons:last-child > .button {\n  border-radius: 0px 0.28571429rem 0.28571429rem 0px;\n}\n\n/* Input Focus */\n.ui.action.input:not([class*=\"left action\"]) input:focus {\n  border-right-color: #85B7D9 !important;\n}\n\n/* Button on Left */\n.ui[class*=\"left action\"].input > input {\n  border-top-left-radius: 0px !important;\n  border-bottom-left-radius: 0px !important;\n  border-left-color: transparent !important;\n}\n.ui[class*=\"left action\"].input > .dropdown,\n.ui[class*=\"left action\"].input > .button,\n.ui[class*=\"left action\"].input > .buttons > .button {\n  border-radius: 0px;\n}\n.ui[class*=\"left action\"].input > .dropdown:first-child,\n.ui[class*=\"left action\"].input > .button:first-child,\n.ui[class*=\"left action\"].input > .buttons:first-child > .button {\n  border-radius: 0.28571429rem 0px 0px 0.28571429rem;\n}\n\n/* Input Focus */\n.ui[class*=\"left action\"].input > input:focus {\n  border-left-color: #85B7D9 !important;\n}\n\n/*--------------------\n       Inverted\n---------------------*/\n\n\n/* Standard */\n.ui.inverted.input input {\n  border: none;\n}\n\n/*--------------------\n        Fluid\n---------------------*/\n\n.ui.fluid.input {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n}\n.ui.fluid.input > input {\n  width: 0px !important;\n}\n\n/*--------------------\n        Size\n---------------------*/\n\n.ui.mini.input {\n  font-size: 0.71428571em;\n}\n.ui.small.input {\n  font-size: 0.92857143em;\n}\n.ui.input {\n  font-size: 1em;\n}\n.ui.large.input {\n  font-size: 1.14285714em;\n}\n.ui.big.input {\n  font-size: 1.28571429em;\n}\n.ui.huge.input {\n  font-size: 1.42857143em;\n}\n.ui.massive.input {\n  font-size: 1.71428571em;\n}\n\n\n/*******************************\n         Theme Overrides\n*******************************/\n\n\n\n/*******************************\n         Site Overrides\n*******************************/\n\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 237 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(238);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(217)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../css-loader/index.js!./button.css", function() {
+				var newContent = require("!!./../css-loader/index.js!./button.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 238 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(216)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "/*!\n * # Semantic UI 2.1.7 - Button\n * http://github.com/semantic-org/semantic-ui/\n *\n *\n * Copyright 2015 Contributors\n * Released under the MIT license\n * http://opensource.org/licenses/MIT\n *\n */\n\n\n/*******************************\n            Button\n*******************************/\n\n.ui.button {\n  cursor: pointer;\n  display: inline-block;\n  min-height: 1em;\n  outline: none;\n  border: none;\n  vertical-align: baseline;\n  background: #E0E1E2 none;\n  color: rgba(0, 0, 0, 0.6);\n  font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;\n  margin: 0em 0.25em 0em 0em;\n  padding: 0.78571429em 1.5em 0.78571429em;\n  text-transform: none;\n  text-shadow: none;\n  font-weight: bold;\n  line-height: 1em;\n  font-style: normal;\n  text-align: center;\n  text-decoration: none;\n  border-radius: 0.28571429rem;\n  box-shadow: 0px 0px 0px 1px transparent inset, 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  -webkit-transition: opacity 0.1s ease, background-color 0.1s ease, color 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;\n  transition: opacity 0.1s ease, background-color 0.1s ease, color 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;\n  will-change: '';\n  -webkit-tap-highlight-color: transparent;\n}\n\n\n/*******************************\n            States\n*******************************/\n\n\n/*--------------\n      Hover\n---------------*/\n\n.ui.button:hover {\n  background-color: #CACBCD;\n  background-image: none;\n  box-shadow: 0px 0px 0px 1px transparent inset, 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;\n  color: rgba(0, 0, 0, 0.8);\n}\n.ui.button:hover .icon {\n  opacity: 0.85;\n}\n\n/*--------------\n      Focus\n---------------*/\n\n.ui.button:focus {\n  background-color: #CACBCD;\n  color: rgba(0, 0, 0, 0.8);\n  background-image: '' !important;\n  box-shadow: '' !important;\n}\n.ui.button:focus .icon {\n  opacity: 0.85;\n}\n\n/*--------------\n      Down\n---------------*/\n\n.ui.button:active,\n.ui.active.button:active {\n  background-color: #BABBBC;\n  background-image: '';\n  color: rgba(0, 0, 0, 0.9);\n  box-shadow: 0px 0px 0px 1px transparent inset, none;\n}\n\n/*--------------\n     Active\n---------------*/\n\n.ui.active.button {\n  background-color: #C0C1C2;\n  background-image: none;\n  box-shadow: 0px 0px 0px 1px transparent inset;\n  color: rgba(0, 0, 0, 0.95);\n}\n.ui.active.button:hover {\n  background-color: #C0C1C2;\n  background-image: none;\n  color: rgba(0, 0, 0, 0.95);\n}\n.ui.active.button:active {\n  background-color: #C0C1C2;\n  background-image: none;\n}\n\n/*--------------\n    Loading\n---------------*/\n\n\n/* Specificity hack */\n.ui.loading.loading.loading.loading.loading.loading.button {\n  position: relative;\n  cursor: default;\n  text-shadow: none !important;\n  color: transparent !important;\n  opacity: 1;\n  pointer-events: auto;\n  -webkit-transition: all 0s linear, opacity 0.1s ease;\n  transition: all 0s linear, opacity 0.1s ease;\n}\n.ui.loading.button:before {\n  position: absolute;\n  content: '';\n  top: 50%;\n  left: 50%;\n  margin: -0.64285714em 0em 0em -0.64285714em;\n  width: 1.28571429em;\n  height: 1.28571429em;\n  border-radius: 500rem;\n  border: 0.2em solid rgba(0, 0, 0, 0.15);\n}\n.ui.loading.button:after {\n  position: absolute;\n  content: '';\n  top: 50%;\n  left: 50%;\n  margin: -0.64285714em 0em 0em -0.64285714em;\n  width: 1.28571429em;\n  height: 1.28571429em;\n  -webkit-animation: button-spin 0.6s linear;\n          animation: button-spin 0.6s linear;\n  -webkit-animation-iteration-count: infinite;\n          animation-iteration-count: infinite;\n  border-radius: 500rem;\n  border-color: #FFFFFF transparent transparent;\n  border-style: solid;\n  border-width: 0.2em;\n  box-shadow: 0px 0px 0px 1px transparent;\n}\n.ui.labeled.icon.loading.button .icon {\n  background-color: transparent;\n  box-shadow: none;\n}\n@-webkit-keyframes button-spin {\n  from {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg);\n  }\n  to {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n  }\n}\n@keyframes button-spin {\n  from {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg);\n  }\n  to {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n  }\n}\n.ui.basic.loading.button:not(.inverted):before {\n  border-color: rgba(0, 0, 0, 0.1);\n}\n.ui.basic.loading.button:not(.inverted):after {\n  border-top-color: #767676;\n}\n\n/*-------------------\n      Disabled\n--------------------*/\n\n.ui.buttons .disabled.button,\n.ui.disabled.button,\n.ui.button:disabled,\n.ui.disabled.button:hover,\n.ui.disabled.active.button {\n  cursor: default;\n  opacity: 0.45 !important;\n  background-image: none !important;\n  box-shadow: none !important;\n  pointer-events: none;\n}\n\n/* Basic Group With Disabled */\n.ui.basic.buttons .ui.disabled.button {\n  border-color: rgba(34, 36, 38, 0.5);\n}\n\n\n/*******************************\n             Types\n*******************************/\n\n\n/*-------------------\n       Animated\n--------------------*/\n\n.ui.animated.button {\n  position: relative;\n  overflow: hidden;\n  padding-right: 0em !important;\n  vertical-align: middle;\n  z-index: 1;\n}\n.ui.animated.button .content {\n  will-change: transform, opacity;\n}\n.ui.animated.button .visible.content {\n  position: relative;\n  margin-right: 1.5em;\n}\n.ui.animated.button .hidden.content {\n  position: absolute;\n  width: 100%;\n}\n\n/* Horizontal */\n.ui.animated.button .visible.content,\n.ui.animated.button .hidden.content {\n  -webkit-transition: right 0.3s ease 0s;\n  transition: right 0.3s ease 0s;\n}\n.ui.animated.button .visible.content {\n  left: auto;\n  right: 0%;\n}\n.ui.animated.button .hidden.content {\n  top: 50%;\n  left: auto;\n  right: -100%;\n  margin-top: -0.5em;\n}\n.ui.animated.button:focus .visible.content,\n.ui.animated.button:hover .visible.content {\n  left: auto;\n  right: 200%;\n}\n.ui.animated.button:focus .hidden.content,\n.ui.animated.button:hover .hidden.content {\n  left: auto;\n  right: 0%;\n}\n\n/* Vertical */\n.ui.vertical.animated.button .visible.content,\n.ui.vertical.animated.button .hidden.content {\n  -webkit-transition: top 0.3s ease, -webkit-transform 0.3s ease;\n  transition: top 0.3s ease, -webkit-transform 0.3s ease;\n  transition: top 0.3s ease, transform 0.3s ease;\n  transition: top 0.3s ease, transform 0.3s ease, -webkit-transform 0.3s ease;\n}\n.ui.vertical.animated.button .visible.content {\n  -webkit-transform: translateY(0%);\n      -ms-transform: translateY(0%);\n          transform: translateY(0%);\n  right: auto;\n}\n.ui.vertical.animated.button .hidden.content {\n  top: -50%;\n  left: 0%;\n  right: auto;\n}\n.ui.vertical.animated.button:focus .visible.content,\n.ui.vertical.animated.button:hover .visible.content {\n  -webkit-transform: translateY(200%);\n      -ms-transform: translateY(200%);\n          transform: translateY(200%);\n  right: auto;\n}\n.ui.vertical.animated.button:focus .hidden.content,\n.ui.vertical.animated.button:hover .hidden.content {\n  top: 50%;\n  right: auto;\n}\n\n/* Fade */\n.ui.fade.animated.button .visible.content,\n.ui.fade.animated.button .hidden.content {\n  -webkit-transition: opacity 0.3s ease, -webkit-transform 0.3s ease;\n  transition: opacity 0.3s ease, -webkit-transform 0.3s ease;\n  transition: opacity 0.3s ease, transform 0.3s ease;\n  transition: opacity 0.3s ease, transform 0.3s ease, -webkit-transform 0.3s ease;\n}\n.ui.fade.animated.button .visible.content {\n  left: auto;\n  right: auto;\n  opacity: 1;\n  -webkit-transform: scale(1);\n      -ms-transform: scale(1);\n          transform: scale(1);\n}\n.ui.fade.animated.button .hidden.content {\n  opacity: 0;\n  left: 0%;\n  right: auto;\n  -webkit-transform: scale(1.5);\n      -ms-transform: scale(1.5);\n          transform: scale(1.5);\n}\n.ui.fade.animated.button:focus .visible.content,\n.ui.fade.animated.button:hover .visible.content {\n  left: auto;\n  right: auto;\n  opacity: 0;\n  -webkit-transform: scale(0.75);\n      -ms-transform: scale(0.75);\n          transform: scale(0.75);\n}\n.ui.fade.animated.button:focus .hidden.content,\n.ui.fade.animated.button:hover .hidden.content {\n  left: 0%;\n  right: auto;\n  opacity: 1;\n  -webkit-transform: scale(1);\n      -ms-transform: scale(1);\n          transform: scale(1);\n}\n\n/*-------------------\n       Inverted\n--------------------*/\n\n.ui.inverted.button {\n  box-shadow: 0px 0px 0px 2px #FFFFFF inset !important;\n  background: transparent none;\n  color: #FFFFFF;\n  text-shadow: none !important;\n}\n\n/* Group */\n.ui.inverted.buttons .button {\n  margin: 0px 0px 0px -2px;\n}\n.ui.inverted.buttons .button:first-child {\n  margin-left: 0em;\n}\n.ui.inverted.vertical.buttons .button {\n  margin: 0px 0px -2px 0px;\n}\n.ui.inverted.vertical.buttons .button:first-child {\n  margin-top: 0em;\n}\n\n/* States */\n\n/* Hover */\n.ui.inverted.button:hover {\n  background: #FFFFFF;\n  box-shadow: 0px 0px 0px 2px #FFFFFF inset !important;\n  color: rgba(0, 0, 0, 0.8);\n}\n\n/* Active / Focus */\n.ui.inverted.button:focus,\n.ui.inverted.button.active {\n  background: #FFFFFF;\n  box-shadow: 0px 0px 0px 2px #FFFFFF inset !important;\n  color: rgba(0, 0, 0, 0.8);\n}\n\n/* Active Focus */\n.ui.inverted.button.active:focus {\n  background: #DCDDDE;\n  box-shadow: 0px 0px 0px 2px #DCDDDE inset !important;\n  color: rgba(0, 0, 0, 0.8);\n}\n\n/*-------------------\n    Labeled Button\n--------------------*/\n\n.ui.labeled.button:not(.icon) {\n  display: -webkit-inline-box;\n  display: -webkit-inline-flex;\n  display: -ms-inline-flexbox;\n  display: inline-flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: row;\n      -ms-flex-direction: row;\n          flex-direction: row;\n  background: none !important;\n  padding: 0px !important;\n  border: none !important;\n  box-shadow: none !important;\n}\n.ui.labeled.button > .button {\n  margin: 0px;\n}\n.ui.labeled.button > .label {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n      -ms-flex-align: center;\n          align-items: center;\n  margin: 0px 0px 0px -1px !important;\n  padding: '';\n  font-size: 1em;\n  border-color: rgba(34, 36, 38, 0.15);\n}\n\n/* Tag */\n.ui.labeled.button > .tag.label:before {\n  width: 1.85em;\n  height: 1.85em;\n}\n\n/* Right */\n.ui.labeled.button:not([class*=\"left labeled\"]) > .button {\n  border-top-right-radius: 0px;\n  border-bottom-right-radius: 0px;\n}\n.ui.labeled.button:not([class*=\"left labeled\"]) > .label {\n  border-top-left-radius: 0px;\n  border-bottom-left-radius: 0px;\n}\n\n/* Left Side */\n.ui[class*=\"left labeled\"].button > .button {\n  border-top-left-radius: 0px;\n  border-bottom-left-radius: 0px;\n}\n.ui[class*=\"left labeled\"].button > .label {\n  border-top-right-radius: 0px;\n  border-bottom-right-radius: 0px;\n}\n\n/*-------------------\n       Social\n--------------------*/\n\n\n/* Facebook */\n.ui.facebook.button {\n  background-color: #3B5998;\n  color: #FFFFFF;\n  text-shadow: none;\n  background-image: none;\n  box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;\n}\n.ui.facebook.button:hover {\n  background-color: #304d8a;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.facebook.button:active {\n  background-color: #2d4373;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n\n/* Twitter */\n.ui.twitter.button {\n  background-color: #0084B4;\n  color: #FFFFFF;\n  text-shadow: none;\n  background-image: none;\n  box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;\n}\n.ui.twitter.button:hover {\n  background-color: #00719b;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.twitter.button:active {\n  background-color: #005f81;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n\n/* Google Plus */\n.ui.google.plus.button {\n  background-color: #DC4A38;\n  color: #FFFFFF;\n  text-shadow: none;\n  background-image: none;\n  box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;\n}\n.ui.google.plus.button:hover {\n  background-color: #de321d;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.google.plus.button:active {\n  background-color: #bf3322;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n\n/* Linked In */\n.ui.linkedin.button {\n  background-color: #1F88BE;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.linkedin.button:hover {\n  background-color: #147baf;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.linkedin.button:active {\n  background-color: #186992;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n\n/* YouTube */\n.ui.youtube.button {\n  background-color: #CC181E;\n  color: #FFFFFF;\n  text-shadow: none;\n  background-image: none;\n  box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;\n}\n.ui.youtube.button:hover {\n  background-color: #bd0d13;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.youtube.button:active {\n  background-color: #9e1317;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n\n/* Instagram */\n.ui.instagram.button {\n  background-color: #49769C;\n  color: #FFFFFF;\n  text-shadow: none;\n  background-image: none;\n  box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;\n}\n.ui.instagram.button:hover {\n  background-color: #3d698e;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.instagram.button:active {\n  background-color: #395c79;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n\n/* Pinterest */\n.ui.pinterest.button {\n  background-color: #00ACED;\n  color: #FFFFFF;\n  text-shadow: none;\n  background-image: none;\n  box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;\n}\n.ui.pinterest.button:hover {\n  background-color: #0099d4;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.pinterest.button:active {\n  background-color: #0087ba;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n\n/* VK */\n.ui.vk.button {\n  background-color: #4D7198;\n  color: #FFFFFF;\n  background-image: none;\n  box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;\n}\n.ui.vk.button:hover {\n  background-color: #41648a;\n  color: #FFFFFF;\n}\n.ui.vk.button:active {\n  background-color: #3c5876;\n  color: #FFFFFF;\n}\n\n/*--------------\n     Icon\n---------------*/\n\n.ui.button > .icon:not(.button) {\n  height: 0.85714286em;\n  opacity: 0.8;\n  margin: 0em 0.42857143em 0em -0.21428571em;\n  -webkit-transition: opacity 0.1s ease;\n  transition: opacity 0.1s ease;\n  vertical-align: '';\n  color: '';\n}\n.ui.button > .right.icon:not(.button) {\n  margin: 0em -0.21428571em 0em 0.42857143em;\n}\n\n\n/*******************************\n           Variations\n*******************************/\n\n\n/*-------------------\n       Floated\n--------------------*/\n\n.ui[class*=\"left floated\"].buttons,\n.ui[class*=\"left floated\"].button {\n  float: left;\n  margin-left: 0em;\n  margin-right: 0.25em;\n}\n.ui[class*=\"right floated\"].buttons,\n.ui[class*=\"right floated\"].button {\n  float: right;\n  margin-right: 0em;\n  margin-left: 0.25em;\n}\n\n/*-------------------\n       Compact\n--------------------*/\n\n.ui.compact.buttons .button,\n.ui.compact.button {\n  padding: 0.58928571em 1.125em 0.58928571em;\n}\n.ui.compact.icon.buttons .button,\n.ui.compact.icon.button {\n  padding: 0.58928571em 0.58928571em 0.58928571em;\n}\n.ui.compact.labeled.icon.buttons .button,\n.ui.compact.labeled.icon.button {\n  padding: 0.58928571em 3.69642857em 0.58928571em;\n}\n\n/*-------------------\n        Sizes\n--------------------*/\n\n.ui.mini.buttons .button,\n.ui.mini.buttons .or,\n.ui.mini.button {\n  font-size: 0.71428571rem;\n}\n.ui.tiny.buttons .button,\n.ui.tiny.buttons .or,\n.ui.tiny.button {\n  font-size: 0.85714286rem;\n}\n.ui.small.buttons .button,\n.ui.small.buttons .or,\n.ui.small.button {\n  font-size: 0.92857143rem;\n}\n.ui.buttons .button,\n.ui.buttons .or,\n.ui.button {\n  font-size: 1rem;\n}\n.ui.large.buttons .button,\n.ui.large.buttons .or,\n.ui.large.button {\n  font-size: 1.14285714rem;\n}\n.ui.big.buttons .button,\n.ui.big.buttons .or,\n.ui.big.button {\n  font-size: 1.28571429rem;\n}\n.ui.huge.buttons .button,\n.ui.huge.buttons .or,\n.ui.huge.button {\n  font-size: 1.42857143rem;\n}\n.ui.massive.buttons .button,\n.ui.massive.buttons .or,\n.ui.massive.button {\n  font-size: 1.71428571rem;\n}\n\n/*--------------\n    Icon Only\n---------------*/\n\n.ui.icon.buttons .button,\n.ui.icon.button {\n  padding: 0.78571429em 0.78571429em 0.78571429em;\n}\n.ui.icon.buttons .button > .icon,\n.ui.icon.button > .icon {\n  opacity: 0.9;\n  margin: 0em;\n  vertical-align: top;\n}\n\n/*-------------------\n        Basic\n--------------------*/\n\n.ui.basic.buttons .button,\n.ui.basic.button {\n  background: transparent none !important;\n  color: rgba(0, 0, 0, 0.6) !important;\n  font-weight: normal;\n  border-radius: 0.28571429rem;\n  text-transform: none;\n  text-shadow: none !important;\n  box-shadow: 0px 0px 0px 1px rgba(34, 36, 38, 0.15) inset;\n}\n.ui.basic.buttons {\n  box-shadow: none;\n  border: 1px solid rgba(34, 36, 38, 0.15);\n  border-radius: 0.28571429rem;\n}\n.ui.basic.buttons .button {\n  border-radius: 0em;\n}\n.ui.basic.buttons .button:hover,\n.ui.basic.button:hover {\n  background: #FFFFFF !important;\n  color: rgba(0, 0, 0, 0.8) !important;\n  box-shadow: 0px 0px 0px 1px rgba(34, 36, 38, 0.35) inset, 0px 0px 0px 0px rgba(34, 36, 38, 0.15) inset;\n}\n.ui.basic.buttons .button:focus,\n.ui.basic.button:focus {\n  background: #FFFFFF !important;\n  color: rgba(0, 0, 0, 0.8) !important;\n  box-shadow: 0px 0px 0px 1px rgba(34, 36, 38, 0.35) inset, 0px 0px 0px 0px rgba(34, 36, 38, 0.15) inset;\n}\n.ui.basic.buttons .button:active,\n.ui.basic.button:active {\n  background: #F8F8F8 !important;\n  color: rgba(0, 0, 0, 0.9) !important;\n  box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.15) inset, 0px 1px 4px 0px rgba(34, 36, 38, 0.15) inset;\n}\n.ui.basic.buttons .active.button,\n.ui.basic.active.button {\n  background: rgba(0, 0, 0, 0.05) !important;\n  box-shadow: '' !important;\n  color: rgba(0, 0, 0, 0.95);\n  box-shadow: rgba(34, 36, 38, 0.35);\n}\n.ui.basic.buttons .active.button:hover,\n.ui.basic.active.button:hover {\n  background-color: rgba(0, 0, 0, 0.05);\n}\n\n/* Vertical */\n.ui.basic.buttons .button:hover {\n  box-shadow: 0px 0px 0px 1px rgba(34, 36, 38, 0.35) inset, 0px 0px 0px 0px rgba(34, 36, 38, 0.15) inset inset;\n}\n.ui.basic.buttons .button:active {\n  box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.15) inset, 0px 1px 4px 0px rgba(34, 36, 38, 0.15) inset inset;\n}\n.ui.basic.buttons .active.button {\n  box-shadow: rgba(34, 36, 38, 0.35) inset;\n}\n\n/* Standard Basic Inverted */\n.ui.basic.inverted.buttons .button,\n.ui.basic.inverted.button {\n  background-color: transparent !important;\n  color: #F9FAFB !important;\n  box-shadow: 0px 0px 0px 2px rgba(255, 255, 255, 0.5) inset !important;\n}\n.ui.basic.inverted.buttons .button:hover,\n.ui.basic.inverted.button:hover {\n  color: #FFFFFF !important;\n  box-shadow: 0px 0px 0px 2px #ffffff inset !important;\n}\n.ui.basic.inverted.buttons .button:focus,\n.ui.basic.inverted.button:focus {\n  color: #FFFFFF !important;\n  box-shadow: 0px 0px 0px 2px #ffffff inset !important;\n}\n.ui.basic.inverted.buttons .button:active,\n.ui.basic.inverted.button:active {\n  background-color: rgba(255, 255, 255, 0.08) !important;\n  color: #FFFFFF !important;\n  box-shadow: 0px 0px 0px 2px rgba(255, 255, 255, 0.9) inset !important;\n}\n.ui.basic.inverted.buttons .active.button,\n.ui.basic.inverted.active.button {\n  background-color: rgba(255, 255, 255, 0.08);\n  color: #FFFFFF;\n  text-shadow: none;\n  box-shadow: 0px 0px 0px 2px rgba(255, 255, 255, 0.7) inset;\n}\n.ui.basic.inverted.buttons .active.button:hover,\n.ui.basic.inverted.active.button:hover {\n  background-color: rgba(255, 255, 255, 0.15);\n  box-shadow: 0px 0px 0px 2px #ffffff inset !important;\n}\n\n/* Basic Group */\n.ui.basic.buttons .button {\n  border-left: 1px solid rgba(34, 36, 38, 0.15);\n  box-shadow: none;\n}\n.ui.basic.vertical.buttons .button {\n  border-left: none;\n}\n.ui.basic.vertical.buttons .button {\n  border-left-width: 0px;\n  border-top: 1px solid rgba(34, 36, 38, 0.15);\n}\n.ui.basic.vertical.buttons .button:first-child {\n  border-top-width: 0px;\n}\n\n/*--------------\n  Labeled Icon\n---------------*/\n\n.ui.labeled.icon.buttons .button,\n.ui.labeled.icon.button {\n  position: relative;\n  padding-left: 4.07142857em !important;\n  padding-right: 1.5em !important;\n}\n\n/* Left Labeled */\n.ui.labeled.icon.buttons > .button > .icon,\n.ui.labeled.icon.button > .icon {\n  position: absolute;\n  height: 100%;\n  line-height: 1;\n  border-radius: 0px;\n  border-top-left-radius: inherit;\n  border-bottom-left-radius: inherit;\n  text-align: center;\n  margin: 0em;\n  width: 2.57142857em;\n  background-color: rgba(0, 0, 0, 0.05);\n  color: '';\n  box-shadow: -1px 0px 0px 0px transparent inset;\n}\n\n/* Left Labeled */\n.ui.labeled.icon.buttons > .button > .icon,\n.ui.labeled.icon.button > .icon {\n  top: 0em;\n  left: 0em;\n}\n\n/* Right Labeled */\n.ui[class*=\"right labeled\"].icon.button {\n  padding-right: 4.07142857em !important;\n  padding-left: 1.5em !important;\n}\n.ui[class*=\"right labeled\"].icon.button > .icon {\n  left: auto;\n  right: 0em;\n  border-radius: 0px;\n  border-top-right-radius: inherit;\n  border-bottom-right-radius: inherit;\n  box-shadow: 1px 0px 0px 0px transparent inset;\n}\n.ui.labeled.icon.buttons > .button > .icon:before,\n.ui.labeled.icon.button > .icon:before,\n.ui.labeled.icon.buttons > .button > .icon:after,\n.ui.labeled.icon.button > .icon:after {\n  display: block;\n  position: absolute;\n  width: 100%;\n  top: 50%;\n  text-align: center;\n  -webkit-transform: translateY(-50%);\n      -ms-transform: translateY(-50%);\n          transform: translateY(-50%);\n}\n.ui.labeled.icon.buttons .button > .icon {\n  border-radius: 0em;\n}\n.ui.labeled.icon.buttons .button:first-child > .icon {\n  border-top-left-radius: 0.28571429rem;\n  border-bottom-left-radius: 0.28571429rem;\n}\n.ui.labeled.icon.buttons .button:last-child > .icon {\n  border-top-right-radius: 0.28571429rem;\n  border-bottom-right-radius: 0.28571429rem;\n}\n.ui.vertical.labeled.icon.buttons .button:first-child > .icon {\n  border-radius: 0em;\n  border-top-left-radius: 0.28571429rem;\n}\n.ui.vertical.labeled.icon.buttons .button:last-child > .icon {\n  border-radius: 0em;\n  border-bottom-left-radius: 0.28571429rem;\n}\n\n/* Fluid Labeled */\n.ui.fluid[class*=\"left labeled\"].icon.button,\n.ui.fluid[class*=\"right labeled\"].icon.button {\n  padding-left: 1.5em !important;\n  padding-right: 1.5em !important;\n}\n\n/*--------------\n     Toggle\n---------------*/\n\n\n/* Toggle (Modifies active state to give affordances) */\n.ui.toggle.buttons .active.button,\n.ui.buttons .button.toggle.active,\n.ui.button.toggle.active {\n  background-color: #21BA45 !important;\n  box-shadow: none !important;\n  text-shadow: none;\n  color: #FFFFFF !important;\n}\n.ui.button.toggle.active:hover {\n  background-color: #16ab39 !important;\n  text-shadow: none;\n  color: #FFFFFF !important;\n}\n\n/*--------------\n    Circular\n---------------*/\n\n.ui.circular.button {\n  border-radius: 10em;\n}\n.ui.circular.button > .icon {\n  width: 1em;\n  vertical-align: baseline;\n}\n\n/*-------------------\n      Or Buttons\n--------------------*/\n\n.ui.buttons .or {\n  position: relative;\n  width: 0.3em;\n  height: 2.57142857em;\n  z-index: 3;\n}\n.ui.buttons .or:before {\n  position: absolute;\n  text-align: center;\n  border-radius: 500rem;\n  content: 'or';\n  top: 50%;\n  left: 50%;\n  background-color: #FFFFFF;\n  text-shadow: none;\n  margin-top: -0.89285714em;\n  margin-left: -0.89285714em;\n  width: 1.78571429em;\n  height: 1.78571429em;\n  line-height: 1.78571429em;\n  color: rgba(0, 0, 0, 0.4);\n  font-style: normal;\n  font-weight: bold;\n  box-shadow: 0px 0px 0px 1px transparent inset;\n}\n.ui.buttons .or[data-text]:before {\n  content: attr(data-text);\n}\n\n/* Fluid Or */\n.ui.fluid.buttons .or {\n  width: 0em !important;\n}\n.ui.fluid.buttons .or:after {\n  display: none;\n}\n\n/*-------------------\n       Attached\n--------------------*/\n\n\n/* Singular */\n.ui.attached.button {\n  position: relative;\n  display: block;\n  margin: 0em;\n  border-radius: 0em;\n  box-shadow: 0px 0px 0px 1px rgba(34, 36, 38, 0.15) !important;\n}\n\n/* Top / Bottom */\n.ui.attached.top.button {\n  border-radius: 0.28571429rem 0.28571429rem 0em 0em;\n}\n.ui.attached.bottom.button {\n  border-radius: 0em 0em 0.28571429rem 0.28571429rem;\n}\n\n/* Left / Right */\n.ui.left.attached.button {\n  display: inline-block;\n  border-left: none;\n  text-align: right;\n  padding-right: 0.75em;\n  border-radius: 0.28571429rem 0em 0em 0.28571429rem;\n}\n.ui.right.attached.button {\n  display: inline-block;\n  text-align: left;\n  padding-left: 0.75em;\n  border-radius: 0em 0.28571429rem 0.28571429rem 0em;\n}\n\n/* Plural */\n.ui.attached.buttons {\n  position: relative;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  border-radius: 0em;\n  width: auto !important;\n  z-index: 2;\n  margin-left: -1px;\n  margin-right: -1px;\n}\n.ui.attached.buttons .button {\n  margin: 0em;\n}\n.ui.attached.buttons .button:first-child {\n  border-radius: 0em;\n}\n.ui.attached.buttons .button:last-child {\n  border-radius: 0em;\n}\n\n/* Top / Bottom */\n.ui[class*=\"top attached\"].buttons {\n  margin-bottom: -1px;\n  border-radius: 0.28571429rem 0.28571429rem 0em 0em;\n}\n.ui[class*=\"top attached\"].buttons .button:first-child {\n  border-radius: 0.28571429rem 0em 0em 0em;\n}\n.ui[class*=\"top attached\"].buttons .button:last-child {\n  border-radius: 0em 0.28571429rem 0em 0em;\n}\n.ui[class*=\"bottom attached\"].buttons {\n  margin-top: -1px;\n  border-radius: 0em 0em 0.28571429rem 0.28571429rem;\n}\n.ui[class*=\"bottom attached\"].buttons .button:first-child {\n  border-radius: 0em 0em 0em 0.28571429rem;\n}\n.ui[class*=\"bottom attached\"].buttons .button:last-child {\n  border-radius: 0em 0em 0.28571429rem 0em;\n}\n\n/* Left / Right */\n.ui[class*=\"left attached\"].buttons {\n  display: -webkit-inline-box;\n  display: -webkit-inline-flex;\n  display: -ms-inline-flexbox;\n  display: inline-flex;\n  margin-right: 0em;\n  margin-left: -1px;\n  border-radius: 0em 0.28571429rem 0.28571429rem 0em;\n}\n.ui[class*=\"left attached\"].buttons .button:first-child {\n  margin-left: -1px;\n  border-radius: 0em 0.28571429rem 0em 0em;\n}\n.ui[class*=\"left attached\"].buttons .button:last-child {\n  margin-left: -1px;\n  border-radius: 0em 0em 0.28571429rem 0em;\n}\n.ui[class*=\"right attached\"].buttons {\n  display: -webkit-inline-box;\n  display: -webkit-inline-flex;\n  display: -ms-inline-flexbox;\n  display: inline-flex;\n  margin-left: 0em;\n  margin-right: -1px;\n  border-radius: 0.28571429rem 0em 0em 0.28571429rem;\n}\n.ui[class*=\"right attached\"].buttons .button:first-child {\n  margin-left: -1px;\n  border-radius: 0.28571429rem 0em 0em 0em;\n}\n.ui[class*=\"right attached\"].buttons .button:last-child {\n  margin-left: -1px;\n  border-radius: 0em 0em 0em 0.28571429rem;\n}\n\n/*-------------------\n        Fluid\n--------------------*/\n\n.ui.fluid.buttons,\n.ui.fluid.button {\n  width: 100%;\n}\n.ui.fluid.button {\n  display: block;\n}\n.ui.two.buttons {\n  width: 100%;\n}\n.ui.two.buttons > .button {\n  width: 50%;\n}\n.ui.three.buttons {\n  width: 100%;\n}\n.ui.three.buttons > .button {\n  width: 33.333%;\n}\n.ui.four.buttons {\n  width: 100%;\n}\n.ui.four.buttons > .button {\n  width: 25%;\n}\n.ui.five.buttons {\n  width: 100%;\n}\n.ui.five.buttons > .button {\n  width: 20%;\n}\n.ui.six.buttons {\n  width: 100%;\n}\n.ui.six.buttons > .button {\n  width: 16.666%;\n}\n.ui.seven.buttons {\n  width: 100%;\n}\n.ui.seven.buttons > .button {\n  width: 14.285%;\n}\n.ui.eight.buttons {\n  width: 100%;\n}\n.ui.eight.buttons > .button {\n  width: 12.500%;\n}\n.ui.nine.buttons {\n  width: 100%;\n}\n.ui.nine.buttons > .button {\n  width: 11.11%;\n}\n.ui.ten.buttons {\n  width: 100%;\n}\n.ui.ten.buttons > .button {\n  width: 10%;\n}\n.ui.eleven.buttons {\n  width: 100%;\n}\n.ui.eleven.buttons > .button {\n  width: 9.09%;\n}\n.ui.twelve.buttons {\n  width: 100%;\n}\n.ui.twelve.buttons > .button {\n  width: 8.3333%;\n}\n\n/* Fluid Vertical Buttons */\n.ui.fluid.vertical.buttons,\n.ui.fluid.vertical.buttons > .button {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  width: auto;\n}\n.ui.two.vertical.buttons > .button {\n  height: 50%;\n}\n.ui.three.vertical.buttons > .button {\n  height: 33.333%;\n}\n.ui.four.vertical.buttons > .button {\n  height: 25%;\n}\n.ui.five.vertical.buttons > .button {\n  height: 20%;\n}\n.ui.six.vertical.buttons > .button {\n  height: 16.666%;\n}\n.ui.seven.vertical.buttons > .button {\n  height: 14.285%;\n}\n.ui.eight.vertical.buttons > .button {\n  height: 12.500%;\n}\n.ui.nine.vertical.buttons > .button {\n  height: 11.11%;\n}\n.ui.ten.vertical.buttons > .button {\n  height: 10%;\n}\n.ui.eleven.vertical.buttons > .button {\n  height: 9.09%;\n}\n.ui.twelve.vertical.buttons > .button {\n  height: 8.3333%;\n}\n\n/*-------------------\n       Colors\n--------------------*/\n\n\n/*--- Black ---*/\n\n.ui.black.buttons .button,\n.ui.black.button {\n  background-color: #1B1C1D;\n  color: #FFFFFF;\n  text-shadow: none;\n  background-image: none;\n}\n.ui.black.button {\n  box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;\n}\n.ui.black.buttons .button:hover,\n.ui.black.button:hover {\n  background-color: #27292a;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.black.buttons .button:focus,\n.ui.black.button:focus {\n  background-color: #2f3032;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.black.buttons .button:active,\n.ui.black.button:active {\n  background-color: #343637;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.black.buttons .active.button,\n.ui.black.buttons .active.button:active,\n.ui.black.active.button,\n.ui.black.button .active.button:active {\n  background-color: #0f0f10;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n\n/* Basic */\n.ui.basic.black.buttons .button,\n.ui.basic.black.button {\n  box-shadow: 0px 0px 0px 1px #1B1C1D inset !important;\n  color: #1B1C1D !important;\n}\n.ui.basic.black.buttons .button:hover,\n.ui.basic.black.button:hover {\n  background: transparent !important;\n  box-shadow: 0px 0px 0px 1px #27292a inset !important;\n  color: #27292a !important;\n}\n.ui.basic.black.buttons .button:focus,\n.ui.basic.black.button:focus {\n  background: transparent !important;\n  box-shadow: 0px 0px 0px 1px #2f3032 inset !important;\n  color: #27292a !important;\n}\n.ui.basic.black.buttons .active.button,\n.ui.basic.black.active.button {\n  background: transparent !important;\n  box-shadow: 0px 0px 0px 1px #0f0f10 inset !important;\n  color: #343637 !important;\n}\n.ui.basic.black.buttons .button:active,\n.ui.basic.black.button:active {\n  box-shadow: 0px 0px 0px 1px #343637 inset !important;\n  color: #343637 !important;\n}\n.ui.buttons:not(.vertical) > .basic.black.button:not(:first-child) {\n  margin-left: -1px;\n}\n\n/* Inverted */\n.ui.inverted.black.buttons .button,\n.ui.inverted.black.button {\n  background-color: transparent;\n  box-shadow: 0px 0px 0px 2px #D4D4D5 inset !important;\n  color: #FFFFFF;\n}\n.ui.inverted.black.buttons .button:hover,\n.ui.inverted.black.button:hover,\n.ui.inverted.black.buttons .button:focus,\n.ui.inverted.black.button:focus,\n.ui.inverted.black.buttons .button.active,\n.ui.inverted.black.button.active,\n.ui.inverted.black.buttons .button:active,\n.ui.inverted.black.button:active {\n  box-shadow: none !important;\n  color: #FFFFFF;\n}\n.ui.inverted.black.buttons .button:hover,\n.ui.inverted.black.button:hover {\n  background-color: #000000;\n}\n.ui.inverted.black.buttons .button:focus,\n.ui.inverted.black.button:focus {\n  background-color: #000000;\n}\n.ui.inverted.black.buttons .active.button,\n.ui.inverted.black.active.button {\n  background-color: #000000;\n}\n.ui.inverted.black.buttons .button:active,\n.ui.inverted.black.button:active {\n  background-color: #000000;\n}\n\n/* Inverted Basic */\n.ui.inverted.black.basic.buttons .button,\n.ui.inverted.black.buttons .basic.button,\n.ui.inverted.black.basic.button {\n  background-color: transparent;\n  box-shadow: 0px 0px 0px 2px rgba(255, 255, 255, 0.5) inset !important;\n  color: #FFFFFF !important;\n}\n.ui.inverted.black.basic.buttons .button:hover,\n.ui.inverted.black.buttons .basic.button:hover,\n.ui.inverted.black.basic.button:hover {\n  box-shadow: 0px 0px 0px 2px #000000 inset !important;\n  color: #FFFFFF !important;\n}\n.ui.inverted.black.basic.buttons .button:focus,\n.ui.inverted.black.basic.buttons .button:focus,\n.ui.inverted.black.basic.button:focus {\n  box-shadow: 0px 0px 0px 2px #000000 inset !important;\n  color: #545454 !important;\n}\n.ui.inverted.black.basic.buttons .active.button,\n.ui.inverted.black.buttons .basic.active.button,\n.ui.inverted.black.basic.active.button {\n  box-shadow: 0px 0px 0px 2px #000000 inset !important;\n  color: #FFFFFF !important;\n}\n.ui.inverted.black.basic.buttons .button:active,\n.ui.inverted.black.buttons .basic.button:active,\n.ui.inverted.black.basic.button:active {\n  box-shadow: 0px 0px 0px 2px #000000 inset !important;\n  color: #FFFFFF !important;\n}\n\n/*--- Grey ---*/\n\n.ui.grey.buttons .button,\n.ui.grey.button {\n  background-color: #767676;\n  color: #FFFFFF;\n  text-shadow: none;\n  background-image: none;\n}\n.ui.grey.button {\n  box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;\n}\n.ui.grey.buttons .button:hover,\n.ui.grey.button:hover {\n  background-color: #838383;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.grey.buttons .button:focus,\n.ui.grey.button:focus {\n  background-color: #8a8a8a;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.grey.buttons .button:active,\n.ui.grey.button:active {\n  background-color: #909090;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.grey.buttons .active.button,\n.ui.grey.buttons .active.button:active,\n.ui.grey.active.button,\n.ui.grey.button .active.button:active {\n  background-color: #696969;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n\n/* Basic */\n.ui.basic.grey.buttons .button,\n.ui.basic.grey.button {\n  box-shadow: 0px 0px 0px 1px #767676 inset !important;\n  color: #767676 !important;\n}\n.ui.basic.grey.buttons .button:hover,\n.ui.basic.grey.button:hover {\n  background: transparent !important;\n  box-shadow: 0px 0px 0px 1px #838383 inset !important;\n  color: #838383 !important;\n}\n.ui.basic.grey.buttons .button:focus,\n.ui.basic.grey.button:focus {\n  background: transparent !important;\n  box-shadow: 0px 0px 0px 1px #8a8a8a inset !important;\n  color: #838383 !important;\n}\n.ui.basic.grey.buttons .active.button,\n.ui.basic.grey.active.button {\n  background: transparent !important;\n  box-shadow: 0px 0px 0px 1px #696969 inset !important;\n  color: #909090 !important;\n}\n.ui.basic.grey.buttons .button:active,\n.ui.basic.grey.button:active {\n  box-shadow: 0px 0px 0px 1px #909090 inset !important;\n  color: #909090 !important;\n}\n.ui.buttons:not(.vertical) > .basic.grey.button:not(:first-child) {\n  margin-left: -1px;\n}\n\n/* Inverted */\n.ui.inverted.grey.buttons .button,\n.ui.inverted.grey.button {\n  background-color: transparent;\n  box-shadow: 0px 0px 0px 2px #D4D4D5 inset !important;\n  color: #FFFFFF;\n}\n.ui.inverted.grey.buttons .button:hover,\n.ui.inverted.grey.button:hover,\n.ui.inverted.grey.buttons .button:focus,\n.ui.inverted.grey.button:focus,\n.ui.inverted.grey.buttons .button.active,\n.ui.inverted.grey.button.active,\n.ui.inverted.grey.buttons .button:active,\n.ui.inverted.grey.button:active {\n  box-shadow: none !important;\n  color: rgba(0, 0, 0, 0.6);\n}\n.ui.inverted.grey.buttons .button:hover,\n.ui.inverted.grey.button:hover {\n  background-color: #cfd0d2;\n}\n.ui.inverted.grey.buttons .button:focus,\n.ui.inverted.grey.button:focus {\n  background-color: #c7c9cb;\n}\n.ui.inverted.grey.buttons .active.button,\n.ui.inverted.grey.active.button {\n  background-color: #cfd0d2;\n}\n.ui.inverted.grey.buttons .button:active,\n.ui.inverted.grey.button:active {\n  background-color: #c2c4c5;\n}\n\n/* Inverted Basic */\n.ui.inverted.grey.basic.buttons .button,\n.ui.inverted.grey.buttons .basic.button,\n.ui.inverted.grey.basic.button {\n  background-color: transparent;\n  box-shadow: 0px 0px 0px 2px rgba(255, 255, 255, 0.5) inset !important;\n  color: #FFFFFF !important;\n}\n.ui.inverted.grey.basic.buttons .button:hover,\n.ui.inverted.grey.buttons .basic.button:hover,\n.ui.inverted.grey.basic.button:hover {\n  box-shadow: 0px 0px 0px 2px #cfd0d2 inset !important;\n  color: #FFFFFF !important;\n}\n.ui.inverted.grey.basic.buttons .button:focus,\n.ui.inverted.grey.basic.buttons .button:focus,\n.ui.inverted.grey.basic.button:focus {\n  box-shadow: 0px 0px 0px 2px #c7c9cb inset !important;\n  color: #DCDDDE !important;\n}\n.ui.inverted.grey.basic.buttons .active.button,\n.ui.inverted.grey.buttons .basic.active.button,\n.ui.inverted.grey.basic.active.button {\n  box-shadow: 0px 0px 0px 2px #cfd0d2 inset !important;\n  color: #FFFFFF !important;\n}\n.ui.inverted.grey.basic.buttons .button:active,\n.ui.inverted.grey.buttons .basic.button:active,\n.ui.inverted.grey.basic.button:active {\n  box-shadow: 0px 0px 0px 2px #c2c4c5 inset !important;\n  color: #FFFFFF !important;\n}\n\n/*--- Brown ---*/\n\n.ui.brown.buttons .button,\n.ui.brown.button {\n  background-color: #A5673F;\n  color: #FFFFFF;\n  text-shadow: none;\n  background-image: none;\n}\n.ui.brown.button {\n  box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;\n}\n.ui.brown.buttons .button:hover,\n.ui.brown.button:hover {\n  background-color: #975b33;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.brown.buttons .button:focus,\n.ui.brown.button:focus {\n  background-color: #90532b;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.brown.buttons .button:active,\n.ui.brown.button:active {\n  background-color: #805031;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.brown.buttons .active.button,\n.ui.brown.buttons .active.button:active,\n.ui.brown.active.button,\n.ui.brown.button .active.button:active {\n  background-color: #995a31;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n\n/* Basic */\n.ui.basic.brown.buttons .button,\n.ui.basic.brown.button {\n  box-shadow: 0px 0px 0px 1px #A5673F inset !important;\n  color: #A5673F !important;\n}\n.ui.basic.brown.buttons .button:hover,\n.ui.basic.brown.button:hover {\n  background: transparent !important;\n  box-shadow: 0px 0px 0px 1px #975b33 inset !important;\n  color: #975b33 !important;\n}\n.ui.basic.brown.buttons .button:focus,\n.ui.basic.brown.button:focus {\n  background: transparent !important;\n  box-shadow: 0px 0px 0px 1px #90532b inset !important;\n  color: #975b33 !important;\n}\n.ui.basic.brown.buttons .active.button,\n.ui.basic.brown.active.button {\n  background: transparent !important;\n  box-shadow: 0px 0px 0px 1px #995a31 inset !important;\n  color: #805031 !important;\n}\n.ui.basic.brown.buttons .button:active,\n.ui.basic.brown.button:active {\n  box-shadow: 0px 0px 0px 1px #805031 inset !important;\n  color: #805031 !important;\n}\n.ui.buttons:not(.vertical) > .basic.brown.button:not(:first-child) {\n  margin-left: -1px;\n}\n\n/* Inverted */\n.ui.inverted.brown.buttons .button,\n.ui.inverted.brown.button {\n  background-color: transparent;\n  box-shadow: 0px 0px 0px 2px #D67C1C inset !important;\n  color: #D67C1C;\n}\n.ui.inverted.brown.buttons .button:hover,\n.ui.inverted.brown.button:hover,\n.ui.inverted.brown.buttons .button:focus,\n.ui.inverted.brown.button:focus,\n.ui.inverted.brown.buttons .button.active,\n.ui.inverted.brown.button.active,\n.ui.inverted.brown.buttons .button:active,\n.ui.inverted.brown.button:active {\n  box-shadow: none !important;\n  color: #FFFFFF;\n}\n.ui.inverted.brown.buttons .button:hover,\n.ui.inverted.brown.button:hover {\n  background-color: #c86f11;\n}\n.ui.inverted.brown.buttons .button:focus,\n.ui.inverted.brown.button:focus {\n  background-color: #c16808;\n}\n.ui.inverted.brown.buttons .active.button,\n.ui.inverted.brown.active.button {\n  background-color: #cc6f0d;\n}\n.ui.inverted.brown.buttons .button:active,\n.ui.inverted.brown.button:active {\n  background-color: #a96216;\n}\n\n/* Inverted Basic */\n.ui.inverted.brown.basic.buttons .button,\n.ui.inverted.brown.buttons .basic.button,\n.ui.inverted.brown.basic.button {\n  background-color: transparent;\n  box-shadow: 0px 0px 0px 2px rgba(255, 255, 255, 0.5) inset !important;\n  color: #FFFFFF !important;\n}\n.ui.inverted.brown.basic.buttons .button:hover,\n.ui.inverted.brown.buttons .basic.button:hover,\n.ui.inverted.brown.basic.button:hover {\n  box-shadow: 0px 0px 0px 2px #c86f11 inset !important;\n  color: #D67C1C !important;\n}\n.ui.inverted.brown.basic.buttons .button:focus,\n.ui.inverted.brown.basic.buttons .button:focus,\n.ui.inverted.brown.basic.button:focus {\n  box-shadow: 0px 0px 0px 2px #c16808 inset !important;\n  color: #D67C1C !important;\n}\n.ui.inverted.brown.basic.buttons .active.button,\n.ui.inverted.brown.buttons .basic.active.button,\n.ui.inverted.brown.basic.active.button {\n  box-shadow: 0px 0px 0px 2px #cc6f0d inset !important;\n  color: #D67C1C !important;\n}\n.ui.inverted.brown.basic.buttons .button:active,\n.ui.inverted.brown.buttons .basic.button:active,\n.ui.inverted.brown.basic.button:active {\n  box-shadow: 0px 0px 0px 2px #a96216 inset !important;\n  color: #D67C1C !important;\n}\n\n/*--- Blue ---*/\n\n.ui.blue.buttons .button,\n.ui.blue.button {\n  background-color: #2185D0;\n  color: #FFFFFF;\n  text-shadow: none;\n  background-image: none;\n}\n.ui.blue.button {\n  box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;\n}\n.ui.blue.buttons .button:hover,\n.ui.blue.button:hover {\n  background-color: #1678c2;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.blue.buttons .button:focus,\n.ui.blue.button:focus {\n  background-color: #0d71bb;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.blue.buttons .button:active,\n.ui.blue.button:active {\n  background-color: #1a69a4;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.blue.buttons .active.button,\n.ui.blue.buttons .active.button:active,\n.ui.blue.active.button,\n.ui.blue.button .active.button:active {\n  background-color: #1279c6;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n\n/* Basic */\n.ui.basic.blue.buttons .button,\n.ui.basic.blue.button {\n  box-shadow: 0px 0px 0px 1px #2185D0 inset !important;\n  color: #2185D0 !important;\n}\n.ui.basic.blue.buttons .button:hover,\n.ui.basic.blue.button:hover {\n  background: transparent !important;\n  box-shadow: 0px 0px 0px 1px #1678c2 inset !important;\n  color: #1678c2 !important;\n}\n.ui.basic.blue.buttons .button:focus,\n.ui.basic.blue.button:focus {\n  background: transparent !important;\n  box-shadow: 0px 0px 0px 1px #0d71bb inset !important;\n  color: #1678c2 !important;\n}\n.ui.basic.blue.buttons .active.button,\n.ui.basic.blue.active.button {\n  background: transparent !important;\n  box-shadow: 0px 0px 0px 1px #1279c6 inset !important;\n  color: #1a69a4 !important;\n}\n.ui.basic.blue.buttons .button:active,\n.ui.basic.blue.button:active {\n  box-shadow: 0px 0px 0px 1px #1a69a4 inset !important;\n  color: #1a69a4 !important;\n}\n.ui.buttons:not(.vertical) > .basic.blue.button:not(:first-child) {\n  margin-left: -1px;\n}\n\n/* Inverted */\n.ui.inverted.blue.buttons .button,\n.ui.inverted.blue.button {\n  background-color: transparent;\n  box-shadow: 0px 0px 0px 2px #54C8FF inset !important;\n  color: #54C8FF;\n}\n.ui.inverted.blue.buttons .button:hover,\n.ui.inverted.blue.button:hover,\n.ui.inverted.blue.buttons .button:focus,\n.ui.inverted.blue.button:focus,\n.ui.inverted.blue.buttons .button.active,\n.ui.inverted.blue.button.active,\n.ui.inverted.blue.buttons .button:active,\n.ui.inverted.blue.button:active {\n  box-shadow: none !important;\n  color: #FFFFFF;\n}\n.ui.inverted.blue.buttons .button:hover,\n.ui.inverted.blue.button:hover {\n  background-color: #3ac0ff;\n}\n.ui.inverted.blue.buttons .button:focus,\n.ui.inverted.blue.button:focus {\n  background-color: #2bbbff;\n}\n.ui.inverted.blue.buttons .active.button,\n.ui.inverted.blue.active.button {\n  background-color: #3ac0ff;\n}\n.ui.inverted.blue.buttons .button:active,\n.ui.inverted.blue.button:active {\n  background-color: #21b8ff;\n}\n\n/* Inverted Basic */\n.ui.inverted.blue.basic.buttons .button,\n.ui.inverted.blue.buttons .basic.button,\n.ui.inverted.blue.basic.button {\n  background-color: transparent;\n  box-shadow: 0px 0px 0px 2px rgba(255, 255, 255, 0.5) inset !important;\n  color: #FFFFFF !important;\n}\n.ui.inverted.blue.basic.buttons .button:hover,\n.ui.inverted.blue.buttons .basic.button:hover,\n.ui.inverted.blue.basic.button:hover {\n  box-shadow: 0px 0px 0px 2px #3ac0ff inset !important;\n  color: #54C8FF !important;\n}\n.ui.inverted.blue.basic.buttons .button:focus,\n.ui.inverted.blue.basic.buttons .button:focus,\n.ui.inverted.blue.basic.button:focus {\n  box-shadow: 0px 0px 0px 2px #2bbbff inset !important;\n  color: #54C8FF !important;\n}\n.ui.inverted.blue.basic.buttons .active.button,\n.ui.inverted.blue.buttons .basic.active.button,\n.ui.inverted.blue.basic.active.button {\n  box-shadow: 0px 0px 0px 2px #3ac0ff inset !important;\n  color: #54C8FF !important;\n}\n.ui.inverted.blue.basic.buttons .button:active,\n.ui.inverted.blue.buttons .basic.button:active,\n.ui.inverted.blue.basic.button:active {\n  box-shadow: 0px 0px 0px 2px #21b8ff inset !important;\n  color: #54C8FF !important;\n}\n\n/*--- Green ---*/\n\n.ui.green.buttons .button,\n.ui.green.button {\n  background-color: #21BA45;\n  color: #FFFFFF;\n  text-shadow: none;\n  background-image: none;\n}\n.ui.green.button {\n  box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;\n}\n.ui.green.buttons .button:hover,\n.ui.green.button:hover {\n  background-color: #16ab39;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.green.buttons .button:focus,\n.ui.green.button:focus {\n  background-color: #0ea432;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.green.buttons .button:active,\n.ui.green.button:active {\n  background-color: #198f35;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.green.buttons .active.button,\n.ui.green.buttons .active.button:active,\n.ui.green.active.button,\n.ui.green.button .active.button:active {\n  background-color: #13ae38;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n\n/* Basic */\n.ui.basic.green.buttons .button,\n.ui.basic.green.button {\n  box-shadow: 0px 0px 0px 1px #21BA45 inset !important;\n  color: #21BA45 !important;\n}\n.ui.basic.green.buttons .button:hover,\n.ui.basic.green.button:hover {\n  background: transparent !important;\n  box-shadow: 0px 0px 0px 1px #16ab39 inset !important;\n  color: #16ab39 !important;\n}\n.ui.basic.green.buttons .button:focus,\n.ui.basic.green.button:focus {\n  background: transparent !important;\n  box-shadow: 0px 0px 0px 1px #0ea432 inset !important;\n  color: #16ab39 !important;\n}\n.ui.basic.green.buttons .active.button,\n.ui.basic.green.active.button {\n  background: transparent !important;\n  box-shadow: 0px 0px 0px 1px #13ae38 inset !important;\n  color: #198f35 !important;\n}\n.ui.basic.green.buttons .button:active,\n.ui.basic.green.button:active {\n  box-shadow: 0px 0px 0px 1px #198f35 inset !important;\n  color: #198f35 !important;\n}\n.ui.buttons:not(.vertical) > .basic.green.button:not(:first-child) {\n  margin-left: -1px;\n}\n\n/* Inverted */\n.ui.inverted.green.buttons .button,\n.ui.inverted.green.button {\n  background-color: transparent;\n  box-shadow: 0px 0px 0px 2px #2ECC40 inset !important;\n  color: #2ECC40;\n}\n.ui.inverted.green.buttons .button:hover,\n.ui.inverted.green.button:hover,\n.ui.inverted.green.buttons .button:focus,\n.ui.inverted.green.button:focus,\n.ui.inverted.green.buttons .button.active,\n.ui.inverted.green.button.active,\n.ui.inverted.green.buttons .button:active,\n.ui.inverted.green.button:active {\n  box-shadlightOw: none !important;\n  color: #FFFFFF;\n}\n.ui.inverted.green.buttons .button:hover,\n.ui.inverted.green.button:hover {\n  background-color: #22be34;\n}\n.ui.inverted.green.buttons .button:focus,\n.ui.inverted.green.button:focus {\n  background-color: #19b82b;\n}\n.ui.inverted.green.buttons .active.button,\n.ui.inverted.green.active.button {\n  background-color: #1fc231;\n}\n.ui.inverted.green.buttons .button:active,\n.ui.inverted.green.button:active {\n  background-color: #25a233;\n}\n\n/* Inverted Basic */\n.ui.inverted.green.basic.buttons .button,\n.ui.inverted.green.buttons .basic.button,\n.ui.inverted.green.basic.button {\n  background-color: transparent;\n  box-shadow: 0px 0px 0px 2px rgba(255, 255, 255, 0.5) inset !important;\n  color: #FFFFFF !important;\n}\n.ui.inverted.green.basic.buttons .button:hover,\n.ui.inverted.green.buttons .basic.button:hover,\n.ui.inverted.green.basic.button:hover {\n  box-shadow: 0px 0px 0px 2px #22be34 inset !important;\n  color: #2ECC40 !important;\n}\n.ui.inverted.green.basic.buttons .button:focus,\n.ui.inverted.green.basic.buttons .button:focus,\n.ui.inverted.green.basic.button:focus {\n  box-shadow: 0px 0px 0px 2px #19b82b inset !important;\n  color: #2ECC40 !important;\n}\n.ui.inverted.green.basic.buttons .active.button,\n.ui.inverted.green.buttons .basic.active.button,\n.ui.inverted.green.basic.active.button {\n  box-shadow: 0px 0px 0px 2px #1fc231 inset !important;\n  color: #2ECC40 !important;\n}\n.ui.inverted.green.basic.buttons .button:active,\n.ui.inverted.green.buttons .basic.button:active,\n.ui.inverted.green.basic.button:active {\n  box-shadow: 0px 0px 0px 2px #25a233 inset !important;\n  color: #2ECC40 !important;\n}\n\n/*--- Orange ---*/\n\n.ui.orange.buttons .button,\n.ui.orange.button {\n  background-color: #F2711C;\n  color: #FFFFFF;\n  text-shadow: none;\n  background-image: none;\n}\n.ui.orange.button {\n  box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;\n}\n.ui.orange.buttons .button:hover,\n.ui.orange.button:hover {\n  background-color: #f26202;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.orange.buttons .button:focus,\n.ui.orange.button:focus {\n  background-color: #e55b00;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.orange.buttons .button:active,\n.ui.orange.button:active {\n  background-color: #cf590c;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.orange.buttons .active.button,\n.ui.orange.buttons .active.button:active,\n.ui.orange.active.button,\n.ui.orange.button .active.button:active {\n  background-color: #f56100;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n\n/* Basic */\n.ui.basic.orange.buttons .button,\n.ui.basic.orange.button {\n  box-shadow: 0px 0px 0px 1px #F2711C inset !important;\n  color: #F2711C !important;\n}\n.ui.basic.orange.buttons .button:hover,\n.ui.basic.orange.button:hover {\n  background: transparent !important;\n  box-shadow: 0px 0px 0px 1px #f26202 inset !important;\n  color: #f26202 !important;\n}\n.ui.basic.orange.buttons .button:focus,\n.ui.basic.orange.button:focus {\n  background: transparent !important;\n  box-shadow: 0px 0px 0px 1px #e55b00 inset !important;\n  color: #f26202 !important;\n}\n.ui.basic.orange.buttons .active.button,\n.ui.basic.orange.active.button {\n  background: transparent !important;\n  box-shadow: 0px 0px 0px 1px #f56100 inset !important;\n  color: #cf590c !important;\n}\n.ui.basic.orange.buttons .button:active,\n.ui.basic.orange.button:active {\n  box-shadow: 0px 0px 0px 1px #cf590c inset !important;\n  color: #cf590c !important;\n}\n.ui.buttons:not(.vertical) > .basic.orange.button:not(:first-child) {\n  margin-left: -1px;\n}\n\n/* Inverted */\n.ui.inverted.orange.buttons .button,\n.ui.inverted.orange.button {\n  background-color: transparent;\n  box-shadow: 0px 0px 0px 2px #FF851B inset !important;\n  color: #FF851B;\n}\n.ui.inverted.orange.buttons .button:hover,\n.ui.inverted.orange.button:hover,\n.ui.inverted.orange.buttons .button:focus,\n.ui.inverted.orange.button:focus,\n.ui.inverted.orange.buttons .button.active,\n.ui.inverted.orange.button.active,\n.ui.inverted.orange.buttons .button:active,\n.ui.inverted.orange.button:active {\n  box-shadow: none !important;\n  color: #FFFFFF;\n}\n.ui.inverted.orange.buttons .button:hover,\n.ui.inverted.orange.button:hover {\n  background-color: #ff7701;\n}\n.ui.inverted.orange.buttons .button:focus,\n.ui.inverted.orange.button:focus {\n  background-color: #f17000;\n}\n.ui.inverted.orange.buttons .active.button,\n.ui.inverted.orange.active.button {\n  background-color: #ff7701;\n}\n.ui.inverted.orange.buttons .button:active,\n.ui.inverted.orange.button:active {\n  background-color: #e76b00;\n}\n\n/* Inverted Basic */\n.ui.inverted.orange.basic.buttons .button,\n.ui.inverted.orange.buttons .basic.button,\n.ui.inverted.orange.basic.button {\n  background-color: transparent;\n  box-shadow: 0px 0px 0px 2px rgba(255, 255, 255, 0.5) inset !important;\n  color: #FFFFFF !important;\n}\n.ui.inverted.orange.basic.buttons .button:hover,\n.ui.inverted.orange.buttons .basic.button:hover,\n.ui.inverted.orange.basic.button:hover {\n  box-shadow: 0px 0px 0px 2px #ff7701 inset !important;\n  color: #FF851B !important;\n}\n.ui.inverted.orange.basic.buttons .button:focus,\n.ui.inverted.orange.basic.buttons .button:focus,\n.ui.inverted.orange.basic.button:focus {\n  box-shadow: 0px 0px 0px 2px #f17000 inset !important;\n  color: #FF851B !important;\n}\n.ui.inverted.orange.basic.buttons .active.button,\n.ui.inverted.orange.buttons .basic.active.button,\n.ui.inverted.orange.basic.active.button {\n  box-shadow: 0px 0px 0px 2px #ff7701 inset !important;\n  color: #FF851B !important;\n}\n.ui.inverted.orange.basic.buttons .button:active,\n.ui.inverted.orange.buttons .basic.button:active,\n.ui.inverted.orange.basic.button:active {\n  box-shadow: 0px 0px 0px 2px #e76b00 inset !important;\n  color: #FF851B !important;\n}\n\n/*--- Pink ---*/\n\n.ui.pink.buttons .button,\n.ui.pink.button {\n  background-color: #E03997;\n  color: #FFFFFF;\n  text-shadow: none;\n  background-image: none;\n}\n.ui.pink.button {\n  box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;\n}\n.ui.pink.buttons .button:hover,\n.ui.pink.button:hover {\n  background-color: #e61a8d;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.pink.buttons .button:focus,\n.ui.pink.button:focus {\n  background-color: #e10f85;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.pink.buttons .button:active,\n.ui.pink.button:active {\n  background-color: #c71f7e;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.pink.buttons .active.button,\n.ui.pink.buttons .active.button:active,\n.ui.pink.active.button,\n.ui.pink.button .active.button:active {\n  background-color: #ea158d;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n\n/* Basic */\n.ui.basic.pink.buttons .button,\n.ui.basic.pink.button {\n  box-shadow: 0px 0px 0px 1px #E03997 inset !important;\n  color: #E03997 !important;\n}\n.ui.basic.pink.buttons .button:hover,\n.ui.basic.pink.button:hover {\n  background: transparent !important;\n  box-shadow: 0px 0px 0px 1px #e61a8d inset !important;\n  color: #e61a8d !important;\n}\n.ui.basic.pink.buttons .button:focus,\n.ui.basic.pink.button:focus {\n  background: transparent !important;\n  box-shadow: 0px 0px 0px 1px #e10f85 inset !important;\n  color: #e61a8d !important;\n}\n.ui.basic.pink.buttons .active.button,\n.ui.basic.pink.active.button {\n  background: transparent !important;\n  box-shadow: 0px 0px 0px 1px #ea158d inset !important;\n  color: #c71f7e !important;\n}\n.ui.basic.pink.buttons .button:active,\n.ui.basic.pink.button:active {\n  box-shadow: 0px 0px 0px 1px #c71f7e inset !important;\n  color: #c71f7e !important;\n}\n.ui.buttons:not(.vertical) > .basic.pink.button:not(:first-child) {\n  margin-left: -1px;\n}\n\n/* Inverted */\n.ui.inverted.pink.buttons .button,\n.ui.inverted.pink.button {\n  background-color: transparent;\n  box-shadow: 0px 0px 0px 2px #FF8EDF inset !important;\n  color: #FF8EDF;\n}\n.ui.inverted.pink.buttons .button:hover,\n.ui.inverted.pink.button:hover,\n.ui.inverted.pink.buttons .button:focus,\n.ui.inverted.pink.button:focus,\n.ui.inverted.pink.buttons .button.active,\n.ui.inverted.pink.button.active,\n.ui.inverted.pink.buttons .button:active,\n.ui.inverted.pink.button:active {\n  box-shadow: none !important;\n  color: #FFFFFF;\n}\n.ui.inverted.pink.buttons .button:hover,\n.ui.inverted.pink.button:hover {\n  background-color: #ff74d8;\n}\n.ui.inverted.pink.buttons .button:focus,\n.ui.inverted.pink.button:focus {\n  background-color: #ff65d3;\n}\n.ui.inverted.pink.buttons .active.button,\n.ui.inverted.pink.active.button {\n  background-color: #ff74d8;\n}\n.ui.inverted.pink.buttons .button:active,\n.ui.inverted.pink.button:active {\n  background-color: #ff5bd1;\n}\n\n/* Inverted Basic */\n.ui.inverted.pink.basic.buttons .button,\n.ui.inverted.pink.buttons .basic.button,\n.ui.inverted.pink.basic.button {\n  background-color: transparent;\n  box-shadow: 0px 0px 0px 2px rgba(255, 255, 255, 0.5) inset !important;\n  color: #FFFFFF !important;\n}\n.ui.inverted.pink.basic.buttons .button:hover,\n.ui.inverted.pink.buttons .basic.button:hover,\n.ui.inverted.pink.basic.button:hover {\n  box-shadow: 0px 0px 0px 2px #ff74d8 inset !important;\n  color: #FF8EDF !important;\n}\n.ui.inverted.pink.basic.buttons .button:focus,\n.ui.inverted.pink.basic.buttons .button:focus,\n.ui.inverted.pink.basic.button:focus {\n  box-shadow: 0px 0px 0px 2px #ff65d3 inset !important;\n  color: #FF8EDF !important;\n}\n.ui.inverted.pink.basic.buttons .active.button,\n.ui.inverted.pink.buttons .basic.active.button,\n.ui.inverted.pink.basic.active.button {\n  box-shadow: 0px 0px 0px 2px #ff74d8 inset !important;\n  color: #FF8EDF !important;\n}\n.ui.inverted.pink.basic.buttons .button:active,\n.ui.inverted.pink.buttons .basic.button:active,\n.ui.inverted.pink.basic.button:active {\n  box-shadow: 0px 0px 0px 2px #ff5bd1 inset !important;\n  color: #FF8EDF !important;\n}\n\n/*--- Violet ---*/\n\n.ui.violet.buttons .button,\n.ui.violet.button {\n  background-color: #6435C9;\n  color: #FFFFFF;\n  text-shadow: none;\n  background-image: none;\n}\n.ui.violet.button {\n  box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;\n}\n.ui.violet.buttons .button:hover,\n.ui.violet.button:hover {\n  background-color: #5829bb;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.violet.buttons .button:focus,\n.ui.violet.button:focus {\n  background-color: #4f20b5;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.violet.buttons .button:active,\n.ui.violet.button:active {\n  background-color: #502aa1;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.violet.buttons .active.button,\n.ui.violet.buttons .active.button:active,\n.ui.violet.active.button,\n.ui.violet.button .active.button:active {\n  background-color: #5626bf;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n\n/* Basic */\n.ui.basic.violet.buttons .button,\n.ui.basic.violet.button {\n  box-shadow: 0px 0px 0px 1px #6435C9 inset !important;\n  color: #6435C9 !important;\n}\n.ui.basic.violet.buttons .button:hover,\n.ui.basic.violet.button:hover {\n  background: transparent !important;\n  box-shadow: 0px 0px 0px 1px #5829bb inset !important;\n  color: #5829bb !important;\n}\n.ui.basic.violet.buttons .button:focus,\n.ui.basic.violet.button:focus {\n  background: transparent !important;\n  box-shadow: 0px 0px 0px 1px #4f20b5 inset !important;\n  color: #5829bb !important;\n}\n.ui.basic.violet.buttons .active.button,\n.ui.basic.violet.active.button {\n  background: transparent !important;\n  box-shadow: 0px 0px 0px 1px #5626bf inset !important;\n  color: #502aa1 !important;\n}\n.ui.basic.violet.buttons .button:active,\n.ui.basic.violet.button:active {\n  box-shadow: 0px 0px 0px 1px #502aa1 inset !important;\n  color: #502aa1 !important;\n}\n.ui.buttons:not(.vertical) > .basic.violet.button:not(:first-child) {\n  margin-left: -1px;\n}\n\n/* Inverted */\n.ui.inverted.violet.buttons .button,\n.ui.inverted.violet.button {\n  background-color: transparent;\n  box-shadow: 0px 0px 0px 2px #A291FB inset !important;\n  color: #A291FB;\n}\n.ui.inverted.violet.buttons .button:hover,\n.ui.inverted.violet.button:hover,\n.ui.inverted.violet.buttons .button:focus,\n.ui.inverted.violet.button:focus,\n.ui.inverted.violet.buttons .button.active,\n.ui.inverted.violet.button.active,\n.ui.inverted.violet.buttons .button:active,\n.ui.inverted.violet.button:active {\n  box-shadow: none !important;\n  color: #FFFFFF;\n}\n.ui.inverted.violet.buttons .button:hover,\n.ui.inverted.violet.button:hover {\n  background-color: #8a73ff;\n}\n.ui.inverted.violet.buttons .button:focus,\n.ui.inverted.violet.button:focus {\n  background-color: #7d64ff;\n}\n.ui.inverted.violet.buttons .active.button,\n.ui.inverted.violet.active.button {\n  background-color: #8a73ff;\n}\n.ui.inverted.violet.buttons .button:active,\n.ui.inverted.violet.button:active {\n  background-color: #7860f9;\n}\n\n/* Inverted Basic */\n.ui.inverted.violet.basic.buttons .button,\n.ui.inverted.violet.buttons .basic.button,\n.ui.inverted.violet.basic.button {\n  background-color: transparent;\n  box-shadow: 0px 0px 0px 2px rgba(255, 255, 255, 0.5) inset !important;\n  color: #FFFFFF !important;\n}\n.ui.inverted.violet.basic.buttons .button:hover,\n.ui.inverted.violet.buttons .basic.button:hover,\n.ui.inverted.violet.basic.button:hover {\n  box-shadow: 0px 0px 0px 2px #8a73ff inset !important;\n  color: #A291FB !important;\n}\n.ui.inverted.violet.basic.buttons .button:focus,\n.ui.inverted.violet.basic.buttons .button:focus,\n.ui.inverted.violet.basic.button:focus {\n  box-shadow: 0px 0px 0px 2px #7d64ff inset !important;\n  color: #A291FB !important;\n}\n.ui.inverted.violet.basic.buttons .active.button,\n.ui.inverted.violet.buttons .basic.active.button,\n.ui.inverted.violet.basic.active.button {\n  box-shadow: 0px 0px 0px 2px #8a73ff inset !important;\n  color: #A291FB !important;\n}\n.ui.inverted.violet.basic.buttons .button:active,\n.ui.inverted.violet.buttons .basic.button:active,\n.ui.inverted.violet.basic.button:active {\n  box-shadow: 0px 0px 0px 2px #7860f9 inset !important;\n  color: #A291FB !important;\n}\n\n/*--- Purple ---*/\n\n.ui.purple.buttons .button,\n.ui.purple.button {\n  background-color: #A333C8;\n  color: #FFFFFF;\n  text-shadow: none;\n  background-image: none;\n}\n.ui.purple.button {\n  box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;\n}\n.ui.purple.buttons .button:hover,\n.ui.purple.button:hover {\n  background-color: #9627ba;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.purple.buttons .button:focus,\n.ui.purple.button:focus {\n  background-color: #8f1eb4;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.purple.buttons .button:active,\n.ui.purple.button:active {\n  background-color: #82299f;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.purple.buttons .active.button,\n.ui.purple.buttons .active.button:active,\n.ui.purple.active.button,\n.ui.purple.button .active.button:active {\n  background-color: #9724be;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n\n/* Basic */\n.ui.basic.purple.buttons .button,\n.ui.basic.purple.button {\n  box-shadow: 0px 0px 0px 1px #A333C8 inset !important;\n  color: #A333C8 !important;\n}\n.ui.basic.purple.buttons .button:hover,\n.ui.basic.purple.button:hover {\n  background: transparent !important;\n  box-shadow: 0px 0px 0px 1px #9627ba inset !important;\n  color: #9627ba !important;\n}\n.ui.basic.purple.buttons .button:focus,\n.ui.basic.purple.button:focus {\n  background: transparent !important;\n  box-shadow: 0px 0px 0px 1px #8f1eb4 inset !important;\n  color: #9627ba !important;\n}\n.ui.basic.purple.buttons .active.button,\n.ui.basic.purple.active.button {\n  background: transparent !important;\n  box-shadow: 0px 0px 0px 1px #9724be inset !important;\n  color: #82299f !important;\n}\n.ui.basic.purple.buttons .button:active,\n.ui.basic.purple.button:active {\n  box-shadow: 0px 0px 0px 1px #82299f inset !important;\n  color: #82299f !important;\n}\n.ui.buttons:not(.vertical) > .basic.purple.button:not(:first-child) {\n  margin-left: -1px;\n}\n\n/* Inverted */\n.ui.inverted.purple.buttons .button,\n.ui.inverted.purple.button {\n  background-color: transparent;\n  box-shadow: 0px 0px 0px 2px #DC73FF inset !important;\n  color: #DC73FF;\n}\n.ui.inverted.purple.buttons .button:hover,\n.ui.inverted.purple.button:hover,\n.ui.inverted.purple.buttons .button:focus,\n.ui.inverted.purple.button:focus,\n.ui.inverted.purple.buttons .button.active,\n.ui.inverted.purple.button.active,\n.ui.inverted.purple.buttons .button:active,\n.ui.inverted.purple.button:active {\n  box-shadow: none !important;\n  color: #FFFFFF;\n}\n.ui.inverted.purple.buttons .button:hover,\n.ui.inverted.purple.button:hover {\n  background-color: #d65aff;\n}\n.ui.inverted.purple.buttons .button:focus,\n.ui.inverted.purple.button:focus {\n  background-color: #d24aff;\n}\n.ui.inverted.purple.buttons .active.button,\n.ui.inverted.purple.active.button {\n  background-color: #d65aff;\n}\n.ui.inverted.purple.buttons .button:active,\n.ui.inverted.purple.button:active {\n  background-color: #cf40ff;\n}\n\n/* Inverted Basic */\n.ui.inverted.purple.basic.buttons .button,\n.ui.inverted.purple.buttons .basic.button,\n.ui.inverted.purple.basic.button {\n  background-color: transparent;\n  box-shadow: 0px 0px 0px 2px rgba(255, 255, 255, 0.5) inset !important;\n  color: #FFFFFF !important;\n}\n.ui.inverted.purple.basic.buttons .button:hover,\n.ui.inverted.purple.buttons .basic.button:hover,\n.ui.inverted.purple.basic.button:hover {\n  box-shadow: 0px 0px 0px 2px #d65aff inset !important;\n  color: #DC73FF !important;\n}\n.ui.inverted.purple.basic.buttons .button:focus,\n.ui.inverted.purple.basic.buttons .button:focus,\n.ui.inverted.purple.basic.button:focus {\n  box-shadow: 0px 0px 0px 2px #d24aff inset !important;\n  color: #DC73FF !important;\n}\n.ui.inverted.purple.basic.buttons .active.button,\n.ui.inverted.purple.buttons .basic.active.button,\n.ui.inverted.purple.basic.active.button {\n  box-shadow: 0px 0px 0px 2px #d65aff inset !important;\n  color: #DC73FF !important;\n}\n.ui.inverted.purple.basic.buttons .button:active,\n.ui.inverted.purple.buttons .basic.button:active,\n.ui.inverted.purple.basic.button:active {\n  box-shadow: 0px 0px 0px 2px #cf40ff inset !important;\n  color: #DC73FF !important;\n}\n\n/*--- Red ---*/\n\n.ui.red.buttons .button,\n.ui.red.button {\n  background-color: #DB2828;\n  color: #FFFFFF;\n  text-shadow: none;\n  background-image: none;\n}\n.ui.red.button {\n  box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;\n}\n.ui.red.buttons .button:hover,\n.ui.red.button:hover {\n  background-color: #d01919;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.red.buttons .button:focus,\n.ui.red.button:focus {\n  background-color: #ca1010;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.red.buttons .button:active,\n.ui.red.button:active {\n  background-color: #b21e1e;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.red.buttons .active.button,\n.ui.red.buttons .active.button:active,\n.ui.red.active.button,\n.ui.red.button .active.button:active {\n  background-color: #d41515;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n\n/* Basic */\n.ui.basic.red.buttons .button,\n.ui.basic.red.button {\n  box-shadow: 0px 0px 0px 1px #DB2828 inset !important;\n  color: #DB2828 !important;\n}\n.ui.basic.red.buttons .button:hover,\n.ui.basic.red.button:hover {\n  background: transparent !important;\n  box-shadow: 0px 0px 0px 1px #d01919 inset !important;\n  color: #d01919 !important;\n}\n.ui.basic.red.buttons .button:focus,\n.ui.basic.red.button:focus {\n  background: transparent !important;\n  box-shadow: 0px 0px 0px 1px #ca1010 inset !important;\n  color: #d01919 !important;\n}\n.ui.basic.red.buttons .active.button,\n.ui.basic.red.active.button {\n  background: transparent !important;\n  box-shadow: 0px 0px 0px 1px #d41515 inset !important;\n  color: #b21e1e !important;\n}\n.ui.basic.red.buttons .button:active,\n.ui.basic.red.button:active {\n  box-shadow: 0px 0px 0px 1px #b21e1e inset !important;\n  color: #b21e1e !important;\n}\n.ui.buttons:not(.vertical) > .basic.red.button:not(:first-child) {\n  margin-left: -1px;\n}\n\n/* Inverted */\n.ui.inverted.red.buttons .button,\n.ui.inverted.red.button {\n  background-color: transparent;\n  box-shadow: 0px 0px 0px 2px #FF695E inset !important;\n  color: #FF695E;\n}\n.ui.inverted.red.buttons .button:hover,\n.ui.inverted.red.button:hover,\n.ui.inverted.red.buttons .button:focus,\n.ui.inverted.red.button:focus,\n.ui.inverted.red.buttons .button.active,\n.ui.inverted.red.button.active,\n.ui.inverted.red.buttons .button:active,\n.ui.inverted.red.button:active {\n  box-shadow: none !important;\n  color: #FFFFFF;\n}\n.ui.inverted.red.buttons .button:hover,\n.ui.inverted.red.button:hover {\n  background-color: #ff5144;\n}\n.ui.inverted.red.buttons .button:focus,\n.ui.inverted.red.button:focus {\n  background-color: #ff4335;\n}\n.ui.inverted.red.buttons .active.button,\n.ui.inverted.red.active.button {\n  background-color: #ff5144;\n}\n.ui.inverted.red.buttons .button:active,\n.ui.inverted.red.button:active {\n  background-color: #ff392b;\n}\n\n/* Inverted Basic */\n.ui.inverted.red.basic.buttons .button,\n.ui.inverted.red.buttons .basic.button,\n.ui.inverted.red.basic.button {\n  background-color: transparent;\n  box-shadow: 0px 0px 0px 2px rgba(255, 255, 255, 0.5) inset !important;\n  color: #FFFFFF !important;\n}\n.ui.inverted.red.basic.buttons .button:hover,\n.ui.inverted.red.buttons .basic.button:hover,\n.ui.inverted.red.basic.button:hover {\n  box-shadow: 0px 0px 0px 2px #ff5144 inset !important;\n  color: #FF695E !important;\n}\n.ui.inverted.red.basic.buttons .button:focus,\n.ui.inverted.red.basic.buttons .button:focus,\n.ui.inverted.red.basic.button:focus {\n  box-shadow: 0px 0px 0px 2px #ff4335 inset !important;\n  color: #FF695E !important;\n}\n.ui.inverted.red.basic.buttons .active.button,\n.ui.inverted.red.buttons .basic.active.button,\n.ui.inverted.red.basic.active.button {\n  box-shadow: 0px 0px 0px 2px #ff5144 inset !important;\n  color: #FF695E !important;\n}\n.ui.inverted.red.basic.buttons .button:active,\n.ui.inverted.red.buttons .basic.button:active,\n.ui.inverted.red.basic.button:active {\n  box-shadow: 0px 0px 0px 2px #ff392b inset !important;\n  color: #FF695E !important;\n}\n\n/*--- Teal ---*/\n\n.ui.teal.buttons .button,\n.ui.teal.button {\n  background-color: #00B5AD;\n  color: #FFFFFF;\n  text-shadow: none;\n  background-image: none;\n}\n.ui.teal.button {\n  box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;\n}\n.ui.teal.buttons .button:hover,\n.ui.teal.button:hover {\n  background-color: #009c95;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.teal.buttons .button:focus,\n.ui.teal.button:focus {\n  background-color: #008c86;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.teal.buttons .button:active,\n.ui.teal.button:active {\n  background-color: #00827c;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.teal.buttons .active.button,\n.ui.teal.buttons .active.button:active,\n.ui.teal.active.button,\n.ui.teal.button .active.button:active {\n  background-color: #009c95;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n\n/* Basic */\n.ui.basic.teal.buttons .button,\n.ui.basic.teal.button {\n  box-shadow: 0px 0px 0px 1px #00B5AD inset !important;\n  color: #00B5AD !important;\n}\n.ui.basic.teal.buttons .button:hover,\n.ui.basic.teal.button:hover {\n  background: transparent !important;\n  box-shadow: 0px 0px 0px 1px #009c95 inset !important;\n  color: #009c95 !important;\n}\n.ui.basic.teal.buttons .button:focus,\n.ui.basic.teal.button:focus {\n  background: transparent !important;\n  box-shadow: 0px 0px 0px 1px #008c86 inset !important;\n  color: #009c95 !important;\n}\n.ui.basic.teal.buttons .active.button,\n.ui.basic.teal.active.button {\n  background: transparent !important;\n  box-shadow: 0px 0px 0px 1px #009c95 inset !important;\n  color: #00827c !important;\n}\n.ui.basic.teal.buttons .button:active,\n.ui.basic.teal.button:active {\n  box-shadow: 0px 0px 0px 1px #00827c inset !important;\n  color: #00827c !important;\n}\n.ui.buttons:not(.vertical) > .basic.teal.button:not(:first-child) {\n  margin-left: -1px;\n}\n\n/* Inverted */\n.ui.inverted.teal.buttons .button,\n.ui.inverted.teal.button {\n  background-color: transparent;\n  box-shadow: 0px 0px 0px 2px #6DFFFF inset !important;\n  color: #6DFFFF;\n}\n.ui.inverted.teal.buttons .button:hover,\n.ui.inverted.teal.button:hover,\n.ui.inverted.teal.buttons .button:focus,\n.ui.inverted.teal.button:focus,\n.ui.inverted.teal.buttons .button.active,\n.ui.inverted.teal.button.active,\n.ui.inverted.teal.buttons .button:active,\n.ui.inverted.teal.button:active {\n  box-shadow: none !important;\n  color: rgba(0, 0, 0, 0.6);\n}\n.ui.inverted.teal.buttons .button:hover,\n.ui.inverted.teal.button:hover {\n  background-color: #54ffff;\n}\n.ui.inverted.teal.buttons .button:focus,\n.ui.inverted.teal.button:focus {\n  background-color: #44ffff;\n}\n.ui.inverted.teal.buttons .active.button,\n.ui.inverted.teal.active.button {\n  background-color: #54ffff;\n}\n.ui.inverted.teal.buttons .button:active,\n.ui.inverted.teal.button:active {\n  background-color: #3affff;\n}\n\n/* Inverted Basic */\n.ui.inverted.teal.basic.buttons .button,\n.ui.inverted.teal.buttons .basic.button,\n.ui.inverted.teal.basic.button {\n  background-color: transparent;\n  box-shadow: 0px 0px 0px 2px rgba(255, 255, 255, 0.5) inset !important;\n  color: #FFFFFF !important;\n}\n.ui.inverted.teal.basic.buttons .button:hover,\n.ui.inverted.teal.buttons .basic.button:hover,\n.ui.inverted.teal.basic.button:hover {\n  box-shadow: 0px 0px 0px 2px #54ffff inset !important;\n  color: #6DFFFF !important;\n}\n.ui.inverted.teal.basic.buttons .button:focus,\n.ui.inverted.teal.basic.buttons .button:focus,\n.ui.inverted.teal.basic.button:focus {\n  box-shadow: 0px 0px 0px 2px #44ffff inset !important;\n  color: #6DFFFF !important;\n}\n.ui.inverted.teal.basic.buttons .active.button,\n.ui.inverted.teal.buttons .basic.active.button,\n.ui.inverted.teal.basic.active.button {\n  box-shadow: 0px 0px 0px 2px #54ffff inset !important;\n  color: #6DFFFF !important;\n}\n.ui.inverted.teal.basic.buttons .button:active,\n.ui.inverted.teal.buttons .basic.button:active,\n.ui.inverted.teal.basic.button:active {\n  box-shadow: 0px 0px 0px 2px #3affff inset !important;\n  color: #6DFFFF !important;\n}\n\n/*--- Olive ---*/\n\n.ui.olive.buttons .button,\n.ui.olive.button {\n  background-color: #B5CC18;\n  color: #FFFFFF;\n  text-shadow: none;\n  background-image: none;\n}\n.ui.olive.button {\n  box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;\n}\n.ui.olive.buttons .button:hover,\n.ui.olive.button:hover {\n  background-color: #a7bd0d;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.olive.buttons .button:focus,\n.ui.olive.button:focus {\n  background-color: #a0b605;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.olive.buttons .button:active,\n.ui.olive.button:active {\n  background-color: #8d9e13;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.olive.buttons .active.button,\n.ui.olive.buttons .active.button:active,\n.ui.olive.active.button,\n.ui.olive.button .active.button:active {\n  background-color: #aac109;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n\n/* Basic */\n.ui.basic.olive.buttons .button,\n.ui.basic.olive.button {\n  box-shadow: 0px 0px 0px 1px #B5CC18 inset !important;\n  color: #B5CC18 !important;\n}\n.ui.basic.olive.buttons .button:hover,\n.ui.basic.olive.button:hover {\n  background: transparent !important;\n  box-shadow: 0px 0px 0px 1px #a7bd0d inset !important;\n  color: #a7bd0d !important;\n}\n.ui.basic.olive.buttons .button:focus,\n.ui.basic.olive.button:focus {\n  background: transparent !important;\n  box-shadow: 0px 0px 0px 1px #a0b605 inset !important;\n  color: #a7bd0d !important;\n}\n.ui.basic.olive.buttons .active.button,\n.ui.basic.olive.active.button {\n  background: transparent !important;\n  box-shadow: 0px 0px 0px 1px #aac109 inset !important;\n  color: #8d9e13 !important;\n}\n.ui.basic.olive.buttons .button:active,\n.ui.basic.olive.button:active {\n  box-shadow: 0px 0px 0px 1px #8d9e13 inset !important;\n  color: #8d9e13 !important;\n}\n.ui.buttons:not(.vertical) > .basic.olive.button:not(:first-child) {\n  margin-left: -1px;\n}\n\n/* Inverted */\n.ui.inverted.olive.buttons .button,\n.ui.inverted.olive.button {\n  background-color: transparent;\n  box-shadow: 0px 0px 0px 2px #D9E778 inset !important;\n  color: #D9E778;\n}\n.ui.inverted.olive.buttons .button:hover,\n.ui.inverted.olive.button:hover,\n.ui.inverted.olive.buttons .button:focus,\n.ui.inverted.olive.button:focus,\n.ui.inverted.olive.buttons .button.active,\n.ui.inverted.olive.button.active,\n.ui.inverted.olive.buttons .button:active,\n.ui.inverted.olive.button:active {\n  box-shadow: none !important;\n  color: rgba(0, 0, 0, 0.6);\n}\n.ui.inverted.olive.buttons .button:hover,\n.ui.inverted.olive.button:hover {\n  background-color: #d8ea5c;\n}\n.ui.inverted.olive.buttons .button:focus,\n.ui.inverted.olive.button:focus {\n  background-color: #daef47;\n}\n.ui.inverted.olive.buttons .active.button,\n.ui.inverted.olive.active.button {\n  background-color: #daed59;\n}\n.ui.inverted.olive.buttons .button:active,\n.ui.inverted.olive.button:active {\n  background-color: #cddf4d;\n}\n\n/* Inverted Basic */\n.ui.inverted.olive.basic.buttons .button,\n.ui.inverted.olive.buttons .basic.button,\n.ui.inverted.olive.basic.button {\n  background-color: transparent;\n  box-shadow: 0px 0px 0px 2px rgba(255, 255, 255, 0.5) inset !important;\n  color: #FFFFFF !important;\n}\n.ui.inverted.olive.basic.buttons .button:hover,\n.ui.inverted.olive.buttons .basic.button:hover,\n.ui.inverted.olive.basic.button:hover {\n  box-shadow: 0px 0px 0px 2px #d8ea5c inset !important;\n  color: #D9E778 !important;\n}\n.ui.inverted.olive.basic.buttons .button:focus,\n.ui.inverted.olive.basic.buttons .button:focus,\n.ui.inverted.olive.basic.button:focus {\n  box-shadow: 0px 0px 0px 2px #daef47 inset !important;\n  color: #D9E778 !important;\n}\n.ui.inverted.olive.basic.buttons .active.button,\n.ui.inverted.olive.buttons .basic.active.button,\n.ui.inverted.olive.basic.active.button {\n  box-shadow: 0px 0px 0px 2px #daed59 inset !important;\n  color: #D9E778 !important;\n}\n.ui.inverted.olive.basic.buttons .button:active,\n.ui.inverted.olive.buttons .basic.button:active,\n.ui.inverted.olive.basic.button:active {\n  box-shadow: 0px 0px 0px 2px #cddf4d inset !important;\n  color: #D9E778 !important;\n}\n\n/*--- Yellow ---*/\n\n.ui.yellow.buttons .button,\n.ui.yellow.button {\n  background-color: #FBBD08;\n  color: #FFFFFF;\n  text-shadow: none;\n  background-image: none;\n}\n.ui.yellow.button {\n  box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;\n}\n.ui.yellow.buttons .button:hover,\n.ui.yellow.button:hover {\n  background-color: #eaae00;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.yellow.buttons .button:focus,\n.ui.yellow.button:focus {\n  background-color: #daa300;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.yellow.buttons .button:active,\n.ui.yellow.button:active {\n  background-color: #cd9903;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.yellow.buttons .active.button,\n.ui.yellow.buttons .active.button:active,\n.ui.yellow.active.button,\n.ui.yellow.button .active.button:active {\n  background-color: #eaae00;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n\n/* Basic */\n.ui.basic.yellow.buttons .button,\n.ui.basic.yellow.button {\n  box-shadow: 0px 0px 0px 1px #FBBD08 inset !important;\n  color: #FBBD08 !important;\n}\n.ui.basic.yellow.buttons .button:hover,\n.ui.basic.yellow.button:hover {\n  background: transparent !important;\n  box-shadow: 0px 0px 0px 1px #eaae00 inset !important;\n  color: #eaae00 !important;\n}\n.ui.basic.yellow.buttons .button:focus,\n.ui.basic.yellow.button:focus {\n  background: transparent !important;\n  box-shadow: 0px 0px 0px 1px #daa300 inset !important;\n  color: #eaae00 !important;\n}\n.ui.basic.yellow.buttons .active.button,\n.ui.basic.yellow.active.button {\n  background: transparent !important;\n  box-shadow: 0px 0px 0px 1px #eaae00 inset !important;\n  color: #cd9903 !important;\n}\n.ui.basic.yellow.buttons .button:active,\n.ui.basic.yellow.button:active {\n  box-shadow: 0px 0px 0px 1px #cd9903 inset !important;\n  color: #cd9903 !important;\n}\n.ui.buttons:not(.vertical) > .basic.yellow.button:not(:first-child) {\n  margin-left: -1px;\n}\n\n/* Inverted */\n.ui.inverted.yellow.buttons .button,\n.ui.inverted.yellow.button {\n  background-color: transparent;\n  box-shadow: 0px 0px 0px 2px #FFE21F inset !important;\n  color: #FFE21F;\n}\n.ui.inverted.yellow.buttons .button:hover,\n.ui.inverted.yellow.button:hover,\n.ui.inverted.yellow.buttons .button:focus,\n.ui.inverted.yellow.button:focus,\n.ui.inverted.yellow.buttons .button.active,\n.ui.inverted.yellow.button.active,\n.ui.inverted.yellow.buttons .button:active,\n.ui.inverted.yellow.button:active {\n  box-shadow: none !important;\n  color: rgba(0, 0, 0, 0.6);\n}\n.ui.inverted.yellow.buttons .button:hover,\n.ui.inverted.yellow.button:hover {\n  background-color: #ffdf05;\n}\n.ui.inverted.yellow.buttons .button:focus,\n.ui.inverted.yellow.button:focus {\n  background-color: #f5d500;\n}\n.ui.inverted.yellow.buttons .active.button,\n.ui.inverted.yellow.active.button {\n  background-color: #ffdf05;\n}\n.ui.inverted.yellow.buttons .button:active,\n.ui.inverted.yellow.button:active {\n  background-color: #ebcd00;\n}\n\n/* Inverted Basic */\n.ui.inverted.yellow.basic.buttons .button,\n.ui.inverted.yellow.buttons .basic.button,\n.ui.inverted.yellow.basic.button {\n  background-color: transparent;\n  box-shadow: 0px 0px 0px 2px rgba(255, 255, 255, 0.5) inset !important;\n  color: #FFFFFF !important;\n}\n.ui.inverted.yellow.basic.buttons .button:hover,\n.ui.inverted.yellow.buttons .basic.button:hover,\n.ui.inverted.yellow.basic.button:hover {\n  box-shadow: 0px 0px 0px 2px #ffdf05 inset !important;\n  color: #FFE21F !important;\n}\n.ui.inverted.yellow.basic.buttons .button:focus,\n.ui.inverted.yellow.basic.buttons .button:focus,\n.ui.inverted.yellow.basic.button:focus {\n  box-shadow: 0px 0px 0px 2px #f5d500 inset !important;\n  color: #FFE21F !important;\n}\n.ui.inverted.yellow.basic.buttons .active.button,\n.ui.inverted.yellow.buttons .basic.active.button,\n.ui.inverted.yellow.basic.active.button {\n  box-shadow: 0px 0px 0px 2px #ffdf05 inset !important;\n  color: #FFE21F !important;\n}\n.ui.inverted.yellow.basic.buttons .button:active,\n.ui.inverted.yellow.buttons .basic.button:active,\n.ui.inverted.yellow.basic.button:active {\n  box-shadow: 0px 0px 0px 2px #ebcd00 inset !important;\n  color: #FFE21F !important;\n}\n\n/*-------------------\n       Primary\n--------------------*/\n\n.ui.primary.buttons .button,\n.ui.primary.button {\n  background-color: #2185D0;\n  color: #FFFFFF;\n  text-shadow: none;\n  background-image: none;\n}\n.ui.primary.button {\n  box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;\n}\n.ui.primary.buttons .button:hover,\n.ui.primary.button:hover {\n  background-color: #1678c2;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.primary.buttons .button:focus,\n.ui.primary.button:focus {\n  background-color: #0d71bb;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.primary.buttons .button:active,\n.ui.primary.button:active {\n  background-color: #1a69a4;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.primary.buttons .active.button,\n.ui.primary.active.button {\n  background-color: #1279c6;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n\n/*-------------------\n      Secondary\n--------------------*/\n\n.ui.secondary.buttons .button,\n.ui.secondary.button {\n  background-color: #1B1C1D;\n  color: #FFFFFF;\n  text-shadow: none;\n  background-image: none;\n}\n.ui.secondary.button {\n  box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;\n}\n.ui.secondary.buttons .button:hover,\n.ui.secondary.button:hover {\n  background-color: #27292a;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.secondary.buttons .button:focus,\n.ui.secondary.button:focus {\n  background-color: #2e3032;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.secondary.buttons .button:active,\n.ui.secondary.button:active {\n  background-color: #343637;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.secondary.buttons .active.button,\n.ui.secondary.active.button {\n  background-color: #27292a;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n\n/*---------------\n    Positive\n----------------*/\n\n.ui.positive.buttons .button,\n.ui.positive.button {\n  background-color: #21BA45 !important;\n  color: #FFFFFF;\n  text-shadow: none;\n  background-image: none;\n}\n.ui.positive.button {\n  box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;\n}\n.ui.positive.buttons .button:hover,\n.ui.positive.button:hover {\n  background-color: #16ab39 !important;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.positive.buttons .button:focus,\n.ui.positive.button:focus {\n  background-color: #0ea432 !important;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.positive.buttons .button:active,\n.ui.positive.button:active {\n  background-color: #198f35 !important;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.positive.buttons .active.button,\n.ui.positive.active.button,\n.ui.positive.buttons .active.button:active {\n  background-color: #13ae38;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n\n/*---------------\n     Negative\n----------------*/\n\n.ui.negative.buttons .button,\n.ui.negative.button {\n  background-color: #DB2828 !important;\n  color: #FFFFFF;\n  text-shadow: none;\n  background-image: none;\n}\n.ui.negative.button {\n  box-shadow: 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;\n}\n.ui.negative.buttons .button:hover,\n.ui.negative.button:hover {\n  background-color: #d01919 !important;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.negative.buttons .button:focus,\n.ui.negative.button:focus {\n  background-color: #ca1010 !important;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.negative.buttons .button:active,\n.ui.negative.button:active {\n  background-color: #b21e1e !important;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n.ui.negative.buttons .active.button,\n.ui.negative.active.button,\n.ui.negative.buttons .active.button:active {\n  background-color: #d41515;\n  color: #FFFFFF;\n  text-shadow: none;\n}\n\n\n/*******************************\n            Groups\n*******************************/\n\n.ui.buttons {\n  display: -webkit-inline-box;\n  display: -webkit-inline-flex;\n  display: -ms-inline-flexbox;\n  display: inline-flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: row;\n      -ms-flex-direction: row;\n          flex-direction: row;\n  font-size: 0em;\n  vertical-align: baseline;\n  margin: 0em 0.25em 0em 0em;\n}\n.ui.buttons:not(.basic):not(.inverted) {\n  box-shadow: none;\n}\n\n/* Clearfix */\n.ui.buttons:after {\n  content: \".\";\n  display: block;\n  height: 0;\n  clear: both;\n  visibility: hidden;\n}\n\n/* Standard Group */\n.ui.buttons .button {\n  -webkit-box-flex: 1;\n  -webkit-flex: 1 0 auto;\n      -ms-flex: 1 0 auto;\n          flex: 1 0 auto;\n  margin: 0em;\n  border-radius: 0em;\n  margin: 0px 0px 0px 0px;\n}\n.ui.buttons > .ui.button:not(.basic):not(.inverted),\n.ui.buttons:not(.basic):not(.inverted) > .button {\n  box-shadow: 0px 0px 0px 1px transparent inset, 0px 0em 0px 0px rgba(34, 36, 38, 0.15) inset;\n}\n.ui.buttons .button:first-child {\n  border-left: none;\n  margin-left: 0em;\n  border-top-left-radius: 0.28571429rem;\n  border-bottom-left-radius: 0.28571429rem;\n}\n.ui.buttons .button:last-child {\n  border-top-right-radius: 0.28571429rem;\n  border-bottom-right-radius: 0.28571429rem;\n}\n\n/* Vertical  Style */\n.ui.vertical.buttons {\n  display: -webkit-inline-box;\n  display: -webkit-inline-flex;\n  display: -ms-inline-flexbox;\n  display: inline-flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: column;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.ui.vertical.buttons .button {\n  display: block;\n  float: none;\n  width: 100%;\n  margin: 0px 0px 0px 0px;\n  box-shadow: none;\n}\n.ui.vertical.buttons .button:first-child,\n.ui.vertical.buttons .mini.button:first-child,\n.ui.vertical.buttons .tiny.button:first-child,\n.ui.vertical.buttons .small.button:first-child,\n.ui.vertical.buttons .massive.button:first-child,\n.ui.vertical.buttons .huge.button:first-child {\n  border-radius: 0.28571429rem 0.28571429rem 0px 0px;\n}\n.ui.vertical.buttons .button:last-child,\n.ui.vertical.buttons .mini.button:last-child,\n.ui.vertical.buttons .tiny.button:last-child,\n.ui.vertical.buttons .small.button:last-child,\n.ui.vertical.buttons .massive.button:last-child,\n.ui.vertical.buttons .huge.button:last-child,\n.ui.vertical.buttons .gigantic.button:last-child {\n  margin-bottom: 0px;\n  border-radius: 0px 0px 0.28571429rem 0.28571429rem;\n}\n\n\n/*******************************\n         Theme Overrides\n*******************************/\n\n\n\n/*******************************\n         Site Overrides\n*******************************/\n\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 239 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(240);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(217)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../css-loader/index.js!./form.css", function() {
+				var newContent = require("!!./../css-loader/index.js!./form.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 240 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(216)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "/*!\n * # Semantic UI 2.1.7 - Form\n * http://github.com/semantic-org/semantic-ui/\n *\n *\n * Copyright 2015 Contributors\n * Released under the MIT license\n * http://opensource.org/licenses/MIT\n *\n */\n\n\n/*******************************\n            Elements\n*******************************/\n\n\n/*--------------------\n        Form\n---------------------*/\n\n.ui.form {\n  position: relative;\n  max-width: 100%;\n}\n\n/*--------------------\n        Content\n---------------------*/\n\n.ui.form > p {\n  margin: 1em 0em;\n}\n\n/*--------------------\n        Field\n---------------------*/\n\n.ui.form .field {\n  clear: both;\n  margin: 0em 0em 1em;\n}\n.ui.form .field:last-child,\n.ui.form .fields:last-child .field {\n  margin-bottom: 0em;\n}\n.ui.form .fields .field {\n  clear: both;\n  margin: 0em 0em 1em;\n}\n\n/*--------------------\n        Labels\n---------------------*/\n\n.ui.form .field > label {\n  display: block;\n  margin: 0em 0em 0.28571429rem 0em;\n  color: rgba(0, 0, 0, 0.87);\n  font-size: 0.92857143em;\n  font-weight: bold;\n  text-transform: none;\n}\n\n/*--------------------\n    Standard Inputs\n---------------------*/\n\n.ui.form textarea,\n.ui.form input:not([type]),\n.ui.form input[type=\"date\"],\n.ui.form input[type=\"datetime-local\"],\n.ui.form input[type=\"email\"],\n.ui.form input[type=\"number\"],\n.ui.form input[type=\"password\"],\n.ui.form input[type=\"search\"],\n.ui.form input[type=\"tel\"],\n.ui.form input[type=\"time\"],\n.ui.form input[type=\"text\"],\n.ui.form input[type=\"url\"] {\n  width: 100%;\n  vertical-align: top;\n}\n\n/* Set max height on unusual input */\n.ui.form ::-webkit-datetime-edit,\n.ui.form ::-webkit-inner-spin-button {\n  height: 1.2142em;\n}\n.ui.form input:not([type]),\n.ui.form input[type=\"date\"],\n.ui.form input[type=\"datetime-local\"],\n.ui.form input[type=\"email\"],\n.ui.form input[type=\"number\"],\n.ui.form input[type=\"password\"],\n.ui.form input[type=\"search\"],\n.ui.form input[type=\"tel\"],\n.ui.form input[type=\"time\"],\n.ui.form input[type=\"text\"],\n.ui.form input[type=\"url\"] {\n  font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;\n  margin: 0em;\n  outline: none;\n  -webkit-appearance: none;\n  tap-highlight-color: rgba(255, 255, 255, 0);\n  line-height: 1.2142em;\n  padding: 0.67861429em 1em;\n  font-size: 1em;\n  background: #FFFFFF;\n  border: 1px solid rgba(34, 36, 38, 0.15);\n  color: rgba(0, 0, 0, 0.87);\n  border-radius: 0.28571429rem;\n  box-shadow: 0em 0em 0em 0em transparent inset;\n  -webkit-transition: color 0.1s ease, border-color 0.1s ease;\n  transition: color 0.1s ease, border-color 0.1s ease;\n}\n\n/* Text Area */\n.ui.form textarea {\n  margin: 0em;\n  -webkit-appearance: none;\n  tap-highlight-color: rgba(255, 255, 255, 0);\n  padding: 0.78571429em 1em;\n  background: #FFFFFF;\n  border: 1px solid rgba(34, 36, 38, 0.15);\n  outline: none;\n  color: rgba(0, 0, 0, 0.87);\n  border-radius: 0.28571429rem;\n  box-shadow: 0em 0em 0em 0em transparent inset;\n  -webkit-transition: color 0.1s ease, border-color 0.1s ease;\n  transition: color 0.1s ease, border-color 0.1s ease;\n  font-size: 1em;\n  line-height: 1.2857;\n  resize: vertical;\n}\n.ui.form textarea:not([rows]) {\n  height: 12em;\n  min-height: 8em;\n  max-height: 24em;\n}\n.ui.form textarea,\n.ui.form input[type=\"checkbox\"] {\n  vertical-align: top;\n}\n\n/*--------------------------\n  Input w/ attached Button\n---------------------------*/\n\n.ui.form input.attached {\n  width: auto;\n}\n\n/*--------------------\n     Basic Select\n---------------------*/\n\n.ui.form select {\n  display: block;\n  height: auto;\n  width: 100%;\n  background: #FFFFFF;\n  border: 1px solid rgba(34, 36, 38, 0.15);\n  border-radius: 0.28571429rem;\n  box-shadow: 0em 0em 0em 0em transparent inset;\n  padding: 0.62em 1em;\n  color: rgba(0, 0, 0, 0.87);\n  -webkit-transition: color 0.1s ease, border-color 0.1s ease;\n  transition: color 0.1s ease, border-color 0.1s ease;\n}\n\n/*--------------------\n       Dropdown\n---------------------*/\n\n\n/* Block */\n.ui.form .field > .selection.dropdown {\n  width: 100%;\n}\n.ui.form .field > .selection.dropdown > .dropdown.icon {\n  float: right;\n}\n\n/* Inline */\n.ui.form .inline.fields .field > .selection.dropdown,\n.ui.form .inline.field > .selection.dropdown {\n  width: auto;\n}\n.ui.form .inline.fields .field > .selection.dropdown > .dropdown.icon,\n.ui.form .inline.field > .selection.dropdown > .dropdown.icon {\n  float: none;\n}\n\n/*--------------------\n       UI Input\n---------------------*/\n\n\n/* Block */\n.ui.form .field .ui.input,\n.ui.form .fields .field .ui.input,\n.ui.form .wide.field .ui.input {\n  width: 100%;\n}\n\n/* Inline  */\n.ui.form .inline.fields .field:not(.wide) .ui.input,\n.ui.form .inline.field:not(.wide) .ui.input {\n  width: auto;\n  vertical-align: middle;\n}\n\n/* Auto Input */\n.ui.form .fields .field .ui.input input,\n.ui.form .field .ui.input input {\n  width: auto;\n}\n\n/* Full Width Input */\n.ui.form .ten.fields .ui.input input,\n.ui.form .nine.fields .ui.input input,\n.ui.form .eight.fields .ui.input input,\n.ui.form .seven.fields .ui.input input,\n.ui.form .six.fields .ui.input input,\n.ui.form .five.fields .ui.input input,\n.ui.form .four.fields .ui.input input,\n.ui.form .three.fields .ui.input input,\n.ui.form .two.fields .ui.input input,\n.ui.form .wide.field .ui.input input {\n  -webkit-box-flex: 1;\n  -webkit-flex: 1 0 auto;\n      -ms-flex: 1 0 auto;\n          flex: 1 0 auto;\n  width: 0px;\n}\n\n/*--------------------\n   Types of Messages\n---------------------*/\n\n.ui.form .success.message,\n.ui.form .warning.message,\n.ui.form .error.message {\n  display: none;\n}\n\n/* Assumptions */\n.ui.form .message:first-child {\n  margin-top: 0px;\n}\n\n/*--------------------\n   Validation Prompt\n---------------------*/\n\n.ui.form .field .prompt.label {\n  white-space: normal;\n  background: #FFFFFF !important;\n  border: 1px solid #E0B4B4 !important;\n  color: #9F3A38 !important;\n}\n.ui.form .inline.fields .field .prompt,\n.ui.form .inline.field .prompt {\n  vertical-align: top;\n  margin: -0.25em 0em -0.5em 0.5em;\n}\n.ui.form .inline.fields .field .prompt:before,\n.ui.form .inline.field .prompt:before {\n  border-width: 0px 0px 1px 1px;\n  bottom: auto;\n  right: auto;\n  top: 50%;\n  left: 0em;\n}\n\n\n/*******************************\n            States\n*******************************/\n\n\n/*--------------------\n      Autofilled\n---------------------*/\n\n.ui.form .field.field input:-webkit-autofill {\n  box-shadow: 0px 0px 0px 100px #FFFFF0 inset !important;\n  border-color: #E5DFA1 !important;\n}\n\n/* Focus */\n.ui.form .field.field input:-webkit-autofill:focus {\n  box-shadow: 0px 0px 0px 100px #FFFFF0 inset !important;\n  border-color: #D5C315 !important;\n}\n\n/* Error */\n.ui.form .error.error input:-webkit-autofill {\n  box-shadow: 0px 0px 0px 100px #FFFAF0 inset !important;\n  border-color: #E0B4B4 !important;\n}\n\n/*--------------------\n      Placeholder\n---------------------*/\n\n\n/* browsers require these rules separate */\n.ui.form ::-webkit-input-placeholder {\n  color: rgba(140, 140, 140, 0.87);\n}\n.ui.form ::-ms-input-placeholder {\n  color: rgba(140, 140, 140, 0.87);\n}\n.ui.form ::-moz-placeholder {\n  color: rgba(140, 140, 140, 0.87);\n}\n.ui.form :focus::-webkit-input-placeholder {\n  color: rgba(89, 89, 89, 0.87);\n}\n.ui.form :focus::-ms-input-placeholder {\n  color: rgba(89, 89, 89, 0.87);\n}\n.ui.form :focus::-moz-placeholder {\n  color: rgba(89, 89, 89, 0.87);\n}\n\n/* Error Placeholder */\n.ui.form .error ::-webkit-input-placeholder {\n  color: #e7bdbc;\n}\n.ui.form .error ::-ms-input-placeholder {\n  color: #e7bdbc;\n}\n.ui.form .error ::-moz-placeholder {\n  color: #e7bdbc;\n}\n.ui.form .error :focus::-webkit-input-placeholder {\n  color: #da9796;\n}\n.ui.form .error :focus::-ms-input-placeholder {\n  color: #da9796;\n}\n.ui.form .error :focus::-moz-placeholder {\n  color: #da9796;\n}\n\n/*--------------------\n        Focus\n---------------------*/\n\n.ui.form input:not([type]):focus,\n.ui.form input[type=\"date\"]:focus,\n.ui.form input[type=\"datetime-local\"]:focus,\n.ui.form input[type=\"email\"]:focus,\n.ui.form input[type=\"number\"]:focus,\n.ui.form input[type=\"password\"]:focus,\n.ui.form input[type=\"search\"]:focus,\n.ui.form input[type=\"tel\"]:focus,\n.ui.form input[type=\"time\"]:focus,\n.ui.form input[type=\"text\"]:focus,\n.ui.form input[type=\"url\"]:focus {\n  color: rgba(0, 0, 0, 0.95);\n  border-color: #85B7D9;\n  border-radius: 0.28571429rem;\n  background: #FFFFFF;\n  box-shadow: 0px 0em 0em 0em rgba(34, 36, 38, 0.35) inset;\n}\n.ui.form textarea:focus {\n  color: rgba(0, 0, 0, 0.95);\n  border-color: #85B7D9;\n  border-radius: 0.28571429rem;\n  background: #FFFFFF;\n  box-shadow: 0px 0em 0em 0em rgba(34, 36, 38, 0.35) inset;\n  -webkit-appearance: none;\n}\n\n/*--------------------\n        Success\n---------------------*/\n\n\n/* On Form */\n.ui.form.success .success.message:not(:empty) {\n  display: block;\n}\n.ui.form.success .icon.success.message:not(:empty) {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n}\n\n/*--------------------\n        Warning\n---------------------*/\n\n\n/* On Form */\n.ui.form.warning .warning.message:not(:empty) {\n  display: block;\n}\n.ui.form.warning .icon.warning.message:not(:empty) {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n}\n\n/*--------------------\n        Error\n---------------------*/\n\n\n/* On Form */\n.ui.form.error .error.message:not(:empty) {\n  display: block;\n}\n.ui.form.error .icon.error.message:not(:empty) {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n}\n\n/* On Field(s) */\n.ui.form .fields.error .field label,\n.ui.form .field.error label,\n.ui.form .fields.error .field .input,\n.ui.form .field.error .input {\n  color: #9F3A38;\n}\n.ui.form .fields.error .field .corner.label,\n.ui.form .field.error .corner.label {\n  border-color: #9F3A38;\n  color: #FFFFFF;\n}\n.ui.form .fields.error .field textarea,\n.ui.form .fields.error .field select,\n.ui.form .fields.error .field input:not([type]),\n.ui.form .fields.error .field input[type=\"date\"],\n.ui.form .fields.error .field input[type=\"datetime-local\"],\n.ui.form .fields.error .field input[type=\"email\"],\n.ui.form .fields.error .field input[type=\"number\"],\n.ui.form .fields.error .field input[type=\"password\"],\n.ui.form .fields.error .field input[type=\"search\"],\n.ui.form .fields.error .field input[type=\"tel\"],\n.ui.form .fields.error .field input[type=\"time\"],\n.ui.form .fields.error .field input[type=\"text\"],\n.ui.form .fields.error .field input[type=\"url\"],\n.ui.form .field.error textarea,\n.ui.form .field.error select,\n.ui.form .field.error input:not([type]),\n.ui.form .field.error input[type=\"date\"],\n.ui.form .field.error input[type=\"datetime-local\"],\n.ui.form .field.error input[type=\"email\"],\n.ui.form .field.error input[type=\"number\"],\n.ui.form .field.error input[type=\"password\"],\n.ui.form .field.error input[type=\"search\"],\n.ui.form .field.error input[type=\"tel\"],\n.ui.form .field.error input[type=\"time\"],\n.ui.form .field.error input[type=\"text\"],\n.ui.form .field.error input[type=\"url\"] {\n  background: #FFF6F6;\n  border-color: #E0B4B4;\n  color: #9F3A38;\n  border-radius: '';\n  box-shadow: none;\n}\n.ui.form .field.error textarea:focus,\n.ui.form .field.error select:focus,\n.ui.form .field.error input:not([type]):focus,\n.ui.form .field.error input[type=\"date\"]:focus,\n.ui.form .field.error input[type=\"datetime-local\"]:focus,\n.ui.form .field.error input[type=\"email\"]:focus,\n.ui.form .field.error input[type=\"number\"]:focus,\n.ui.form .field.error input[type=\"password\"]:focus,\n.ui.form .field.error input[type=\"search\"]:focus,\n.ui.form .field.error input[type=\"tel\"]:focus,\n.ui.form .field.error input[type=\"time\"]:focus,\n.ui.form .field.error input[type=\"text\"]:focus,\n.ui.form .field.error input[type=\"url\"]:focus {\n  background: #FFF6F6;\n  border-color: #E0B4B4;\n  color: #9F3A38;\n  -webkit-appearance: none;\n  box-shadow: none;\n}\n\n/* Preserve Native Select Stylings */\n.ui.form .field.error select {\n  -webkit-appearance: menulist-button;\n}\n\n/*------------------\n    Dropdown Error\n--------------------*/\n\n.ui.form .fields.error .field .ui.dropdown,\n.ui.form .fields.error .field .ui.dropdown .item,\n.ui.form .field.error .ui.dropdown,\n.ui.form .field.error .ui.dropdown .text,\n.ui.form .field.error .ui.dropdown .item {\n  background: #FFF6F6;\n  color: #9F3A38;\n}\n.ui.form .fields.error .field .ui.dropdown,\n.ui.form .field.error .ui.dropdown {\n  border-color: #E0B4B4 !important;\n}\n.ui.form .fields.error .field .ui.dropdown:hover,\n.ui.form .field.error .ui.dropdown:hover {\n  border-color: #E0B4B4 !important;\n}\n.ui.form .fields.error .field .ui.dropdown:hover .menu,\n.ui.form .field.error .ui.dropdown:hover .menu {\n  border-color: #E0B4B4;\n}\n.ui.form .fields.error .field .ui.multiple.selection.dropdown > .label,\n.ui.form .field.error .ui.multiple.selection.dropdown > .label {\n  background-color: #EACBCB;\n  color: #9F3A38;\n}\n\n/* Hover */\n.ui.form .fields.error .field .ui.dropdown .menu .item:hover,\n.ui.form .field.error .ui.dropdown .menu .item:hover {\n  background-color: #FBE7E7;\n}\n\n/* Selected */\n.ui.form .fields.error .field .ui.dropdown .menu .selected.item,\n.ui.form .field.error .ui.dropdown .menu .selected.item {\n  background-color: #FBE7E7;\n}\n\n/* Active */\n.ui.form .fields.error .field .ui.dropdown .menu .active.item,\n.ui.form .field.error .ui.dropdown .menu .active.item {\n  background-color: #FDCFCF !important;\n}\n\n/*--------------------\n    Checkbox Error\n---------------------*/\n\n.ui.form .fields.error .field .checkbox:not(.toggle):not(.slider) label,\n.ui.form .field.error .checkbox:not(.toggle):not(.slider) label,\n.ui.form .fields.error .field .checkbox:not(.toggle):not(.slider) .box,\n.ui.form .field.error .checkbox:not(.toggle):not(.slider) .box {\n  color: #9F3A38;\n}\n.ui.form .fields.error .field .checkbox:not(.toggle):not(.slider) label:before,\n.ui.form .field.error .checkbox:not(.toggle):not(.slider) label:before,\n.ui.form .fields.error .field .checkbox:not(.toggle):not(.slider) .box:before,\n.ui.form .field.error .checkbox:not(.toggle):not(.slider) .box:before {\n  background: #FFF6F6;\n  border-color: #E0B4B4;\n}\n.ui.form .fields.error .field .checkbox label:after,\n.ui.form .field.error .checkbox label:after,\n.ui.form .fields.error .field .checkbox .box:after,\n.ui.form .field.error .checkbox .box:after {\n  color: #9F3A38;\n}\n\n/*--------------------\n       Disabled\n---------------------*/\n\n.ui.form .disabled.fields .field,\n.ui.form .disabled.field,\n.ui.form .field :disabled {\n  pointer-events: none;\n  opacity: 0.45;\n}\n.ui.form .field.disabled label {\n  opacity: 0.45;\n}\n.ui.form .field.disabled :disabled {\n  opacity: 1;\n}\n\n/*--------------\n    Loading\n---------------*/\n\n.ui.loading.form {\n  position: relative;\n  cursor: default;\n  point-events: none;\n}\n.ui.loading.form:before {\n  position: absolute;\n  content: '';\n  top: 0%;\n  left: 0%;\n  background: rgba(255, 255, 255, 0.8);\n  width: 100%;\n  height: 100%;\n  z-index: 100;\n}\n.ui.loading.form:after {\n  position: absolute;\n  content: '';\n  top: 50%;\n  left: 50%;\n  margin: -1.5em 0em 0em -1.5em;\n  width: 3em;\n  height: 3em;\n  -webkit-animation: form-spin 0.6s linear;\n          animation: form-spin 0.6s linear;\n  -webkit-animation-iteration-count: infinite;\n          animation-iteration-count: infinite;\n  border-radius: 500rem;\n  border-color: #767676 rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1);\n  border-style: solid;\n  border-width: 0.2em;\n  box-shadow: 0px 0px 0px 1px transparent;\n  visibility: visible;\n  z-index: 101;\n}\n@-webkit-keyframes form-spin {\n  from {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg);\n  }\n  to {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n  }\n}\n@keyframes form-spin {\n  from {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg);\n  }\n  to {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n  }\n}\n\n\n/*******************************\n         Element Types\n*******************************/\n\n\n/*--------------------\n     Required Field\n---------------------*/\n\n.ui.form .required.fields:not(.grouped) > .field > label:after,\n.ui.form .required.fields.grouped > label:after,\n.ui.form .required.field > label:after,\n.ui.form .required.fields:not(.grouped) > .field > .checkbox:after,\n.ui.form .required.field > .checkbox:after {\n  margin: -0.2em 0em 0em 0.2em;\n  content: '*';\n  color: #DB2828;\n}\n.ui.form .required.fields:not(.grouped) > .field > label:after,\n.ui.form .required.fields.grouped > label:after,\n.ui.form .required.field > label:after {\n  display: inline-block;\n  vertical-align: top;\n}\n.ui.form .required.fields:not(.grouped) > .field > .checkbox:after,\n.ui.form .required.field > .checkbox:after {\n  position: absolute;\n  top: 0%;\n  left: 100%;\n}\n\n\n/*******************************\n           Variations\n*******************************/\n\n\n/*--------------------\n    Inverted Colors\n---------------------*/\n\n.ui.inverted.form label,\n.ui.form .inverted.segment label,\n.ui.form .inverted.segment .ui.checkbox label,\n.ui.form .inverted.segment .ui.checkbox .box,\n.ui.inverted.form .ui.checkbox label,\n.ui.inverted.form .ui.checkbox .box {\n  color: rgba(255, 255, 255, 0.9);\n}\n\n/* Inverted Field */\n.ui.inverted.form input:not([type]),\n.ui.inverted.form input[type=\"date\"],\n.ui.inverted.form input[type=\"datetime-local\"],\n.ui.inverted.form input[type=\"email\"],\n.ui.inverted.form input[type=\"number\"],\n.ui.inverted.form input[type=\"password\"],\n.ui.inverted.form input[type=\"search\"],\n.ui.inverted.form input[type=\"tel\"],\n.ui.inverted.form input[type=\"time\"],\n.ui.inverted.form input[type=\"text\"],\n.ui.inverted.form input[type=\"url\"] {\n  background: #FFFFFF;\n  border-color: rgba(255, 255, 255, 0.1);\n  color: rgba(0, 0, 0, 0.87);\n  box-shadow: none;\n}\n\n/*--------------------\n     Field Groups\n---------------------*/\n\n\n/* Grouped Vertically */\n.ui.form .grouped.fields {\n  display: block;\n  margin: 0em 0em 1em;\n}\n.ui.form .grouped.fields:last-child {\n  margin-bottom: 0em;\n}\n.ui.form .grouped.fields > label {\n  margin: 0em 0em 0.28571429rem 0em;\n  color: rgba(0, 0, 0, 0.87);\n  font-size: 0.92857143em;\n  font-weight: bold;\n  text-transform: none;\n}\n.ui.form .grouped.fields .field,\n.ui.form .grouped.inline.fields .field {\n  display: block;\n  margin: 0.5em 0em;\n  padding: 0em;\n}\n\n/*--------------------\n        Fields\n---------------------*/\n\n\n/* Split fields */\n.ui.form .fields {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: row;\n      -ms-flex-direction: row;\n          flex-direction: row;\n}\n.ui.form .fields > .field {\n  -webkit-box-flex: 0;\n  -webkit-flex: 0 1 auto;\n      -ms-flex: 0 1 auto;\n          flex: 0 1 auto;\n  padding-left: 0.5em;\n  padding-right: 0.5em;\n}\n.ui.form .fields > .field:first-child {\n  border-left: none;\n  box-shadow: none;\n}\n\n/* Other Combinations */\n.ui.form .two.fields > .fields,\n.ui.form .two.fields > .field {\n  width: 50%;\n}\n.ui.form .three.fields > .fields,\n.ui.form .three.fields > .field {\n  width: 33.33333333%;\n}\n.ui.form .four.fields > .fields,\n.ui.form .four.fields > .field {\n  width: 25%;\n}\n.ui.form .five.fields > .fields,\n.ui.form .five.fields > .field {\n  width: 20%;\n}\n.ui.form .six.fields > .fields,\n.ui.form .six.fields > .field {\n  width: 16.66666667%;\n}\n.ui.form .seven.fields > .fields,\n.ui.form .seven.fields > .field {\n  width: 14.28571429%;\n}\n.ui.form .eight.fields > .fields,\n.ui.form .eight.fields > .field {\n  width: 12.5%;\n}\n.ui.form .nine.fields > .fields,\n.ui.form .nine.fields > .field {\n  width: 11.11111111%;\n}\n.ui.form .ten.fields > .fields,\n.ui.form .ten.fields > .field {\n  width: 10%;\n}\n\n/* Swap to full width on mobile */\n@media only screen and (max-width: 767px) {\n  .ui.form .fields {\n    -webkit-flex-wrap: wrap;\n        -ms-flex-wrap: wrap;\n            flex-wrap: wrap;\n  }\n  .ui.form .two.fields > .fields,\n  .ui.form .two.fields > .field,\n  .ui.form .three.fields > .fields,\n  .ui.form .three.fields > .field,\n  .ui.form .four.fields > .fields,\n  .ui.form .four.fields > .field,\n  .ui.form .five.fields > .fields,\n  .ui.form .five.fields > .field,\n  .ui.form .six.fields > .fields,\n  .ui.form .six.fields > .field,\n  .ui.form .seven.fields > .fields,\n  .ui.form .seven.fields > .field,\n  .ui.form .eight.fields > .fields,\n  .ui.form .eight.fields > .field,\n  .ui.form .nine.fields > .fields,\n  .ui.form .nine.fields > .field,\n  .ui.form .ten.fields > .fields,\n  .ui.form .ten.fields > .field {\n    width: 100% !important;\n    margin: 0em 0em 1em;\n    padding-left: 0%;\n    padding-right: 0%;\n  }\n}\n.ui.form .fields .field:first-child {\n  padding-left: 0%;\n}\n.ui.form .fields .field:last-child {\n  padding-right: 0%;\n}\n\n/* Sizing Combinations */\n.ui.form .fields .wide.field {\n  width: 6.25%;\n  padding-left: 0.5em;\n  padding-right: 0.5em;\n}\n.ui.form .fields .wide.field:first-child {\n  padding-left: 0%;\n}\n.ui.form .fields .wide.field:last-child {\n  padding-right: 0%;\n}\n.ui.form .one.wide.field {\n  width: 6.25% !important;\n}\n.ui.form .two.wide.field {\n  width: 12.5% !important;\n}\n.ui.form .three.wide.field {\n  width: 18.75% !important;\n}\n.ui.form .four.wide.field {\n  width: 25% !important;\n}\n.ui.form .five.wide.field {\n  width: 31.25% !important;\n}\n.ui.form .six.wide.field {\n  width: 37.5% !important;\n}\n.ui.form .seven.wide.field {\n  width: 43.75% !important;\n}\n.ui.form .eight.wide.field {\n  width: 50% !important;\n}\n.ui.form .nine.wide.field {\n  width: 56.25% !important;\n}\n.ui.form .ten.wide.field {\n  width: 62.5% !important;\n}\n.ui.form .eleven.wide.field {\n  width: 68.75% !important;\n}\n.ui.form .twelve.wide.field {\n  width: 75% !important;\n}\n.ui.form .thirteen.wide.field {\n  width: 81.25% !important;\n}\n.ui.form .fourteen.wide.field {\n  width: 87.5% !important;\n}\n.ui.form .fifteen.wide.field {\n  width: 93.75% !important;\n}\n.ui.form .sixteen.wide.field {\n  width: 100% !important;\n}\n\n/* Swap to full width on mobile */\n@media only screen and (max-width: 767px) {\n  .ui.form .two.fields > .fields,\n  .ui.form .two.fields > .field,\n  .ui.form .three.fields > .fields,\n  .ui.form .three.fields > .field,\n  .ui.form .four.fields > .fields,\n  .ui.form .four.fields > .field,\n  .ui.form .five.fields > .fields,\n  .ui.form .five.fields > .field,\n  .ui.form .fields > .two.wide.field,\n  .ui.form .fields > .three.wide.field,\n  .ui.form .fields > .four.wide.field,\n  .ui.form .fields > .five.wide.field,\n  .ui.form .fields > .six.wide.field,\n  .ui.form .fields > .seven.wide.field,\n  .ui.form .fields > .eight.wide.field,\n  .ui.form .fields > .nine.wide.field,\n  .ui.form .fields > .ten.wide.field,\n  .ui.form .fields > .eleven.wide.field,\n  .ui.form .fields > .twelve.wide.field,\n  .ui.form .fields > .thirteen.wide.field,\n  .ui.form .fields > .fourteen.wide.field,\n  .ui.form .fields > .fifteen.wide.field,\n  .ui.form .fields > .sixteen.wide.field {\n    width: 100% !important;\n    margin: 0em 0em 1em;\n    padding-left: 0%;\n    padding-right: 0%;\n  }\n}\n\n/*--------------------\n     Equal Width\n---------------------*/\n\n.ui[class*=\"equal width\"].form .fields > .field,\n.ui.form [class*=\"equal width\"].fields > .field {\n  width: 100%;\n  -webkit-box-flex: 1;\n  -webkit-flex: 1 1 auto;\n      -ms-flex: 1 1 auto;\n          flex: 1 1 auto;\n}\n\n/*--------------------\n    Inline Fields\n---------------------*/\n\n.ui.form .inline.fields {\n  margin: 0em 0em 1em;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.ui.form .inline.fields .field {\n  margin: 0em;\n  padding: 0em 1em 0em 0em;\n}\n\n/* Inline Label */\n.ui.form .inline.fields > label,\n.ui.form .inline.fields .field > label,\n.ui.form .inline.fields .field > p,\n.ui.form .inline.field > label,\n.ui.form .inline.field > p {\n  display: inline-block;\n  width: auto;\n  margin-top: 0em;\n  margin-bottom: 0em;\n  vertical-align: baseline;\n  font-size: 0.92857143em;\n  font-weight: bold;\n  color: rgba(0, 0, 0, 0.87);\n  text-transform: none;\n}\n\n/* Grouped Inline Label */\n.ui.form .inline.fields > label {\n  margin: 0.035714em 1em 0em 0em;\n}\n\n/* Inline Input */\n.ui.form .inline.fields .field > input,\n.ui.form .inline.fields .field > select,\n.ui.form .inline.field > input,\n.ui.form .inline.field > select {\n  display: inline-block;\n  width: auto;\n  margin-top: 0em;\n  margin-bottom: 0em;\n  vertical-align: middle;\n  font-size: 1em;\n}\n\n/* Label */\n.ui.form .inline.fields .field > :first-child,\n.ui.form .inline.field > :first-child {\n  margin: 0em 0.85714286em 0em 0em;\n}\n.ui.form .inline.fields .field > :only-child,\n.ui.form .inline.field > :only-child {\n  margin: 0em;\n}\n\n/* Wide */\n.ui.form .inline.fields .wide.field {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n.ui.form .inline.fields .wide.field > input,\n.ui.form .inline.fields .wide.field > select {\n  width: 100%;\n}\n\n/*--------------------\n        Sizes\n---------------------*/\n\n\n/* Standard */\n.ui.small.form {\n  font-size: 0.92857143rem;\n}\n\n/* Medium */\n.ui.form {\n  font-size: 1rem;\n}\n\n/* Large */\n.ui.large.form {\n  font-size: 1.14285714rem;\n}\n\n/* Huge */\n.ui.huge.form {\n  font-size: 1.42857143rem;\n}\n\n\n/*******************************\n         Theme Overrides\n*******************************/\n\n\n\n/*******************************\n         Site Overrides\n*******************************/\n\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 241 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(242);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(217)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../css-loader/index.js!./header.css", function() {
+				var newContent = require("!!./../css-loader/index.js!./header.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 242 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(216)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "/*!\n * # Semantic UI 2.1.7 - Header\n * http://github.com/semantic-org/semantic-ui/\n *\n *\n * Copyright 2015 Contributors\n * Released under the MIT license\n * http://opensource.org/licenses/MIT\n *\n */\n\n\n/*******************************\n            Header\n*******************************/\n\n\n/* Standard */\n.ui.header {\n  border: none;\n  margin: calc(2rem -  0.14285em ) 0em 1rem;\n  padding: 0em 0em;\n  font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;\n  font-weight: bold;\n  line-height: 1.2857em;\n  text-transform: none;\n  color: rgba(0, 0, 0, 0.87);\n}\n.ui.header:first-child {\n  margin-top: -0.14285em;\n}\n.ui.header:last-child {\n  margin-bottom: 0em;\n}\n\n/*--------------\n   Sub Header\n---------------*/\n\n.ui.header .sub.header {\n  display: block;\n  font-weight: normal;\n  padding: 0em;\n  margin: 0em;\n  font-size: 1rem;\n  line-height: 1.2em;\n  color: rgba(0, 0, 0, 0.6);\n}\n\n/*--------------\n      Icon\n---------------*/\n\n.ui.header > .icon {\n  display: table-cell;\n  opacity: 1;\n  font-size: 1.5em;\n  padding-top: 0.14285em;\n  vertical-align: middle;\n}\n\n/* With Text Node */\n.ui.header .icon:only-child {\n  display: inline-block;\n  padding: 0em;\n  margin-right: 0.75rem;\n}\n\n/*-------------------\n        Image\n--------------------*/\n\n.ui.header > .image,\n.ui.header > img {\n  display: inline-block;\n  margin-top: 0.14285em;\n  width: 2.5em;\n  height: auto;\n  vertical-align: middle;\n}\n.ui.header > .image:only-child,\n.ui.header > img:only-child {\n  margin-right: 0.75rem;\n}\n\n/*--------------\n     Content\n---------------*/\n\n.ui.header .content {\n  display: inline-block;\n  vertical-align: top;\n}\n\n/* After Image */\n.ui.header > img + .content,\n.ui.header > .image + .content {\n  padding-left: 0.75rem;\n  vertical-align: middle;\n}\n\n/* After Icon */\n.ui.header > .icon + .content {\n  padding-left: 0.75rem;\n  display: table-cell;\n  vertical-align: middle;\n}\n\n/*--------------\n Loose Coupling\n---------------*/\n\n.ui.header .ui.label {\n  font-size: '';\n  margin-left: 0.5rem;\n  vertical-align: middle;\n}\n\n/* Positioning */\n.ui.header + p {\n  margin-top: 0em;\n}\n\n\n/*******************************\n            Types\n*******************************/\n\n\n/*--------------\n     Page\n---------------*/\n\nh1.ui.header {\n  font-size: 2rem;\n}\nh2.ui.header {\n  font-size: 1.714rem;\n}\nh3.ui.header {\n  font-size: 1.28rem;\n}\nh4.ui.header {\n  font-size: 1.071rem;\n}\nh5.ui.header {\n  font-size: 1rem;\n}\n\n/* Sub Header */\nh1.ui.header .sub.header {\n  font-size: 1.14285714rem;\n}\nh2.ui.header .sub.header {\n  font-size: 1.14285714rem;\n}\nh3.ui.header .sub.header {\n  font-size: 1rem;\n}\nh4.ui.header .sub.header {\n  font-size: 1rem;\n}\nh5.ui.header .sub.header {\n  font-size: 0.92857143rem;\n}\n\n/*--------------\n Content Heading\n---------------*/\n\n.ui.huge.header {\n  min-height: 1em;\n  font-size: 2em;\n}\n.ui.large.header {\n  font-size: 1.714em;\n}\n.ui.medium.header {\n  font-size: 1.28em;\n}\n.ui.small.header {\n  font-size: 1.071em;\n}\n.ui.tiny.header {\n  font-size: 1em;\n}\n\n/* Sub Header */\n.ui.huge.header .sub.header {\n  font-size: 1.14285714rem;\n}\n.ui.large.header .sub.header {\n  font-size: 1.14285714rem;\n}\n.ui.header .sub.header {\n  font-size: 1rem;\n}\n.ui.small.header .sub.header {\n  font-size: 1rem;\n}\n.ui.tiny.header .sub.header {\n  font-size: 0.92857143rem;\n}\n\n/*--------------\n   Sub Heading\n---------------*/\n\n.ui.sub.header {\n  padding: 0em;\n  margin-bottom: 0.14285714rem;\n  font-weight: bold;\n  font-size: 0.85714286em;\n  text-transform: uppercase;\n  color: '';\n}\n.ui.small.sub.header {\n  font-size: 0.71428571em;\n}\n.ui.sub.header {\n  font-size: 0.85714286em;\n}\n.ui.large.sub.header {\n  font-size: 0.92857143em;\n}\n.ui.huge.sub.header {\n  font-size: 1em;\n}\n\n/*-------------------\n        Icon\n--------------------*/\n\n.ui.icon.header {\n  display: inline-block;\n  text-align: center;\n  margin: 2rem 0em 1rem;\n}\n.ui.icon.header:after {\n  content: '';\n  display: block;\n  height: 0px;\n  clear: both;\n  visibility: hidden;\n}\n.ui.icon.header:first-child {\n  margin-top: 0em;\n}\n.ui.icon.header .icon {\n  float: none;\n  display: block;\n  width: auto;\n  height: auto;\n  line-height: 1;\n  padding: 0em;\n  font-size: 3em;\n  margin: 0em auto 0.5rem;\n  opacity: 1;\n}\n.ui.icon.header .content {\n  display: block;\n}\n.ui.icon.header .circular.icon {\n  font-size: 2em;\n}\n.ui.icon.header .square.icon {\n  font-size: 2em;\n}\n.ui.block.icon.header .icon {\n  margin-bottom: 0em;\n}\n.ui.icon.header.aligned {\n  margin-left: auto;\n  margin-right: auto;\n  display: block;\n}\n\n\n/*******************************\n            States\n*******************************/\n\n.ui.disabled.header {\n  opacity: 0.45;\n}\n\n\n/*******************************\n           Variations\n*******************************/\n\n\n/*-------------------\n      Inverted\n--------------------*/\n\n.ui.inverted.header {\n  color: #FFFFFF;\n}\n.ui.inverted.header .sub.header {\n  color: rgba(255, 255, 255, 0.8);\n}\n.ui.inverted.attached.header {\n  background: #545454 -webkit-linear-gradient(transparent, rgba(0, 0, 0, 0.05));\n  background: #545454 linear-gradient(transparent, rgba(0, 0, 0, 0.05));\n  box-shadow: none;\n  border-color: transparent;\n}\n.ui.inverted.block.header {\n  background: #545454 -webkit-linear-gradient(transparent, rgba(0, 0, 0, 0.05));\n  background: #545454 linear-gradient(transparent, rgba(0, 0, 0, 0.05));\n  box-shadow: none;\n}\n.ui.inverted.block.header {\n  border-bottom: none;\n}\n\n/*-------------------\n       Colors\n--------------------*/\n\n\n/*--- Red ---*/\n\n.ui.red.header {\n  color: #DB2828 !important;\n}\na.ui.red.header:hover {\n  color: #d01919 !important;\n}\n.ui.red.dividing.header {\n  border-bottom: 2px solid #DB2828;\n}\n\n/* Inverted */\n.ui.inverted.red.header {\n  color: #FF695E !important;\n}\na.ui.inverted.red.header:hover {\n  color: #ff5144 !important;\n}\n\n/*--- Orange ---*/\n\n.ui.orange.header {\n  color: #F2711C !important;\n}\na.ui.orange.header:hover {\n  color: #f26202 !important;\n}\n.ui.orange.dividing.header {\n  border-bottom: 2px solid #F2711C;\n}\n\n/* Inverted */\n.ui.inverted.orange.header {\n  color: #FF851B !important;\n}\na.ui.inverted.orange.header:hover {\n  color: #ff7701 !important;\n}\n\n/*--- Olive ---*/\n\n.ui.olive.header {\n  color: #B5CC18 !important;\n}\na.ui.olive.header:hover {\n  color: #a7bd0d !important;\n}\n.ui.olive.dividing.header {\n  border-bottom: 2px solid #B5CC18;\n}\n\n/* Inverted */\n.ui.inverted.olive.header {\n  color: #D9E778 !important;\n}\na.ui.inverted.olive.header:hover {\n  color: #d8ea5c !important;\n}\n\n/*--- Yellow ---*/\n\n.ui.yellow.header {\n  color: #FBBD08 !important;\n}\na.ui.yellow.header:hover {\n  color: #eaae00 !important;\n}\n.ui.yellow.dividing.header {\n  border-bottom: 2px solid #FBBD08;\n}\n\n/* Inverted */\n.ui.inverted.yellow.header {\n  color: #FFE21F !important;\n}\na.ui.inverted.yellow.header:hover {\n  color: #ffdf05 !important;\n}\n\n/*--- Green ---*/\n\n.ui.green.header {\n  color: #21BA45 !important;\n}\na.ui.green.header:hover {\n  color: #16ab39 !important;\n}\n.ui.green.dividing.header {\n  border-bottom: 2px solid #21BA45;\n}\n\n/* Inverted */\n.ui.inverted.green.header {\n  color: #2ECC40 !important;\n}\na.ui.inverted.green.header:hover {\n  color: #22be34 !important;\n}\n\n/*--- Teal ---*/\n\n.ui.teal.header {\n  color: #00B5AD !important;\n}\na.ui.teal.header:hover {\n  color: #009c95 !important;\n}\n.ui.teal.dividing.header {\n  border-bottom: 2px solid #00B5AD;\n}\n\n/* Inverted */\n.ui.inverted.teal.header {\n  color: #6DFFFF !important;\n}\na.ui.inverted.teal.header:hover {\n  color: #54ffff !important;\n}\n\n/*--- Blue ---*/\n\n.ui.blue.header {\n  color: #2185D0 !important;\n}\na.ui.blue.header:hover {\n  color: #1678c2 !important;\n}\n.ui.blue.dividing.header {\n  border-bottom: 2px solid #2185D0;\n}\n\n/* Inverted */\n.ui.inverted.blue.header {\n  color: #54C8FF !important;\n}\na.ui.inverted.blue.header:hover {\n  color: #3ac0ff !important;\n}\n\n/*--- Violet ---*/\n\n.ui.violet.header {\n  color: #6435C9 !important;\n}\na.ui.violet.header:hover {\n  color: #5829bb !important;\n}\n.ui.violet.dividing.header {\n  border-bottom: 2px solid #6435C9;\n}\n\n/* Inverted */\n.ui.inverted.violet.header {\n  color: #A291FB !important;\n}\na.ui.inverted.violet.header:hover {\n  color: #8a73ff !important;\n}\n\n/*--- Purple ---*/\n\n.ui.purple.header {\n  color: #A333C8 !important;\n}\na.ui.purple.header:hover {\n  color: #9627ba !important;\n}\n.ui.purple.dividing.header {\n  border-bottom: 2px solid #A333C8;\n}\n\n/* Inverted */\n.ui.inverted.purple.header {\n  color: #DC73FF !important;\n}\na.ui.inverted.purple.header:hover {\n  color: #d65aff !important;\n}\n\n/*--- Pink ---*/\n\n.ui.pink.header {\n  color: #E03997 !important;\n}\na.ui.pink.header:hover {\n  color: #e61a8d !important;\n}\n.ui.pink.dividing.header {\n  border-bottom: 2px solid #E03997;\n}\n\n/* Inverted */\n.ui.inverted.pink.header {\n  color: #FF8EDF !important;\n}\na.ui.inverted.pink.header:hover {\n  color: #ff74d8 !important;\n}\n\n/*--- Brown ---*/\n\n.ui.brown.header {\n  color: #A5673F !important;\n}\na.ui.brown.header:hover {\n  color: #975b33 !important;\n}\n.ui.brown.dividing.header {\n  border-bottom: 2px solid #A5673F;\n}\n\n/* Inverted */\n.ui.inverted.brown.header {\n  color: #D67C1C !important;\n}\na.ui.inverted.brown.header:hover {\n  color: #c86f11 !important;\n}\n\n/*--- Grey ---*/\n\n.ui.grey.header {\n  color: #767676 !important;\n}\na.ui.grey.header:hover {\n  color: #838383 !important;\n}\n.ui.grey.dividing.header {\n  border-bottom: 2px solid #767676;\n}\n\n/* Inverted */\n.ui.inverted.grey.header {\n  color: #DCDDDE !important;\n}\na.ui.inverted.grey.header:hover {\n  color: #cfd0d2 !important;\n}\n\n/*-------------------\n       Aligned\n--------------------*/\n\n.ui.left.aligned.header {\n  text-align: left;\n}\n.ui.right.aligned.header {\n  text-align: right;\n}\n.ui.centered.header,\n.ui.center.aligned.header {\n  text-align: center;\n}\n.ui.justified.header {\n  text-align: justify;\n}\n.ui.justified.header:after {\n  display: inline-block;\n  content: '';\n  width: 100%;\n}\n\n/*-------------------\n       Floated\n--------------------*/\n\n.ui.floated.header,\n.ui[class*=\"left floated\"].header {\n  float: left;\n  margin-top: 0em;\n  margin-right: 0.5em;\n}\n.ui[class*=\"right floated\"].header {\n  float: right;\n  margin-top: 0em;\n  margin-left: 0.5em;\n}\n\n/*-------------------\n       Fittted\n--------------------*/\n\n.ui.fitted.header {\n  padding: 0em;\n}\n\n/*-------------------\n      Dividing\n--------------------*/\n\n.ui.dividing.header {\n  padding-bottom: 0.21428571rem;\n  border-bottom: 1px solid rgba(34, 36, 38, 0.15);\n}\n.ui.dividing.header .sub.header {\n  padding-bottom: 0.21428571rem;\n}\n.ui.dividing.header .icon {\n  margin-bottom: 0em;\n}\n.ui.inverted.dividing.header {\n  border-bottom-color: rgba(255, 255, 255, 0.1);\n}\n\n/*-------------------\n        Block\n--------------------*/\n\n.ui.block.header {\n  background: #F3F4F5;\n  padding: 0.71428571rem 1rem;\n  box-shadow: none;\n  border: 1px solid #D4D4D5;\n  border-radius: 0.28571429rem;\n}\n.ui.tiny.block.header {\n  font-size: 0.85714286rem;\n}\n.ui.small.block.header {\n  font-size: 0.92857143rem;\n}\n.ui.block.header:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {\n  font-size: 1rem;\n}\n.ui.large.block.header {\n  font-size: 1.14285714rem;\n}\n.ui.huge.block.header {\n  font-size: 1.42857143rem;\n}\n\n/*-------------------\n       Attached\n--------------------*/\n\n.ui.attached.header {\n  background: #FFFFFF;\n  padding: 0.71428571rem 1rem;\n  margin-left: -1px;\n  margin-right: -1px;\n  box-shadow: none;\n  border: 1px solid #D4D4D5;\n}\n.ui.attached.block.header {\n  background: #F3F4F5;\n}\n.ui.attached:not(.top):not(.bottom).header {\n  margin-top: 0em;\n  margin-bottom: 0em;\n  border-top: none;\n  border-radius: 0em;\n}\n.ui.top.attached.header {\n  margin-bottom: 0em;\n  border-radius: 0.28571429rem 0.28571429rem 0em 0em;\n}\n.ui.bottom.attached.header {\n  margin-top: 0em;\n  border-top: none;\n  border-radius: 0em 0em 0.28571429rem 0.28571429rem;\n}\n\n/* Attached Sizes */\n.ui.tiny.attached.header {\n  font-size: 0.85714286em;\n}\n.ui.small.attached.header {\n  font-size: 0.92857143em;\n}\n.ui.attached.header:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {\n  font-size: 1em;\n}\n.ui.large.attached.header {\n  font-size: 1.14285714em;\n}\n.ui.huge.attached.header {\n  font-size: 1.42857143em;\n}\n\n/*-------------------\n        Sizing\n--------------------*/\n\n.ui.header:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {\n  font-size: 1.28em;\n}\n\n\n/*******************************\n         Theme Overrides\n*******************************/\n\n\n\n/*******************************\n         Site Overrides\n*******************************/\n\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 243 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(244);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(217)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../css-loader/index.js!./checkbox.css", function() {
+				var newContent = require("!!./../css-loader/index.js!./checkbox.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 244 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(216)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "/*!\n * # Semantic UI 2.1.7 - Checkbox\n * http://github.com/semantic-org/semantic-ui/\n *\n *\n * Copyright 2015 Contributors\n * Released under the MIT license\n * http://opensource.org/licenses/MIT\n *\n */\n\n\n/*******************************\n           Checkbox\n*******************************/\n\n\n/*--------------\n    Content\n---------------*/\n\n.ui.checkbox {\n  position: relative;\n  display: inline-block;\n  -webkit-backface-visibility: hidden;\n          backface-visibility: hidden;\n  outline: none;\n  vertical-align: baseline;\n  font-style: normal;\n  min-height: 17px;\n  font-size: 1rem;\n  line-height: 17px;\n  min-width: 17px;\n}\n\n/* HTML Checkbox */\n.ui.checkbox input[type=\"checkbox\"],\n.ui.checkbox input[type=\"radio\"] {\n  cursor: pointer;\n  position: absolute;\n  top: 0px;\n  left: 0px;\n  opacity: 0 !important;\n  outline: none;\n  z-index: 3;\n  width: 17px;\n  height: 17px;\n}\n\n/*--------------\n      Box\n---------------*/\n\n.ui.checkbox .box,\n.ui.checkbox label {\n  cursor: auto;\n  position: relative;\n  display: block;\n  padding-left: 1.85714em;\n  outline: none;\n  font-size: 1em;\n}\n.ui.checkbox .box:before,\n.ui.checkbox label:before {\n  position: absolute;\n  top: 0px;\n  left: 0px;\n  width: 17px;\n  height: 17px;\n  content: '';\n  background: #FFFFFF;\n  border-radius: 0.21428571rem;\n  -webkit-transition: border 0.1s ease, opacity 0.1s ease, box-shadow 0.1s ease, -webkit-transform 0.1s ease;\n  transition: border 0.1s ease, opacity 0.1s ease, box-shadow 0.1s ease, -webkit-transform 0.1s ease;\n  transition: border 0.1s ease, opacity 0.1s ease, transform 0.1s ease, box-shadow 0.1s ease;\n  transition: border 0.1s ease, opacity 0.1s ease, transform 0.1s ease, box-shadow 0.1s ease, -webkit-transform 0.1s ease;\n  border: 1px solid #D4D4D5;\n}\n\n/*--------------\n    Checkmark\n---------------*/\n\n.ui.checkbox .box:after,\n.ui.checkbox label:after {\n  position: absolute;\n  font-size: 14px;\n  top: 0px;\n  left: 0px;\n  width: 17px;\n  height: 17px;\n  text-align: center;\n  opacity: 0;\n  color: rgba(0, 0, 0, 0.87);\n  -webkit-transition: border 0.1s ease, opacity 0.1s ease, box-shadow 0.1s ease, -webkit-transform 0.1s ease;\n  transition: border 0.1s ease, opacity 0.1s ease, box-shadow 0.1s ease, -webkit-transform 0.1s ease;\n  transition: border 0.1s ease, opacity 0.1s ease, transform 0.1s ease, box-shadow 0.1s ease;\n  transition: border 0.1s ease, opacity 0.1s ease, transform 0.1s ease, box-shadow 0.1s ease, -webkit-transform 0.1s ease;\n}\n\n/*--------------\n      Label\n---------------*/\n\n\n/* Inside */\n.ui.checkbox label,\n.ui.checkbox + label {\n  color: rgba(0, 0, 0, 0.87);\n  -webkit-transition: color 0.1s ease;\n  transition: color 0.1s ease;\n}\n\n/* Outside */\n.ui.checkbox + label {\n  vertical-align: middle;\n}\n\n\n/*******************************\n           States\n*******************************/\n\n\n/*--------------\n      Hover\n---------------*/\n\n.ui.checkbox .box:hover::before,\n.ui.checkbox label:hover::before {\n  background: #FFFFFF;\n  border-color: rgba(34, 36, 38, 0.35);\n}\n.ui.checkbox label:hover,\n.ui.checkbox + label:hover {\n  color: rgba(0, 0, 0, 0.8);\n}\n\n/*--------------\n      Down\n---------------*/\n\n.ui.checkbox .box:active::before,\n.ui.checkbox label:active::before {\n  background: #F9FAFB;\n  border-color: rgba(34, 36, 38, 0.35);\n}\n.ui.checkbox .box:active::after,\n.ui.checkbox label:active::after {\n  color: rgba(0, 0, 0, 0.95);\n}\n.ui.checkbox input:active ~ label {\n  color: rgba(0, 0, 0, 0.95);\n}\n\n/*--------------\n     Focus\n---------------*/\n\n.ui.checkbox input:focus ~ .box:before,\n.ui.checkbox input:focus ~ label:before {\n  background: #FFFFFF;\n  border-color: #96C8DA;\n}\n.ui.checkbox input:focus ~ .box:after,\n.ui.checkbox input:focus ~ label:after {\n  color: rgba(0, 0, 0, 0.95);\n}\n.ui.checkbox input:focus ~ label {\n  color: rgba(0, 0, 0, 0.95);\n}\n\n/*--------------\n     Active\n---------------*/\n\n.ui.checkbox input:checked ~ .box:before,\n.ui.checkbox input:checked ~ label:before {\n  background: #FFFFFF;\n  border-color: rgba(34, 36, 38, 0.35);\n}\n.ui.checkbox input:checked ~ .box:after,\n.ui.checkbox input:checked ~ label:after {\n  opacity: 1;\n  color: rgba(0, 0, 0, 0.95);\n}\n\n/*--------------\n  Indeterminate\n---------------*/\n\n.ui.checkbox input:indeterminate ~ .box:before,\n.ui.checkbox input:indeterminate ~ label:before {\n  background: #FFFFFF;\n  border-color: rgba(34, 36, 38, 0.35);\n}\n.ui.checkbox input:indeterminate ~ .box:after,\n.ui.checkbox input:indeterminate ~ label:after {\n  opacity: 1;\n  color: rgba(0, 0, 0, 0.95);\n}\n\n/*--------------\n  Active Focus\n---------------*/\n\n.ui.checkbox input:indeterminate:focus ~ .box:before,\n.ui.checkbox input:indeterminate:focus ~ label:before,\n.ui.checkbox input:checked:focus ~ .box:before,\n.ui.checkbox input:checked:focus ~ label:before {\n  background: #FFFFFF;\n  border-color: #96C8DA;\n}\n.ui.checkbox input:indeterminate:focus ~ .box:after,\n.ui.checkbox input:indeterminate:focus ~ label:after,\n.ui.checkbox input:checked:focus ~ .box:after,\n.ui.checkbox input:checked:focus ~ label:after {\n  color: rgba(0, 0, 0, 0.95);\n}\n\n/*--------------\n    Read-Only\n---------------*/\n\n.ui.read-only.checkbox,\n.ui.read-only.checkbox label {\n  cursor: default;\n}\n\n/*--------------\n     Disabled\n---------------*/\n\n.ui.disabled.checkbox .box:after,\n.ui.disabled.checkbox label,\n.ui.checkbox input[disabled] ~ .box:after,\n.ui.checkbox input[disabled] ~ label {\n  cursor: default;\n  opacity: 0.5;\n  color: #000000;\n}\n\n/*--------------\n     Hidden\n---------------*/\n\n\n/* Initialized checkbox moves input below element\n to prevent manually triggering */\n.ui.checkbox input.hidden {\n  z-index: -1;\n}\n\n/* Selectable Label */\n.ui.checkbox input.hidden + label {\n  cursor: pointer;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n\n\n/*******************************\n             Types\n*******************************/\n\n\n/*--------------\n     Radio\n---------------*/\n\n.ui.radio.checkbox {\n  min-height: 15px;\n}\n.ui.radio.checkbox .box,\n.ui.radio.checkbox label {\n  padding-left: 1.85714em;\n}\n\n/* Box */\n.ui.radio.checkbox .box:before,\n.ui.radio.checkbox label:before {\n  content: '';\n  -webkit-transform: none;\n      -ms-transform: none;\n          transform: none;\n  width: 15px;\n  height: 15px;\n  border-radius: 500rem;\n  top: 1px;\n  left: 0px;\n}\n\n/* Bullet */\n.ui.radio.checkbox .box:after,\n.ui.radio.checkbox label:after {\n  border: none;\n  content: '' !important;\n  width: 15px;\n  height: 15px;\n  line-height: 15px;\n}\n\n/* Radio Checkbox */\n.ui.radio.checkbox .box:after,\n.ui.radio.checkbox label:after {\n  top: 1px;\n  left: 0px;\n  width: 15px;\n  height: 15px;\n  border-radius: 500rem;\n  -webkit-transform: scale(0.46666667);\n      -ms-transform: scale(0.46666667);\n          transform: scale(0.46666667);\n  background-color: rgba(0, 0, 0, 0.87);\n}\n\n/* Focus */\n.ui.radio.checkbox input:focus ~ .box:before,\n.ui.radio.checkbox input:focus ~ label:before {\n  background-color: #FFFFFF;\n}\n.ui.radio.checkbox input:focus ~ .box:after,\n.ui.radio.checkbox input:focus ~ label:after {\n  background-color: rgba(0, 0, 0, 0.95);\n}\n\n/* Indeterminate */\n.ui.radio.checkbox input:indeterminate ~ .box:after,\n.ui.radio.checkbox input:indeterminate ~ label:after {\n  opacity: 0;\n}\n\n/* Active */\n.ui.radio.checkbox input:checked ~ .box:before,\n.ui.radio.checkbox input:checked ~ label:before {\n  background-color: #FFFFFF;\n}\n.ui.radio.checkbox input:checked ~ .box:after,\n.ui.radio.checkbox input:checked ~ label:after {\n  background-color: rgba(0, 0, 0, 0.95);\n}\n\n/* Active Focus */\n.ui.radio.checkbox input:focus:checked ~ .box:before,\n.ui.radio.checkbox input:focus:checked ~ label:before {\n  background-color: #FFFFFF;\n}\n.ui.radio.checkbox input:focus:checked ~ .box:after,\n.ui.radio.checkbox input:focus:checked ~ label:after {\n  background-color: rgba(0, 0, 0, 0.95);\n}\n\n/*--------------\n     Slider\n---------------*/\n\n.ui.slider.checkbox {\n  min-height: 1.25rem;\n}\n\n/* Input */\n.ui.slider.checkbox input {\n  width: 3.5rem;\n  height: 1.25rem;\n}\n\n/* Label */\n.ui.slider.checkbox .box,\n.ui.slider.checkbox label {\n  padding-left: 4.5rem;\n  line-height: 1rem;\n  color: rgba(0, 0, 0, 0.4);\n}\n\n/* Line */\n.ui.slider.checkbox .box:before,\n.ui.slider.checkbox label:before {\n  display: block;\n  position: absolute;\n  content: '';\n  border: none !important;\n  left: 0em;\n  z-index: 1;\n  top: 0.4rem;\n  background-color: rgba(0, 0, 0, 0.05);\n  width: 3.5rem;\n  height: 0.21428571rem;\n  -webkit-transform: none;\n      -ms-transform: none;\n          transform: none;\n  border-radius: 500rem;\n  -webkit-transition: background 0.3s ease;\n  transition: background 0.3s ease;\n}\n\n/* Handle */\n.ui.slider.checkbox .box:after,\n.ui.slider.checkbox label:after {\n  background: #FFFFFF -webkit-linear-gradient(transparent, rgba(0, 0, 0, 0.05));\n  background: #FFFFFF linear-gradient(transparent, rgba(0, 0, 0, 0.05));\n  position: absolute;\n  content: '' !important;\n  opacity: 1;\n  z-index: 2;\n  border: none;\n  box-shadow: 0px 1px 2px 0 rgba(34, 36, 38, 0.15), 0px 0px 0px 1px rgba(34, 36, 38, 0.15) inset;\n  width: 1.5rem;\n  height: 1.5rem;\n  top: -0.25rem;\n  left: 0em;\n  -webkit-transform: none;\n      -ms-transform: none;\n          transform: none;\n  border-radius: 500rem;\n  -webkit-transition: left 0.3s ease;\n  transition: left 0.3s ease;\n}\n\n/* Focus */\n.ui.slider.checkbox input:focus ~ .box:before,\n.ui.slider.checkbox input:focus ~ label:before {\n  background-color: rgba(0, 0, 0, 0.15);\n  border: none;\n}\n\n/* Hover */\n.ui.slider.checkbox .box:hover,\n.ui.slider.checkbox label:hover {\n  color: rgba(0, 0, 0, 0.8);\n}\n.ui.slider.checkbox .box:hover::before,\n.ui.slider.checkbox label:hover::before {\n  background: rgba(0, 0, 0, 0.15);\n}\n\n/* Active */\n.ui.slider.checkbox input:checked ~ .box,\n.ui.slider.checkbox input:checked ~ label {\n  color: rgba(0, 0, 0, 0.95) !important;\n}\n.ui.slider.checkbox input:checked ~ .box:before,\n.ui.slider.checkbox input:checked ~ label:before {\n  background-color: #545454 !important;\n}\n.ui.slider.checkbox input:checked ~ .box:after,\n.ui.slider.checkbox input:checked ~ label:after {\n  left: 2rem;\n}\n\n/* Active Focus */\n.ui.slider.checkbox input:focus:checked ~ .box,\n.ui.slider.checkbox input:focus:checked ~ label {\n  color: rgba(0, 0, 0, 0.95) !important;\n}\n.ui.slider.checkbox input:focus:checked ~ .box:before,\n.ui.slider.checkbox input:focus:checked ~ label:before {\n  background-color: #000000 !important;\n}\n\n/*--------------\n     Toggle\n---------------*/\n\n.ui.toggle.checkbox {\n  min-height: 1.5rem;\n}\n\n/* Input */\n.ui.toggle.checkbox input {\n  width: 3.5rem;\n  height: 1.5rem;\n}\n\n/* Label */\n.ui.toggle.checkbox .box,\n.ui.toggle.checkbox label {\n  min-height: 1.5rem;\n  padding-left: 4.5rem;\n  color: rgba(0, 0, 0, 0.87);\n}\n.ui.toggle.checkbox label {\n  padding-top: 0.15em;\n}\n\n/* Switch */\n.ui.toggle.checkbox .box:before,\n.ui.toggle.checkbox label:before {\n  display: block;\n  position: absolute;\n  content: '';\n  z-index: 1;\n  -webkit-transform: none;\n      -ms-transform: none;\n          transform: none;\n  border: none;\n  top: 0rem;\n  background: rgba(0, 0, 0, 0.05);\n  width: 3.5rem;\n  height: 1.5rem;\n  border-radius: 500rem;\n}\n\n/* Handle */\n.ui.toggle.checkbox .box:after,\n.ui.toggle.checkbox label:after {\n  background: #FFFFFF -webkit-linear-gradient(transparent, rgba(0, 0, 0, 0.05));\n  background: #FFFFFF linear-gradient(transparent, rgba(0, 0, 0, 0.05));\n  position: absolute;\n  content: '' !important;\n  opacity: 1;\n  z-index: 2;\n  border: none;\n  box-shadow: 0px 1px 2px 0 rgba(34, 36, 38, 0.15), 0px 0px 0px 1px rgba(34, 36, 38, 0.15) inset;\n  width: 1.5rem;\n  height: 1.5rem;\n  top: 0rem;\n  left: 0em;\n  border-radius: 500rem;\n  -webkit-transition: background 0.3s ease, left 0.3s ease;\n  transition: background 0.3s ease, left 0.3s ease;\n}\n.ui.toggle.checkbox input ~ .box:after,\n.ui.toggle.checkbox input ~ label:after {\n  left: -0.05rem;\n}\n\n/* Focus */\n.ui.toggle.checkbox input:focus ~ .box:before,\n.ui.toggle.checkbox input:focus ~ label:before {\n  background-color: rgba(0, 0, 0, 0.15);\n  border: none;\n}\n\n/* Hover */\n.ui.toggle.checkbox .box:hover::before,\n.ui.toggle.checkbox label:hover::before {\n  background-color: rgba(0, 0, 0, 0.15);\n  border: none;\n}\n\n/* Active */\n.ui.toggle.checkbox input:checked ~ .box,\n.ui.toggle.checkbox input:checked ~ label {\n  color: rgba(0, 0, 0, 0.95) !important;\n}\n.ui.toggle.checkbox input:checked ~ .box:before,\n.ui.toggle.checkbox input:checked ~ label:before {\n  background-color: #2185D0 !important;\n}\n.ui.toggle.checkbox input:checked ~ .box:after,\n.ui.toggle.checkbox input:checked ~ label:after {\n  left: 2.15rem;\n}\n\n/* Active Focus */\n.ui.toggle.checkbox input:focus:checked ~ .box,\n.ui.toggle.checkbox input:focus:checked ~ label {\n  color: rgba(0, 0, 0, 0.95) !important;\n}\n.ui.toggle.checkbox input:focus:checked ~ .box:before,\n.ui.toggle.checkbox input:focus:checked ~ label:before {\n  background-color: #0d71bb !important;\n}\n\n\n/*******************************\n            Variations\n*******************************/\n\n\n/*--------------\n     Fitted\n---------------*/\n\n.ui.fitted.checkbox .box,\n.ui.fitted.checkbox label {\n  padding-left: 0em !important;\n}\n.ui.fitted.toggle.checkbox,\n.ui.fitted.toggle.checkbox {\n  width: 3.5rem;\n}\n.ui.fitted.slider.checkbox,\n.ui.fitted.slider.checkbox {\n  width: 3.5rem;\n}\n\n\n/*******************************\n         Theme Overrides\n*******************************/\n\n@font-face {\n  font-family: 'Checkbox';\n  src: url(data:application/x-font-ttf;charset=utf-8;base64,AAEAAAALAIAAAwAwT1MvMg8SBD8AAAC8AAAAYGNtYXAYVtCJAAABHAAAAFRnYXNwAAAAEAAAAXAAAAAIZ2x5Zn4huwUAAAF4AAABYGhlYWQGPe1ZAAAC2AAAADZoaGVhB30DyAAAAxAAAAAkaG10eBBKAEUAAAM0AAAAHGxvY2EAmgESAAADUAAAABBtYXhwAAkALwAAA2AAAAAgbmFtZSC8IugAAAOAAAABknBvc3QAAwAAAAAFFAAAACAAAwMTAZAABQAAApkCzAAAAI8CmQLMAAAB6wAzAQkAAAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAAAAAAAABAAADoAgPA/8AAQAPAAEAAAAABAAAAAAAAAAAAAAAgAAAAAAADAAAAAwAAABwAAQADAAAAHAADAAEAAAAcAAQAOAAAAAoACAACAAIAAQAg6AL//f//AAAAAAAg6AD//f//AAH/4xgEAAMAAQAAAAAAAAAAAAAAAQAB//8ADwABAAAAAAAAAAAAAgAANzkBAAAAAAEAAAAAAAAAAAACAAA3OQEAAAAAAQAAAAAAAAAAAAIAADc5AQAAAAABAEUAUQO7AvgAGgAAARQHAQYjIicBJjU0PwE2MzIfAQE2MzIfARYVA7sQ/hQQFhcQ/uMQEE4QFxcQqAF2EBcXEE4QAnMWEP4UEBABHRAXFhBOEBCoAXcQEE4QFwAAAAABAAABbgMlAkkAFAAAARUUBwYjISInJj0BNDc2MyEyFxYVAyUQEBf9SRcQEBAQFwK3FxAQAhJtFxAQEBAXbRcQEBAQFwAAAAABAAAASQMlA24ALAAAARUUBwYrARUUBwYrASInJj0BIyInJj0BNDc2OwE1NDc2OwEyFxYdATMyFxYVAyUQEBfuEBAXbhYQEO4XEBAQEBfuEBAWbhcQEO4XEBACEm0XEBDuFxAQEBAX7hAQF20XEBDuFxAQEBAX7hAQFwAAAQAAAAIAAHRSzT9fDzz1AAsEAAAAAADRsdR3AAAAANGx1HcAAAAAA7sDbgAAAAgAAgAAAAAAAAABAAADwP/AAAAEAAAAAAADuwABAAAAAAAAAAAAAAAAAAAABwQAAAAAAAAAAAAAAAIAAAAEAABFAyUAAAMlAAAAAAAAAAoAFAAeAE4AcgCwAAEAAAAHAC0AAQAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAOAK4AAQAAAAAAAQAIAAAAAQAAAAAAAgAHAGkAAQAAAAAAAwAIADkAAQAAAAAABAAIAH4AAQAAAAAABQALABgAAQAAAAAABgAIAFEAAQAAAAAACgAaAJYAAwABBAkAAQAQAAgAAwABBAkAAgAOAHAAAwABBAkAAwAQAEEAAwABBAkABAAQAIYAAwABBAkABQAWACMAAwABBAkABgAQAFkAAwABBAkACgA0ALBDaGVja2JveABDAGgAZQBjAGsAYgBvAHhWZXJzaW9uIDIuMABWAGUAcgBzAGkAbwBuACAAMgAuADBDaGVja2JveABDAGgAZQBjAGsAYgBvAHhDaGVja2JveABDAGgAZQBjAGsAYgBvAHhSZWd1bGFyAFIAZQBnAHUAbABhAHJDaGVja2JveABDAGgAZQBjAGsAYgBvAHhGb250IGdlbmVyYXRlZCBieSBJY29Nb29uLgBGAG8AbgB0ACAAZwBlAG4AZQByAGEAdABlAGQAIABiAHkAIABJAGMAbwBNAG8AbwBuAC4AAAADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA) format('truetype');\n}\n\n/* Checkmark */\n.ui.checkbox label:after,\n.ui.checkbox .box:after {\n  font-family: 'Checkbox';\n}\n\n/* Checked */\n.ui.checkbox input:checked ~ .box:after,\n.ui.checkbox input:checked ~ label:after {\n  content: '\\E800';\n}\n\n/* Indeterminate */\n.ui.checkbox input:indeterminate ~ .box:after,\n.ui.checkbox input:indeterminate ~ label:after {\n  font-size: 12px;\n  content: '\\E801';\n}\n/*  UTF Reference\n.check:before { content: '\\e800'; }\n.dash:before  { content: '\\e801'; }\n.plus:before { content: '\\e802'; }\n*/\n\n\n/*******************************\n         Site Overrides\n*******************************/\n\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 245 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(246);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(217)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../css-loader/index.js!./segment.css", function() {
+				var newContent = require("!!./../css-loader/index.js!./segment.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 246 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(216)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "/*!\n * # Semantic UI 2.1.7 - Segment\n * http://github.com/semantic-org/semantic-ui/\n *\n *\n * Copyright 2015 Contributors\n * Released under the MIT license\n * http://opensource.org/licenses/MIT\n *\n */\n\n\n/*******************************\n            Segment\n*******************************/\n\n.ui.segment {\n  position: relative;\n  background: #FFFFFF;\n  box-shadow: 0px 1px 2px 0 rgba(34, 36, 38, 0.15);\n  margin: 1rem 0em;\n  padding: 1em 1em;\n  border-radius: 0.28571429rem;\n  border: 1px solid rgba(34, 36, 38, 0.15);\n}\n.ui.segment:first-child {\n  margin-top: 0em;\n}\n.ui.segment:last-child {\n  margin-bottom: 0em;\n}\n\n/* Vertical */\n.ui.vertical.segment {\n  margin: 0em;\n  padding-left: 0em;\n  padding-right: 0em;\n  background: none transparent;\n  border-radius: 0px;\n  box-shadow: none;\n  border: none;\n  border-bottom: 1px solid rgba(34, 36, 38, 0.15);\n}\n.ui.vertical.segment:last-child {\n  border-bottom: none;\n}\n\n/*-------------------\n    Loose Coupling\n--------------------*/\n\n\n/* Header */\n.ui.inverted.segment > .ui.header {\n  color: #FFFFFF;\n}\n\n/* Label */\n.ui[class*=\"bottom attached\"].segment > [class*=\"top attached\"].label {\n  border-top-left-radius: 0em;\n  border-top-right-radius: 0em;\n}\n.ui[class*=\"top attached\"].segment > [class*=\"bottom attached\"].label {\n  border-bottom-left-radius: 0em;\n  border-bottom-right-radius: 0em;\n}\n.ui.attached.segment:not(.top):not(.bottom) > [class*=\"top attached\"].label {\n  border-top-left-radius: 0em;\n  border-top-right-radius: 0em;\n}\n.ui.attached.segment:not(.top):not(.bottom) > [class*=\"bottom attached\"].label {\n  border-bottom-left-radius: 0em;\n  border-bottom-right-radius: 0em;\n}\n\n/* Grid */\n.ui.page.grid.segment,\n.ui.grid > .row > .ui.segment.column,\n.ui.grid > .ui.segment.column {\n  padding-top: 2em;\n  padding-bottom: 2em;\n}\n.ui.grid.segment {\n  margin: 1rem 0em;\n  border-radius: 0.28571429rem;\n}\n\n/* Table */\n.ui.basic.table.segment {\n  background: #FFFFFF;\n  border: 1px solid rgba(34, 36, 38, 0.15);\n  box-shadow: 0px 1px 2px 0 rgba(34, 36, 38, 0.15);\n}\n.ui[class*=\"very basic\"].table.segment {\n  padding: 1em 1em;\n}\n\n\n/*******************************\n             Types\n*******************************/\n\n\n/*-------------------\n        Piled\n--------------------*/\n\n.ui.piled.segments,\n.ui.piled.segment {\n  margin: 3em 0em;\n  box-shadow: '';\n  z-index: auto;\n}\n.ui.piled.segment:first-child {\n  margin-top: 0em;\n}\n.ui.piled.segment:last-child {\n  margin-bottom: 0em;\n}\n.ui.piled.segments:after,\n.ui.piled.segments:before,\n.ui.piled.segment:after,\n.ui.piled.segment:before {\n  background-color: #FFFFFF;\n  visibility: visible;\n  content: '';\n  display: block;\n  height: 100%;\n  left: 0px;\n  position: absolute;\n  width: 100%;\n  border: 1px solid rgba(34, 36, 38, 0.15);\n  box-shadow: '';\n}\n.ui.piled.segments:before,\n.ui.piled.segment:before {\n  -webkit-transform: rotate(-1.2deg);\n      -ms-transform: rotate(-1.2deg);\n          transform: rotate(-1.2deg);\n  top: 0;\n  z-index: -2;\n}\n.ui.piled.segments:after,\n.ui.piled.segment:after {\n  -webkit-transform: rotate(1.2deg);\n      -ms-transform: rotate(1.2deg);\n          transform: rotate(1.2deg);\n  top: 0;\n  z-index: -1;\n}\n\n/* Piled Attached */\n.ui[class*=\"top attached\"].piled.segment {\n  margin-top: 3em;\n  margin-bottom: 0em;\n}\n.ui.piled.segment[class*=\"top attached\"]:first-child {\n  margin-top: 0em;\n}\n.ui.piled.segment[class*=\"bottom attached\"] {\n  margin-top: 0em;\n  margin-bottom: 3em;\n}\n.ui.piled.segment[class*=\"bottom attached\"]:last-child {\n  margin-bottom: 0em;\n}\n\n/*-------------------\n       Stacked\n--------------------*/\n\n.ui.stacked.segment {\n  padding-bottom: 1.4em;\n}\n.ui.stacked.segments:before,\n.ui.stacked.segments:after,\n.ui.stacked.segment:before,\n.ui.stacked.segment:after {\n  content: '';\n  position: absolute;\n  bottom: -3px;\n  left: 0%;\n  border-top: 1px solid rgba(34, 36, 38, 0.15);\n  background: rgba(0, 0, 0, 0.03);\n  width: 100%;\n  height: 6px;\n  visibility: visible;\n}\n.ui.stacked.segments:before,\n.ui.stacked.segment:before {\n  display: none;\n}\n\n/* Add additional page */\n.ui.tall.stacked.segments:before,\n.ui.tall.stacked.segment:before {\n  display: block;\n  bottom: 0px;\n}\n\n/* Inverted */\n.ui.stacked.inverted.segments:before,\n.ui.stacked.inverted.segments:after,\n.ui.stacked.inverted.segment:before,\n.ui.stacked.inverted.segment:after {\n  background-color: rgba(0, 0, 0, 0.03);\n  border-top: 1px solid rgba(34, 36, 38, 0.35);\n}\n\n/*-------------------\n       Padded\n--------------------*/\n\n.ui.padded.segment {\n  padding: 1.5em;\n}\n.ui[class*=\"very padded\"].segment {\n  padding: 3em;\n}\n\n/*-------------------\n       Compact\n--------------------*/\n\n.ui.compact.segment {\n  display: table;\n}\n\n/* Compact Group */\n.ui.compact.segments {\n  display: -webkit-inline-box;\n  display: -webkit-inline-flex;\n  display: -ms-inline-flexbox;\n  display: inline-flex;\n}\n.ui.compact.segments .segment,\n.ui.segments .compact.segment {\n  display: block;\n  -webkit-box-flex: 0;\n  -webkit-flex: 0 1 auto;\n      -ms-flex: 0 1 auto;\n          flex: 0 1 auto;\n}\n\n/*-------------------\n       Circular\n--------------------*/\n\n.ui.circular.segment {\n  display: table-cell;\n  padding: 2em;\n  text-align: center;\n  vertical-align: middle;\n  border-radius: 500em;\n}\n\n/*-------------------\n       Raised\n--------------------*/\n\n.ui.raised.segments,\n.ui.raised.segment {\n  box-shadow: 0px 2px 4px 0px rgba(34, 36, 38, 0.12), 0px 2px 10px 0px rgba(34, 36, 38, 0.08);\n}\n\n\n/*******************************\n            Groups\n*******************************/\n\n\n/* Group */\n.ui.segments {\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: column;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  position: relative;\n  margin: 1rem 0em;\n  border: 1px solid rgba(34, 36, 38, 0.15);\n  box-shadow: 0px 1px 2px 0 rgba(34, 36, 38, 0.15);\n  border-radius: 0.28571429rem;\n}\n.ui.segments:first-child {\n  margin-top: 0em;\n}\n.ui.segments:last-child {\n  margin-bottom: 0em;\n}\n\n/* Nested Segment */\n.ui.segments > .segment {\n  top: 0px;\n  bottom: 0px;\n  border-radius: 0px;\n  margin: 0em;\n  width: auto;\n  box-shadow: none;\n  border: none;\n  border-top: 1px solid rgba(34, 36, 38, 0.15);\n}\n.ui.segments:not(.horizontal) > .segment:first-child {\n  border-top: none;\n  margin-top: 0em;\n  bottom: 0px;\n  margin-bottom: 0em;\n  top: 0px;\n  border-radius: 0.28571429rem 0.28571429rem 0em 0em;\n}\n\n/* Bottom */\n.ui.segments:not(.horizontal) > .segment:last-child {\n  top: 0px;\n  bottom: 0px;\n  margin-top: 0em;\n  margin-bottom: 0em;\n  box-shadow: 0px 1px 2px 0 rgba(34, 36, 38, 0.15), none;\n  border-radius: 0em 0em 0.28571429rem 0.28571429rem;\n}\n\n/* Nested Group */\n.ui.segments > .ui.segments {\n  border-top: 1px solid rgba(34, 36, 38, 0.15);\n  margin: 1rem 1rem;\n}\n.ui.segments > .segments:first-child {\n  border-top: none;\n}\n.ui.segments > .segment + .segments:not(.horizontal) {\n  margin-top: 0em;\n}\n\n/* Horizontal Group */\n.ui.horizontal.segments {\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n  -webkit-flex-direction: row;\n      -ms-flex-direction: row;\n          flex-direction: row;\n  background-color: transparent;\n  border-radius: 0px;\n  padding: 0em;\n  background-color: #FFFFFF;\n  box-shadow: 0px 1px 2px 0 rgba(34, 36, 38, 0.15);\n  margin: 1rem 0em;\n  border-radius: 0.28571429rem;\n  border: 1px solid rgba(34, 36, 38, 0.15);\n}\n\n/* Nested Horizontal Group */\n.ui.segments > .horizontal.segments {\n  margin: 0em;\n  background-color: transparent;\n  border-radius: 0px;\n  border: none;\n  box-shadow: none;\n  border-top: 1px solid rgba(34, 36, 38, 0.15);\n}\n\n/* Horizontal Segment */\n.ui.horizontal.segments > .segment {\n  -webkit-box-flex: 1;\n  -webkit-flex: 1 1 auto;\n          flex: 1 1 auto;\n  -ms-flex: 1 1 0px;\n  \n/* Solves #2550 MS Flex */\n  margin: 0em;\n  min-width: 0px;\n  background-color: transparent;\n  border-radius: 0px;\n  border: none;\n  box-shadow: none;\n  border-left: 1px solid rgba(34, 36, 38, 0.15);\n}\n\n/* Border Fixes */\n.ui.segments > .horizontal.segments:first-child {\n  border-top: none;\n}\n.ui.horizontal.segments > .segment:first-child {\n  border-left: none;\n}\n\n\n/*******************************\n            States\n*******************************/\n\n\n/*--------------\n    Disabled\n---------------*/\n\n.ui.disabled.segment {\n  opacity: 0.45;\n  color: rgba(40, 40, 40, 0.3);\n}\n\n/*--------------\n    Loading\n---------------*/\n\n.ui.loading.segment {\n  position: relative;\n  cursor: default;\n  point-events: none;\n  text-shadow: none !important;\n  color: transparent !important;\n  -webkit-transition: all 0s linear;\n  transition: all 0s linear;\n}\n.ui.loading.segment:before {\n  position: absolute;\n  content: '';\n  top: 0%;\n  left: 0%;\n  background: rgba(255, 255, 255, 0.8);\n  width: 100%;\n  height: 100%;\n  border-radius: 0.28571429rem;\n  z-index: 100;\n}\n.ui.loading.segment:after {\n  position: absolute;\n  content: '';\n  top: 50%;\n  left: 50%;\n  margin: -1.5em 0em 0em -1.5em;\n  width: 3em;\n  height: 3em;\n  -webkit-animation: segment-spin 0.6s linear;\n          animation: segment-spin 0.6s linear;\n  -webkit-animation-iteration-count: infinite;\n          animation-iteration-count: infinite;\n  border-radius: 500rem;\n  border-color: #767676 rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1);\n  border-style: solid;\n  border-width: 0.2em;\n  box-shadow: 0px 0px 0px 1px transparent;\n  visibility: visible;\n  z-index: 101;\n}\n@-webkit-keyframes segment-spin {\n  from {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg);\n  }\n  to {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n  }\n}\n@keyframes segment-spin {\n  from {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg);\n  }\n  to {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n  }\n}\n\n\n/*******************************\n           Variations\n*******************************/\n\n\n/*-------------------\n       Basic\n--------------------*/\n\n.ui.basic.segment {\n  background: none transparent;\n  box-shadow: none;\n  border: none;\n  border-radius: 0px;\n}\n\n/*-------------------\n       Clearing\n--------------------*/\n\n.ui.clearing.segment:after {\n  content: \".\";\n  display: block;\n  height: 0;\n  clear: both;\n  visibility: hidden;\n}\n\n/*-------------------\n       Colors\n--------------------*/\n\n\n/* Red */\n.ui.red.segment:not(.inverted) {\n  border-top: 2px solid #DB2828;\n}\n.ui.inverted.red.segment {\n  background-color: #DB2828 !important;\n  color: #FFFFFF !important;\n}\n\n/* Orange */\n.ui.orange.segment:not(.inverted) {\n  border-top: 2px solid #F2711C;\n}\n.ui.inverted.orange.segment {\n  background-color: #F2711C !important;\n  color: #FFFFFF !important;\n}\n\n/* Yellow */\n.ui.yellow.segment:not(.inverted) {\n  border-top: 2px solid #FBBD08;\n}\n.ui.inverted.yellow.segment {\n  background-color: #FBBD08 !important;\n  color: #FFFFFF !important;\n}\n\n/* Olive */\n.ui.olive.segment:not(.inverted) {\n  border-top: 2px solid #B5CC18;\n}\n.ui.inverted.olive.segment {\n  background-color: #B5CC18 !important;\n  color: #FFFFFF !important;\n}\n\n/* Green */\n.ui.green.segment:not(.inverted) {\n  border-top: 2px solid #21BA45;\n}\n.ui.inverted.green.segment {\n  background-color: #21BA45 !important;\n  color: #FFFFFF !important;\n}\n\n/* Teal */\n.ui.teal.segment:not(.inverted) {\n  border-top: 2px solid #00B5AD;\n}\n.ui.inverted.teal.segment {\n  background-color: #00B5AD !important;\n  color: #FFFFFF !important;\n}\n\n/* Blue */\n.ui.blue.segment:not(.inverted) {\n  border-top: 2px solid #2185D0;\n}\n.ui.inverted.blue.segment {\n  background-color: #2185D0 !important;\n  color: #FFFFFF !important;\n}\n\n/* Violet */\n.ui.violet.segment:not(.inverted) {\n  border-top: 2px solid #6435C9;\n}\n.ui.inverted.violet.segment {\n  background-color: #6435C9 !important;\n  color: #FFFFFF !important;\n}\n\n/* Purple */\n.ui.purple.segment:not(.inverted) {\n  border-top: 2px solid #A333C8;\n}\n.ui.inverted.purple.segment {\n  background-color: #A333C8 !important;\n  color: #FFFFFF !important;\n}\n\n/* Pink */\n.ui.pink.segment:not(.inverted) {\n  border-top: 2px solid #E03997;\n}\n.ui.inverted.pink.segment {\n  background-color: #E03997 !important;\n  color: #FFFFFF !important;\n}\n\n/* Brown */\n.ui.brown.segment:not(.inverted) {\n  border-top: 2px solid #A5673F;\n}\n.ui.inverted.brown.segment {\n  background-color: #A5673F !important;\n  color: #FFFFFF !important;\n}\n\n/* Grey */\n.ui.grey.segment:not(.inverted) {\n  border-top: 2px solid #767676;\n}\n.ui.inverted.grey.segment {\n  background-color: #767676 !important;\n  color: #FFFFFF !important;\n}\n\n/* Black */\n.ui.black.segment:not(.inverted) {\n  border-top: 2px solid #1B1C1D;\n}\n.ui.inverted.black.segment {\n  background-color: #1B1C1D !important;\n  color: #FFFFFF !important;\n}\n\n/*-------------------\n       Aligned\n--------------------*/\n\n.ui[class*=\"left aligned\"].segment {\n  text-align: left;\n}\n.ui[class*=\"right aligned\"].segment {\n  text-align: right;\n}\n.ui[class*=\"center aligned\"].segment {\n  text-align: center;\n}\n\n/*-------------------\n       Floated\n--------------------*/\n\n.ui.floated.segment,\n.ui[class*=\"left floated\"].segment {\n  float: left;\n  margin-right: 1em;\n}\n.ui[class*=\"right floated\"].segment {\n  float: right;\n  margin-left: 1em;\n}\n\n/*-------------------\n      Inverted\n--------------------*/\n\n.ui.inverted.segment {\n  border: none;\n  box-shadow: none;\n}\n.ui.inverted.segment,\n.ui.primary.inverted.segment {\n  background: #1B1C1D;\n  color: rgba(255, 255, 255, 0.9);\n}\n\n/* Nested */\n.ui.inverted.segment .segment {\n  color: rgba(0, 0, 0, 0.87);\n}\n.ui.inverted.segment .inverted.segment {\n  color: rgba(255, 255, 255, 0.9);\n}\n\n/* Attached */\n.ui.inverted.attached.segment {\n  border-color: #555555;\n}\n\n/*-------------------\n     Emphasis\n--------------------*/\n\n\n/* Secondary */\n.ui.secondary.segment {\n  background: #F3F4F5;\n  color: rgba(0, 0, 0, 0.6);\n}\n.ui.secondary.inverted.segment {\n  background: #4c4f52 -webkit-linear-gradient(rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 100%);\n  background: #4c4f52 linear-gradient(rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 100%);\n  color: rgba(255, 255, 255, 0.8);\n}\n\n/* Tertiary */\n.ui.tertiary.segment {\n  background: #DCDDDE;\n  color: rgba(0, 0, 0, 0.6);\n}\n.ui.tertiary.inverted.segment {\n  background: #717579 -webkit-linear-gradient(rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.35) 100%);\n  background: #717579 linear-gradient(rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.35) 100%);\n  color: rgba(255, 255, 255, 0.8);\n}\n\n/*-------------------\n      Attached\n--------------------*/\n\n\n/* Middle */\n.ui.attached.segment {\n  top: 0px;\n  bottom: 0px;\n  border-radius: 0px;\n  margin: 0em -1px;\n  width: calc(100% +  2px );\n  max-width: calc(100% +  2px );\n  box-shadow: none;\n  border: 1px solid #D4D4D5;\n}\n.ui.attached + .ui.attached.segment:not(.top) {\n  border-top: none;\n}\n\n/* Top */\n.ui[class*=\"top attached\"].segment {\n  bottom: 0px;\n  margin-bottom: 0em;\n  top: 0px;\n  margin-top: 1rem;\n  border-radius: 0.28571429rem 0.28571429rem 0em 0em;\n}\n.ui.segment[class*=\"top attached\"]:first-child {\n  margin-top: 0em;\n}\n\n/* Bottom */\n.ui.segment[class*=\"bottom attached\"] {\n  bottom: 0px;\n  margin-top: 0em;\n  top: 0px;\n  margin-bottom: 1rem;\n  box-shadow: 0px 1px 2px 0 rgba(34, 36, 38, 0.15), none;\n  border-radius: 0em 0em 0.28571429rem 0.28571429rem;\n}\n.ui.segment[class*=\"bottom attached\"]:last-child {\n  margin-bottom: 0em;\n}\n\n\n/*******************************\n         Theme Overrides\n*******************************/\n\n\n\n/*******************************\n         Site Overrides\n*******************************/\n\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 247 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(248);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(217)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -30202,10 +31508,10 @@
 	}
 
 /***/ },
-/* 211 */
+/* 248 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(208)();
+	exports = module.exports = __webpack_require__(216)();
 	// imports
 	exports.push([module.id, "@import url(https://fonts.googleapis.com/css?family=Lato);", ""]);
 
@@ -30216,172 +31522,44 @@
 
 
 /***/ },
-/* 212 */,
-/* 213 */
+/* 249 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	// style-loader: Adds some css to the DOM by adding a <style> tag
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = undefined;
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _dec, _class;
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _redux = __webpack_require__(165);
-
-	var _reactRedux = __webpack_require__(159);
-
-	var _table = __webpack_require__(187);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	function mapDispatchToProps(dispatch) {
-	  return (0, _redux.bindActionCreators)({
-	    hideColumn: _table.hideColumn
-	  }, dispatch);
+	// load the styles
+	var content = __webpack_require__(250);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(217)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/less-loader/index.js!./common.less", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/less-loader/index.js!./common.less");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
 	}
-
-	var HideColumn = (_dec = (0, _reactRedux.connect)(null, mapDispatchToProps), _dec(_class = function (_Component) {
-	  _inherits(HideColumn, _Component);
-
-	  function HideColumn(props) {
-	    _classCallCheck(this, HideColumn);
-
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(HideColumn).call(this, props));
-
-	    var settings = {
-	      hide: _this.hide.bind(_this)
-	    };
-
-	    Object.assign(_this, settings);
-	    return _this;
-	  }
-
-	  _createClass(HideColumn, [{
-	    key: "hide",
-	    value: function hide() {
-	      var _props = this.props;
-	      var hideColumn = _props.hideColumn;
-	      var column = _props.column;
-
-
-	      hideColumn(column);
-	    }
-	  }, {
-	    key: "render",
-	    value: function render() {
-	      var hide = this.hide;
-
-
-	      return _react2.default.createElement(
-	        "button",
-	        { onClick: hide },
-	        "hide"
-	      );
-	    }
-	  }]);
-
-	  return HideColumn;
-	}(_react.Component)) || _class);
-	exports.default = HideColumn;
 
 /***/ },
-/* 214 */
+/* 250 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = undefined;
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _dec, _class;
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _redux = __webpack_require__(165);
-
-	var _reactRedux = __webpack_require__(159);
-
-	var _table = __webpack_require__(187);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	function mapDispatchToProps(dispatch) {
-	  return (0, _redux.bindActionCreators)({
-	    showColumn: _table.showColumn
-	  }, dispatch);
-	}
-
-	var ShowColumn = (_dec = (0, _reactRedux.connect)(null, mapDispatchToProps), _dec(_class = function (_Component) {
-	  _inherits(ShowColumn, _Component);
-
-	  function ShowColumn(props) {
-	    _classCallCheck(this, ShowColumn);
-
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ShowColumn).call(this, props));
-
-	    var settings = {
-	      show: _this.show.bind(_this)
-	    };
-
-	    Object.assign(_this, settings);
-	    return _this;
-	  }
-
-	  _createClass(ShowColumn, [{
-	    key: "show",
-	    value: function show() {
-	      var _props = this.props;
-	      var showColumn = _props.showColumn;
-	      var column = _props.column;
+	exports = module.exports = __webpack_require__(216)();
+	// imports
 
 
-	      showColumn(column);
-	    }
-	  }, {
-	    key: "render",
-	    value: function render() {
-	      var show = this.show;
-	      var title = this.props.title;
+	// module
+	exports.push([module.id, "body {\n  font-family: Lato, Arial, Helvetica, sans-serif;\n  padding-top: 50px;\n  padding-bottom: 50px;\n}\n.nowrap {\n  white-space: nowrap;\n}\n.non-sortable:hover {\n  background: #F9FAFB !important;\n}\n", ""]);
 
+	// exports
 
-	      return _react2.default.createElement(
-	        "button",
-	        { onClick: show },
-	        title
-	      );
-	    }
-	  }]);
-
-	  return ShowColumn;
-	}(_react.Component)) || _class);
-	exports.default = ShowColumn;
 
 /***/ }
 /******/ ]);

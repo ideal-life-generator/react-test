@@ -1,45 +1,41 @@
 import React, { Component } from "react"
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
-import { showColumn } from "actions/table"
+
+function mapStateToProps (state) {
+  const { table } = state
+
+  return {
+    isResponseError: table.getIn([ "create", "isResponseError" ])
+  }
+}
 
 function mapDispatchToProps (dispatch) {
   return bindActionCreators({
-    showColumn
   }, dispatch)
 }
 
-@connect(null, mapDispatchToProps)
-export default class ShowColumn extends Component {
+@connect(mapStateToProps, mapDispatchToProps)
+export default class Submit extends Component {
   constructor (props) {
     super(props)
 
     const settings = {
-      show: this.show.bind(this)
     }
 
     Object.assign(this, settings)
   }
 
-  show () {
-    const {
-      props: { showColumn, column }
-    } = this
-
-    showColumn(column)
-  }
-
   render () {
     const {
-      show,
-      props: { title }
+      props: { isResponseError }
     } = this
 
     return (
       <button
-        className="ui green button"
-        onClick={show}>
-        {title}
+        className="ui black button">
+        Submit
+        {isResponseError && <i className="right warning circle icon"></i>}
       </button>
     )
   }

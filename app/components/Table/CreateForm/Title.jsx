@@ -7,7 +7,7 @@ function mapStateToProps (state) {
   const { table } = state
 
   return {
-    title: table.getIn([ "createItem", "form", "title" ])
+    title: table.getIn([ "create", "form", "title" ])
   }
 }
 

@@ -80,7 +80,7 @@ const initialState = fromJS({
       remove: true
     }
   },
-  createItem: {
+  create: {
     isActive: false,
     isResponseError: false,
     form: {
@@ -143,7 +143,11 @@ function unselectItems (itemsSettings, ids) {
 }
 
 function unselectSelectedItems (itemsSettings) {
-  return itemsSettings.map((itemSettings) => itemSettings.get("selected") && itemSettings.set("selected", false))
+  return itemsSettings.map((itemSettings) => {
+    if (itemSettings.get("selected")) return itemSettings.set("selected", false)
+
+    return itemSettings
+  })
 }
 
 function getSelectedCount (state) {
@@ -334,32 +338,32 @@ const cases = {
   },
 
   [ TABLE_CREATE_ITEM ] (state) {
-    return state.setIn([ "createItem", "isActive" ], true)
+    return state.setIn([ "create", "isActive" ], true)
   },
 
   [ TABLE_CANCEL_CREATE_ITEM ] (state) {
-    return state.setIn([ "createItem", "isActive" ], false)
+    return state.setIn([ "create", "isActive" ], false)
   },
 
   [ TABLE_CREATED_ITEM_CHANGE_TITLE ] (state, data) {
     const { title } = data
 
-    return state.setIn([ "createItem", "form", "title" ], title)
+    return state.setIn([ "create", "form", "title" ], title)
   },
 
   [ TABLE_CREATED_ITEM_CHANGE_DESCRIPTION ] (state, data) {
     const { description } = data
 
-    return state.setIn([ "createItem", "form", "description" ], description)
+    return state.setIn([ "create", "form", "description" ], description)
   },
 
   [ TABLE_CREATED_ITEM_SUBMIT ] (state) {
-    return state.setIn([ "createItem", "isUploading" ], true)
+    return state.setIn([ "create", "isUploading" ], true)
   },
 
   [ TABLE_CREATED_ITEM_RESPONSE ] (state) {
     return state.mergeDeep({
-      createItem: {
+      create: {
         isUploading: false,
         isResponseError: false,
         form: {
@@ -372,7 +376,7 @@ const cases = {
 
   [ TABLE_CREATED_ITEM_RESPONSE_ERROR ] (state) {
     return state.mergeDeep({
-      "createItem": {
+      "create": {
         isUploading: false,
         isResponseError: true
       }

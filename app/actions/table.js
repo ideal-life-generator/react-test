@@ -270,13 +270,13 @@ export function hideColumn (column) {
   }
 }
 
-export function createItem () {
+export function create () {
   return {
     type: TABLE_CREATE_ITEM
   }
 }
 
-export function cancelCreateItem () {
+export function closeCreate () {
   return {
     type: TABLE_CANCEL_CREATE_ITEM
   }
@@ -318,7 +318,7 @@ export function submitCreatedItemAndFetchData (item) {
   return function (dispatch, getState) {
     const state = getState()
     const { table } = state
-    const createdItemImmutable = table.getIn([ "createItem", "form" ])
+    const createdItemImmutable = table.getIn([ "create", "form" ])
     const createdItem = createdItemImmutable.toObject()
     const createdItemJSON = JSON.stringify(createdItem)
 
